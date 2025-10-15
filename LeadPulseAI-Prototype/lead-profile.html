@@ -607,6 +607,175 @@
             overflow-y: auto;
         }
 
+        /* Modal Dialog Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl);
+        }
+
+        .modal-dialog {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .modal-body {
+            padding: var(--space-xl);
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--medium);
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: var(--light);
+            color: var(--navy-blue);
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            border-bottom: 2px solid var(--light);
+        }
+
+        .modal-tab {
+            padding: var(--space-sm) var(--space-lg);
+            cursor: pointer;
+            color: var(--medium);
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all var(--transition-fast);
+            margin-bottom: -2px;
+        }
+
+        .modal-tab:hover {
+            color: var(--navy-blue);
+            background: var(--background);
+        }
+
+        .modal-tab.active {
+            color: var(--ai-purple);
+            border-bottom-color: var(--ai-purple);
+        }
+
+        .modal-tab-content {
+            display: none;
+        }
+
+        .modal-tab-content.active {
+            display: block;
+        }
+
+        .key-insight-box {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(147, 51, 234, 0.05));
+            border-left: 4px solid var(--ai-purple);
+            padding: var(--space-lg);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .customer-quote {
+            background: linear-gradient(135deg, rgba(228, 5, 33, 0.1), rgba(228, 5, 33, 0.05));
+            border-left: 4px solid var(--aia-red);
+            padding: var(--space-md);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-md);
+            font-style: italic;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--background);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .action-priority {
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .action-priority.high {
+            background: var(--danger);
+            color: white;
+        }
+
+        .action-priority.medium {
+            background: var(--warning);
+            color: white;
+        }
+
+        .action-priority.low {
+            background: var(--light);
+            color: var(--medium);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .transcript-line {
             margin-bottom: var(--space-sm);
             padding: var(--space-sm);
@@ -887,27 +1056,76 @@
 
         <!-- Tab Content: Call Recordings -->
         <div class="tab-content" id="recordings">
-            <div class="card" style="padding: var(--space-xl); text-align: center;">
-                <h3 style="color: var(--navy-blue); margin-bottom: var(--space-md);">🎧 Call Recording #3</h3>
-                <p style="color: var(--medium); margin-bottom: var(--space-lg);">Oct 15, 2025 - 7:32 PM | Duration: 12m 00s</p>
+            <div style="margin-bottom: var(--space-lg);">
+                <h3 style="color: var(--navy-blue); margin-bottom: var(--space-sm);">🎧 Call Recordings Library</h3>
+                <p style="color: var(--medium); font-size: 14px;">9 recordings available | Total: 2 hours 15 minutes</p>
+            </div>
 
-                <div style="background: var(--background); padding: var(--space-lg); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
-                    <div style="height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-md);">
-                        <div style="font-size: 48px;">🎵</div>
+            <div id="recordingsList">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Call Recording Modal -->
+        <div id="recordingModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
+            <div class="modal-dialog" onclick="event.stopPropagation()">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <div>
+                        <h3 id="modalTitle" style="color: var(--navy-blue); margin-bottom: var(--space-sm);">🎧 Call Recording</h3>
+                        <p id="modalMeta" style="color: var(--medium); font-size: 14px;">Date | Duration | Agent</p>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-md); margin-bottom: var(--space-md);">
-                        <button class="btn btn-primary" onclick="playRecording()">▶️ Play Recording</button>
-                        <button class="btn btn-secondary" onclick="downloadRecording()">📥 Download</button>
-                    </div>
-                    <div style="font-size: 12px; color: var(--medium);">
-                        00:00 / 12:00
-                    </div>
+                    <button class="modal-close" onclick="closeRecordingModal()">✕</button>
                 </div>
 
-                <div style="text-align: left;">
-                    <h4 style="margin-bottom: var(--space-md);">Synchronized Transcript</h4>
-                    <div class="conversation-transcript" style="max-height: 500px;">
-                        <div id="recordingTranscript">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Audio Player -->
+                    <div style="background: var(--background); padding: var(--space-lg); border-radius: var(--radius-md); margin-bottom: var(--space-xl);">
+                        <div style="height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-md);">
+                            <div style="font-size: 48px;">🎵</div>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+                            <button class="btn btn-primary" onclick="playRecording()">▶️ Play Recording</button>
+                            <button class="btn btn-secondary" onclick="downloadRecording()">📥 Download</button>
+                        </div>
+                        <div style="font-size: 12px; color: var(--medium); text-align: center;" id="modalPlayerTime">
+                            00:00 / 12:00
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="modal-tabs">
+                        <div class="modal-tab active" onclick="switchModalTab('summary')">📋 Summary</div>
+                        <div class="modal-tab" onclick="switchModalTab('insights')">💡 Key Insights</div>
+                        <div class="modal-tab" onclick="switchModalTab('transcript')">📝 Full Transcript</div>
+                        <div class="modal-tab" onclick="switchModalTab('analysis')">🧠 AI Analysis</div>
+                    </div>
+
+                    <!-- Tab Content: Summary -->
+                    <div id="modalTabSummary" class="modal-tab-content active">
+                        <div id="modalSummaryContent">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Key Insights -->
+                    <div id="modalTabInsights" class="modal-tab-content">
+                        <div id="modalInsightsContent">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Transcript -->
+                    <div id="modalTabTranscript" class="modal-tab-content">
+                        <div id="modalTranscriptContent">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: AI Analysis -->
+                    <div id="modalTabAnalysis" class="modal-tab-content">
+                        <div id="modalAnalysisContent">
                             <!-- Populated by JavaScript -->
                         </div>
                     </div>
@@ -1099,7 +1317,7 @@
             if (tabName === 'conversations') {
                 loadConversationHistory();
             } else if (tabName === 'recordings') {
-                loadRecordingTranscript();
+                loadCallRecordings();
             } else if (tabName === 'timeline') {
                 loadTimeline();
                 drawSentimentChart();
@@ -1418,6 +1636,471 @@
 
                 chartArea.appendChild(pointDiv);
             });
+        }
+
+        // Load all call recordings
+        function loadCallRecordings() {
+            const recordingsList = document.getElementById('recordingsList');
+            if (recordingsList.children.length > 0) return; // Already loaded
+
+            // Get all voice calls and specialist meetings with transcripts
+            const callRecordings = sarahChen.touchpoints.filter(tp =>
+                (tp.type === 'voice_call' || tp.type === 'specialist_meeting') &&
+                (tp.transcript || tp.meetingNotes)
+            );
+
+            callRecordings.forEach((recording, index) => {
+                const date = new Date(recording.timestamp);
+                const dateStr = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' });
+                const timeStr = date.toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' });
+                const duration = formatDuration(recording.duration);
+
+                const isHuman = recording.agent.type === 'human';
+                const agentName = recording.agent.name;
+                const icon = isHuman ? '👤' : '📞';
+                const typeLabel = isHuman ? 'Specialist Meeting' : 'AI Call';
+                const sentimentColor = recording.sentiment >= 8 ? 'var(--success)' : recording.sentiment >= 6 ? 'var(--warning)' : 'var(--danger)';
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.marginBottom = 'var(--space-md)';
+                card.style.cursor = 'pointer';
+                card.style.transition = 'all var(--transition-fast)';
+                card.onmouseover = () => card.style.boxShadow = 'var(--shadow-md)';
+                card.onmouseout = () => card.style.boxShadow = 'var(--shadow-sm)';
+                card.onclick = () => playCallRecording(recording);
+
+                card.innerHTML = `
+                    <div style="padding: var(--space-lg);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-sm);">
+                            <div>
+                                <div style="font-size: 18px; font-weight: 600; color: var(--navy-blue); margin-bottom: 4px;">
+                                    ${icon} ${typeLabel} #${recording.number}
+                                </div>
+                                <div style="font-size: 13px; color: var(--medium);">
+                                    ${dateStr} at ${timeStr} | ${agentName}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 14px; font-weight: 600; color: var(--navy-blue);">${duration}</div>
+                                <div style="font-size: 12px; color: ${sentimentColor};">
+                                    ${recording.sentiment ? recording.sentiment.toFixed(1) + '/10 ' + recording.sentimentLabel : 'N/A'}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 14px; color: var(--navy-blue); margin-bottom: var(--space-sm);">
+                            ${recording.summary}
+                        </div>
+                        <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+                            <span class="badge badge-${isHuman ? 'warning' : 'primary'}">${typeLabel}</span>
+                            <span class="badge badge-secondary">${recording.campaign}</span>
+                            ${recording.outcome ? `<span class="badge badge-success">${recording.outcome.replace(/_/g, ' ')}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                recordingsList.appendChild(card);
+            });
+        }
+
+        // Open call recording modal
+        function playCallRecording(recording) {
+            const modal = document.getElementById('recordingModal');
+            const title = document.getElementById('modalTitle');
+            const meta = document.getElementById('modalMeta');
+            const playerTime = document.getElementById('modalPlayerTime');
+
+            const date = new Date(recording.timestamp);
+            const dateStr = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeStr = date.toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' });
+            const duration = formatDuration(recording.duration);
+
+            const isHuman = recording.agent.type === 'human';
+            const icon = isHuman ? '👤' : '📞';
+            const typeLabel = isHuman ? 'Specialist Meeting' : 'AI Call';
+
+            // Set header
+            title.textContent = `${icon} ${typeLabel} #${recording.number}`;
+            meta.textContent = `${dateStr} at ${timeStr} | Duration: ${duration} | ${recording.agent.name} | Sentiment: ${recording.sentiment ? recording.sentiment.toFixed(1) + '/10' : 'N/A'}`;
+            playerTime.textContent = `00:00 / ${duration}`;
+
+            // Populate Summary Tab
+            populateSummaryTab(recording, isHuman, typeLabel);
+
+            // Populate Key Insights Tab
+            populateInsightsTab(recording);
+
+            // Populate Transcript Tab
+            populateTranscriptTab(recording);
+
+            // Populate AI Analysis Tab
+            populateAnalysisTab(recording);
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        // Populate Summary Tab
+        function populateSummaryTab(recording, isHuman, typeLabel) {
+            const summaryContent = document.getElementById('modalSummaryContent');
+            summaryContent.innerHTML = `
+                <div class="key-insight-box">
+                    <h4 style="margin-bottom: var(--space-sm); color: var(--ai-purple);">📋 Call Summary</h4>
+                    <p style="font-size: 15px; line-height: 1.8;">${recording.summary}</p>
+                </div>
+
+                <div style="margin-bottom: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">📊 Call Metrics</h4>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--ai-purple);">${formatDuration(recording.duration)}</div>
+                            <div style="font-size: 12px; color: var(--medium);">Duration</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: ${recording.sentiment >= 8 ? 'var(--success)' : 'var(--warning)'};">${recording.sentiment ? recording.sentiment.toFixed(1) : 'N/A'}</div>
+                            <div style="font-size: 12px; color: var(--medium);">Sentiment</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--navy-blue);">${recording.transcript ? recording.transcript.length : recording.meetingNotes ? recording.meetingNotes.length : 0}</div>
+                            <div style="font-size: 12px; color: var(--medium);">Exchanges</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--success);">${recording.outcome ? '✓' : '-'}</div>
+                            <div style="font-size: 12px; color: var(--medium);">Outcome</div>
+                        </div>
+                    </div>
+                </div>
+
+                ${recording.conversionProbChange ? `
+                <div style="background: ${recording.conversionProbChange > 0 ? 'rgba(0, 200, 83, 0.1)' : 'rgba(255, 107, 107, 0.1)'}; padding: var(--space-lg); border-radius: var(--radius-sm); margin-bottom: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-sm);">📈 Impact on Conversion</h4>
+                    <p style="font-size: 16px; font-weight: 600; color: ${recording.conversionProbChange > 0 ? 'var(--success)' : 'var(--danger)'};">
+                        ${recording.conversionProbChange > 0 ? '↗️' : '↘️'} ${Math.abs(recording.conversionProbChange)}% ${recording.conversionProbChange > 0 ? 'increase' : 'decrease'} in conversion probability
+                    </p>
+                </div>
+                ` : ''}
+
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">🎯 Next Actions for Agents</h4>
+                    ${generateActionItems(recording)}
+                </div>
+            `;
+        }
+
+        // Generate action items based on recording
+        function generateActionItems(recording) {
+            let actions = [];
+
+            // Extract actions based on outcome and analysis
+            if (recording.outcome === 'quote_provided') {
+                actions.push({ text: 'Follow up within 24-48 hours to address any questions', priority: 'high' });
+                actions.push({ text: 'Send additional educational materials mentioned in the call', priority: 'medium' });
+            } else if (recording.outcome === 'objection_identified') {
+                actions.push({ text: 'Prepare objection handling materials for next touchpoint', priority: 'high' });
+                actions.push({ text: 'Schedule follow-up call within 3 days', priority: 'high' });
+            } else if (recording.outcome === 'PURCHASE_DECISION_MADE') {
+                actions.push({ text: 'Process application immediately (within 2 hours)', priority: 'high' });
+                actions.push({ text: 'Send welcome email and onboarding materials', priority: 'high' });
+                actions.push({ text: 'Schedule onboarding call for next week', priority: 'medium' });
+            } else if (recording.outcome === 'educated') {
+                actions.push({ text: 'Send summary of coverage walkthrough via email', priority: 'medium' });
+                actions.push({ text: 'Check in after 7 days to ensure no questions', priority: 'low' });
+            } else if (recording.outcome === 'nps_collected') {
+                actions.push({ text: 'Thank customer for feedback and address improvement suggestions', priority: 'medium' });
+                actions.push({ text: 'Process referral program if customer expressed interest', priority: 'high' });
+            } else if (recording.outcome === 'upsell_opportunity_identified') {
+                actions.push({ text: 'Schedule specialist consultation within 2-3 weeks', priority: 'high' });
+                actions.push({ text: 'Enroll in relevant product education campaign', priority: 'medium' });
+            }
+
+            // Default actions if none specified
+            if (actions.length === 0) {
+                actions = [
+                    { text: 'Review call transcript and update CRM notes', priority: 'medium' },
+                    { text: 'Plan next touchpoint based on customer sentiment', priority: 'low' }
+                ];
+            }
+
+            return actions.map(action => `
+                <div class="action-item">
+                    <span class="action-priority ${action.priority}">${action.priority}</span>
+                    <span style="flex: 1;">${action.text}</span>
+                </div>
+            `).join('');
+        }
+
+        // Populate Key Insights Tab
+        function populateInsightsTab(recording) {
+            const insightsContent = document.getElementById('modalInsightsContent');
+
+            // Extract key customer quotes from transcript
+            let keyQuotes = [];
+            if (recording.transcript) {
+                keyQuotes = recording.transcript
+                    .filter(line => line.speaker === 'lead' && line.text.length > 50)
+                    .slice(0, 5); // Top 5 quotes
+            }
+
+            insightsContent.innerHTML = `
+                <div>
+                    <h4 style="margin-bottom: var(--space-md);">💬 Key Customer Quotes</h4>
+                    ${keyQuotes.length > 0 ? keyQuotes.map(quote => `
+                        <div class="customer-quote">
+                            <div style="font-size: 15px; margin-bottom: var(--space-sm);">"${quote.text}"</div>
+                            <div style="font-size: 12px; color: var(--medium); font-style: normal;">
+                                — Sarah Chen at ${quote.timestamp} | Sentiment: ${quote.sentiment ? quote.sentiment.toFixed(1) + '/10' : 'N/A'}
+                            </div>
+                        </div>
+                    `).join('') : '<p style="color: var(--medium);">No significant customer quotes in this recording.</p>'}
+                </div>
+
+                <div style="margin-top: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">🎯 Key Themes & Topics Discussed</h4>
+                    ${generateKeyThemes(recording)}
+                </div>
+
+                <div style="margin-top: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">⚠️ Objections & Concerns Raised</h4>
+                    ${generateObjections(recording)}
+                </div>
+
+                <div style="margin-top: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">✅ Positive Indicators</h4>
+                    ${generatePositiveIndicators(recording)}
+                </div>
+            `;
+        }
+
+        // Generate key themes
+        function generateKeyThemes(recording) {
+            const themes = [];
+
+            if (recording.type === 'specialist_meeting') {
+                themes.push('Coverage options and policy details');
+                themes.push('Pricing and payment flexibility');
+                themes.push('Competitor comparison analysis');
+            } else if (recording.outcome === 'objection_identified') {
+                themes.push('Affordability concerns');
+                themes.push('Joint decision-making process');
+                themes.push('Payment flexibility options');
+            } else if (recording.outcome === 'educated') {
+                themes.push('How to use coverage benefits');
+                themes.push('Claim filing procedures');
+                themes.push('Hospital selection and direct billing');
+            } else if (recording.outcome === 'nps_collected') {
+                themes.push('Customer satisfaction levels');
+                themes.push('Service quality feedback');
+                themes.push('Referral opportunities');
+            }
+
+            if (themes.length === 0) {
+                themes.push('General needs assessment');
+                themes.push('Product education');
+            }
+
+            return themes.map(theme => `
+                <div style="padding: var(--space-sm) var(--space-md); background: var(--background); border-radius: var(--radius-sm); margin-bottom: var(--space-sm);">
+                    • ${theme}
+                </div>
+            `).join('');
+        }
+
+        // Generate objections
+        function generateObjections(recording) {
+            const objections = [];
+
+            if (recording.outcome === 'objection_identified') {
+                objections.push({ concern: 'Affordability', status: 'Addressed with payment breakdown' });
+                objections.push({ concern: 'Need husband\'s approval', status: 'Sent couple\'s decision guide' });
+            } else if (recording.transcript) {
+                // Look for negative sentiment exchanges
+                const negativeLines = recording.transcript.filter(line => line.speaker === 'lead' && line.sentiment && line.sentiment < 7);
+                if (negativeLines.length > 0) {
+                    objections.push({ concern: 'Some hesitation detected', status: 'Monitored in conversation' });
+                }
+            }
+
+            if (objections.length === 0) {
+                return '<p style="color: var(--success);">✓ No major objections or concerns raised</p>';
+            }
+
+            return objections.map(obj => `
+                <div style="padding: var(--space-md); background: rgba(255, 183, 71, 0.1); border-left: 3px solid var(--warning); border-radius: var(--radius-sm); margin-bottom: var(--space-sm);">
+                    <div style="font-weight: 600; margin-bottom: 4px;">⚠️ ${obj.concern}</div>
+                    <div style="font-size: 13px; color: var(--medium);">Status: ${obj.status}</div>
+                </div>
+            `).join('');
+        }
+
+        // Generate positive indicators
+        function generatePositiveIndicators(recording) {
+            const indicators = [];
+
+            if (recording.sentiment && recording.sentiment >= 8) {
+                indicators.push('Very positive sentiment throughout call');
+            }
+            if (recording.outcome === 'PURCHASE_DECISION_MADE') {
+                indicators.push('Customer proactively called in to purchase');
+            }
+            if (recording.outcome === 'nps_collected' && recording.npsScore >= 9) {
+                indicators.push(`NPS Promoter (${recording.npsScore}/10) - Willing to recommend`);
+            }
+            if (recording.conversionProbChange && recording.conversionProbChange > 5) {
+                indicators.push(`Strong positive impact on conversion (+${recording.conversionProbChange}%)`);
+            }
+
+            if (indicators.length === 0) {
+                indicators.push('Customer remained engaged throughout call');
+                indicators.push('No negative sentiment detected');
+            }
+
+            return indicators.map(indicator => `
+                <div style="padding: var(--space-sm) var(--space-md); background: rgba(0, 200, 83, 0.1); border-left: 3px solid var(--success); border-radius: var(--radius-sm); margin-bottom: var(--space-sm);">
+                    ✓ ${indicator}
+                </div>
+            `).join('');
+        }
+
+        // Populate Transcript Tab
+        function populateTranscriptTab(recording) {
+            const transcriptContent = document.getElementById('modalTranscriptContent');
+            transcriptContent.innerHTML = '';
+
+            if (recording.transcript) {
+                recording.transcript.forEach((line) => {
+                    const isAI = line.speaker === 'ai';
+                    const div = document.createElement('div');
+                    div.style.marginBottom = 'var(--space-md)';
+                    div.style.padding = 'var(--space-md)';
+                    div.style.background = isAI ? 'rgba(147, 51, 234, 0.05)' : 'rgba(228, 5, 33, 0.05)';
+                    div.style.borderRadius = 'var(--radius-sm)';
+                    div.style.borderLeft = `3px solid ${isAI ? 'var(--ai-purple)' : 'var(--aia-red)'}`;
+
+                    div.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <strong style="color: ${isAI ? 'var(--ai-purple)' : 'var(--aia-red)'};">
+                                ${isAI ? '🤖' : '👤'} ${line.name}
+                            </strong>
+                            <span style="font-size: 11px; color: var(--medium);">${line.timestamp}</span>
+                        </div>
+                        <div style="color: var(--navy-blue); line-height: 1.6;">${line.text}</div>
+                        ${line.sentiment ? `<div style="font-size: 11px; color: var(--medium); margin-top: 4px;">Sentiment: ${line.sentiment.toFixed(1)}/10 (${line.sentimentLabel})</div>` : ''}
+                    `;
+
+                    transcriptContent.appendChild(div);
+                });
+            } else if (recording.meetingNotes) {
+                recording.meetingNotes.forEach((note) => {
+                    const div = document.createElement('div');
+                    div.style.marginBottom = 'var(--space-md)';
+                    div.style.padding = 'var(--space-md)';
+                    div.style.background = 'var(--background)';
+                    div.style.borderRadius = 'var(--radius-sm)';
+                    div.style.borderLeft = '3px solid var(--medium)';
+
+                    div.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <strong style="color: var(--navy-blue);">${note.speaker}</strong>
+                            <span style="font-size: 11px; color: var(--medium);">${note.time}</span>
+                        </div>
+                        <div style="color: var(--navy-blue); line-height: 1.6;">${note.note}</div>
+                    `;
+
+                    transcriptContent.appendChild(div);
+                });
+            }
+        }
+
+        // Populate AI Analysis Tab
+        function populateAnalysisTab(recording) {
+            const analysisContent = document.getElementById('modalAnalysisContent');
+            analysisContent.innerHTML = `
+                <div class="key-insight-box">
+                    <h4 style="margin-bottom: var(--space-sm); color: var(--ai-purple);">🧠 AI Analysis</h4>
+                    <p style="font-size: 15px; line-height: 1.8;">${recording.aiAnalysis || 'No AI analysis available for this recording.'}</p>
+                </div>
+
+                <div style="margin-top: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">📊 Conversation Metrics</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md);">
+                        <div style="padding: var(--space-lg); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">Engagement Level</div>
+                            <div style="font-size: 20px; font-weight: 700; color: var(--ai-purple);">${recording.engagement || 'N/A'}</div>
+                        </div>
+                        <div style="padding: var(--space-lg); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">Intent Level</div>
+                            <div style="font-size: 20px; font-weight: 700; color: var(--navy-blue);">${recording.intent || 'N/A'}</div>
+                        </div>
+                        <div style="padding: var(--space-lg); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">Campaign</div>
+                            <div style="font-size: 14px; font-weight: 600; color: var(--navy-blue);">${recording.campaign}</div>
+                        </div>
+                        <div style="padding: var(--space-lg); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">Outcome</div>
+                            <div style="font-size: 14px; font-weight: 600; color: var(--success);">${recording.outcome ? recording.outcome.replace(/_/g, ' ') : 'N/A'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                ${recording.documentsProvided ? `
+                <div style="margin-top: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">📎 Documents Shared</h4>
+                    ${recording.documentsProvided.map(doc => `
+                        <div style="padding: var(--space-sm) var(--space-md); background: var(--background); border-radius: var(--radius-sm); margin-bottom: var(--space-sm);">
+                            📄 ${doc}
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${recording.nextSteps ? `
+                <div style="margin-top: var(--space-xl);">
+                    <h4 style="margin-bottom: var(--space-md);">🎯 Next Steps Agreed</h4>
+                    <div style="padding: var(--space-md); background: rgba(147, 51, 234, 0.1); border-left: 3px solid var(--ai-purple); border-radius: var(--radius-sm);">
+                        ${recording.nextSteps}
+                    </div>
+                </div>
+                ` : ''}
+            `;
+        }
+
+        // Switch modal tabs
+        function switchModalTab(tabName) {
+            // Update tab styling
+            document.querySelectorAll('.modal-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.modal-tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('modalTab' + tabName.charAt(0).toUpperCase() + tabName.slice(1)).classList.add('active');
+        }
+
+        // Close recording modal
+        function closeRecordingModal() {
+            document.getElementById('recordingModal').classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
+        // Close modal when clicking outside
+        function closeModalOnOutsideClick(event) {
+            if (event.target.id === 'recordingModal') {
+                closeRecordingModal();
+            }
+        }
+
+        // ESC key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeRecordingModal();
+            }
+        });
+
+        // Format duration in seconds to mm:ss
+        function formatDuration(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}m ${secs}s`;
         }
 
         // Action functions
