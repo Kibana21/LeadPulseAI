@@ -906,142 +906,57 @@
             <div class="metrics-grid">
                 <!-- Lead Metrics -->
                 <div class="metric-card">
-                    <div class="metric-title">📊 Customer Metrics</div>
-                    <div class="metric-content">
-                        <div style="margin-bottom: var(--space-md);">
-                            <div style="font-weight: 600; margin-bottom: 4px;">Customer Health Score</div>
-                            <div class="flex items-center gap-md">
-                                <div class="progress w-full">
-                                    <div class="progress-bar progress-bar-primary" style="width: 95%;"></div>
-                                </div>
-                                <strong>95/100</strong>
-                            </div>
-                        </div>
-                        <div><strong>Lifetime Value:</strong> $95,000 (upsold +$32K)</div>
-                        <div><strong>Lifecycle Stage:</strong> 🏆 Loyal Customer</div>
-                        <div><strong>Customer Since:</strong> Oct 23, 2025 (143 days)</div>
-                        <div><strong>Active Policies:</strong> 2 ($590/month premium)</div>
-                        <div><strong>NPS Score:</strong> 9/10 (Promoter)</div>
-                        <div><strong>Referrals Made:</strong> 1 (Lisa Wong)</div>
-                        <div><strong>Engagement Rate:</strong> 96% (highly engaged)</div>
+                    <div class="metric-title">📊 Lead Metrics</div>
+                    <div class="metric-content" id="leadMetricsContent">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
                 <!-- Trigger Events -->
                 <div class="metric-card">
                     <div class="metric-title">🎯 Trigger Events & Life Moments</div>
-                    <div class="metric-content">
-                        <div style="margin-bottom: var(--space-md);">
-                            <div class="badge badge-danger" style="margin-bottom: 8px;">🍼 Primary: PREGNANCY</div>
-                            <div style="font-size: 13px;">
-                                <div>First Child Expected</div>
-                                <div>Detected: Oct 1, 2025 (14 days ago)</div>
-                                <div>Source: Hospital Partnership Program - Thomson Medical inquiry form</div>
-                                <div>Consent: ✅ Explicit consent via inquiry form checkbox</div>
-                                <div><strong>Intent Window: 🔴 ACTIVE</strong></div>
-                                <div>Day 14 of 72-day window</div>
-                            </div>
-                            <div class="progress" style="margin-top: 8px;">
-                                <div class="progress-bar progress-bar-danger" style="width: 20%;"></div>
-                            </div>
-                        </div>
-                        <div style="font-size: 13px; color: var(--medium);">
-                            <div>🎂 Secondary: Birthday - Nov 8, 2025 (24 days away)</div>
-                            <div>💍 Historical: Marriage - Jun 2023</div>
-                        </div>
+                    <div class="metric-content" id="triggerEventsContent">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Active Campaigns -->
+                <div class="metric-card" id="activeCampaignsCard">
+                    <div class="metric-title">🎯 Active Campaigns</div>
+                    <div class="metric-content" id="activeCampaignsContent">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
                 <!-- Current Coverage & Gaps -->
                 <div class="metric-card">
                     <div class="metric-title">📋 Current Coverage & Gaps</div>
-                    <div class="metric-content">
-                        <div style="margin-bottom: var(--space-md);">
-                            <strong>✅ Current Policies:</strong>
-                            <div style="margin-left: 16px; margin-top: 4px; font-size: 13px;">
-                                • Basic Hospitalization Shield - $50,000<br>
-                                &nbsp;&nbsp;Premium: $85/month<br>
-                                &nbsp;&nbsp;Status: Active | Renewal: Jun 2026
-                            </div>
-                        </div>
-                        <div>
-                            <strong style="color: var(--danger);">⚠️ Coverage Gaps:</strong>
-                            <div style="margin-left: 16px; margin-top: 4px; font-size: 13px;">
-                                <div style="color: var(--danger);">🔴 CRITICAL: No maternity coverage</div>
-                                <div style="margin-left: 20px; font-size: 12px; color: var(--medium);">Risk: $15-25K out-of-pocket</div>
-                                <div style="color: var(--danger);">🔴 CRITICAL: No life insurance</div>
-                                <div style="margin-left: 20px; font-size: 12px; color: var(--medium);">Risk: Family unprotected</div>
-                                <div style="color: var(--warning);">🟡 MODERATE: No critical illness</div>
-                                <div style="color: var(--warning);">🟡 MODERATE: No newborn coverage</div>
-                            </div>
-                        </div>
+                    <div class="metric-content" id="coverageContent">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
                 <!-- AI Recommended Products -->
                 <div class="metric-card">
                     <div class="metric-title">💡 AI Recommended Products</div>
-                    <div class="metric-content" style="font-size: 13px;">
-                        <div style="margin-bottom: 12px;">
-                            <div style="font-weight: 600;">1. Maternity Protection Plan</div>
-                            <div style="color: var(--medium); margin-left: 12px;">
-                                $180/month | Close Prob: 85%<br>
-                                Full delivery coverage up to $25K
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 12px;">
-                            <div style="font-weight: 600;">2. Life Insurance ($500K)</div>
-                            <div style="color: var(--medium); margin-left: 12px;">
-                                $120/month | Close Prob: 72%<br>
-                                Family protection + terminal illness rider
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 12px;">
-                            <div style="font-weight: 600;">3. Critical Illness Rider</div>
-                            <div style="color: var(--medium); margin-left: 12px;">
-                                $95/month | Close Prob: 68%<br>
-                                37 critical illnesses covered
-                            </div>
-                        </div>
-                        <div>
-                            <div style="font-weight: 600;">4. Newborn Coverage Package</div>
-                            <div style="color: var(--medium); margin-left: 12px;">
-                                $45/month | Close Prob: 78%<br>
-                                Coverage from day 1, congenital conditions
-                            </div>
-                        </div>
-                        <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--light); font-weight: 600;">
-                            Total Bundle: $440/month<br>
-                            Est. Close Rate: 75%
-                        </div>
+                    <div class="metric-content" id="recommendedProductsContent" style="font-size: 13px;">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
                 <!-- Behavioral Insights -->
                 <div class="metric-card">
                     <div class="metric-title">🧠 AI Behavioral Insights</div>
-                    <div class="metric-content" style="font-size: 13px; line-height: 1.8;">
-                        <div><strong>Communication Style:</strong> Responsive, appreciates education</div>
-                        <div><strong>Decision Making:</strong> Joint with husband (mentioned 3x)</div>
-                        <div><strong>Objections:</strong> "Feeling overwhelmed", "Need time to think"</div>
-                        <div><strong>Pain Points:</strong> Unclear where to start, affordability concern</div>
-                        <div><strong>Positive Signals:</strong> "That would be helpful", asks questions</div>
-                        <div><strong>Engagement Pattern:</strong> Evenings 7-9PM (high response)</div>
-                        <div><strong>Competitors:</strong> Prudential ($320/month quote), Manulife</div>
-                        <div><strong>Emotional State:</strong> Anxious about being prepared for baby</div>
+                    <div class="metric-content" id="behavioralInsightsContent" style="font-size: 13px; line-height: 1.8;">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
                 <!-- AI Strategy -->
                 <div class="metric-card">
                     <div class="metric-title">🎯 Recommended Approach</div>
-                    <div class="metric-content" style="font-size: 13px; line-height: 1.8;">
-                        <div>✓ Break down information into simple steps</div>
-                        <div>✓ Emphasize peace of mind for baby's arrival</div>
-                        <div>✓ Position as protection partner, not just insurer</div>
-                        <div>✓ Offer side-by-side competitor comparison</div>
-                        <div>✓ Create urgency with limited-time new parent offer</div>
-                        <div>✓ Non-pushy tone - she appreciates gentle approach</div>
+                    <div class="metric-content" id="aiStrategyContent" style="font-size: 13px; line-height: 1.8;">
+                        <!-- Populated dynamically -->
                     </div>
                 </div>
             </div>
@@ -1330,7 +1245,7 @@
             if (container.children.length > 0) return; // Already loaded
 
             // Reverse order to show most recent first
-            const touchpoints = [...sarahChen.touchpoints].reverse();
+            const touchpoints = [...currentLead.touchpoints].reverse();
 
             touchpoints.forEach((tp, index) => {
                 const item = document.createElement('div');
@@ -1414,7 +1329,7 @@
             const container = document.getElementById('recordingTranscript');
             if (container.children.length > 0) return;
 
-            const transcript = sarahChen.touchpoints[0].transcript;
+            const transcript = currentLead.touchpoints[0].transcript;
             transcript.forEach(line => {
                 const div = document.createElement('div');
                 div.className = `transcript-line ${line.speaker}`;
@@ -1431,9 +1346,15 @@
             const container = document.getElementById('fullTimeline');
             if (container.children.length > 0) return; // Already loaded
 
+            // Check if lead has timeline events
+            if (!currentLead.timelineEvents || currentLead.timelineEvents.length === 0) {
+                container.innerHTML = '<div style="padding: var(--space-xl); text-align: center; color: var(--medium);">No timeline events available yet. Timeline events will appear as the lead progresses through the nurture journey.</div>';
+                return;
+            }
+
             // Group events by date
             const eventsByDate = {};
-            sarahChen.timelineEvents.forEach(event => {
+            currentLead.timelineEvents.forEach(event => {
                 const date = new Date(event.timestamp);
                 const dateKey = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' });
                 if (!eventsByDate[dateKey]) {
@@ -1530,7 +1451,7 @@
             if (chartContainer.children.length > 0) return; // Already drawn
 
             // Get last 8 touchpoints with sentiment data
-            const touchpoints = sarahChen.touchpoints
+            const touchpoints = currentLead.touchpoints
                 .filter(tp => tp.sentiment !== undefined)
                 .reverse()
                 .slice(0, 8)
@@ -1644,7 +1565,7 @@
             if (recordingsList.children.length > 0) return; // Already loaded
 
             // Get all voice calls and specialist meetings with transcripts
-            const callRecordings = sarahChen.touchpoints.filter(tp =>
+            const callRecordings = currentLead.touchpoints.filter(tp =>
                 (tp.type === 'voice_call' || tp.type === 'specialist_meeting') &&
                 (tp.transcript || tp.meetingNotes)
             );
@@ -1849,7 +1770,7 @@
                         <div class="customer-quote">
                             <div style="font-size: 15px; margin-bottom: var(--space-sm);">"${quote.text}"</div>
                             <div style="font-size: 12px; color: var(--medium); font-style: normal;">
-                                — Sarah Chen at ${quote.timestamp} | Sentiment: ${quote.sentiment ? quote.sentiment.toFixed(1) + '/10' : 'N/A'}
+                                — ${currentLead.fullName} at ${quote.timestamp} | Sentiment: ${quote.sentiment ? quote.sentiment.toFixed(1) + '/10' : 'N/A'}
                             </div>
                         </div>
                     `).join('') : '<p style="color: var(--medium);">No significant customer quotes in this recording.</p>'}
@@ -2149,8 +2070,328 @@
             }, 3000);
         }
 
+        // Get lead data from URL parameter
+        let currentLead = sarahChen; // Default to Sarah Chen
+
+        function getLeadFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const leadId = urlParams.get('id');
+
+            if (!leadId) {
+                return sarahChen; // Default if no ID
+            }
+
+            // Map of lead IDs to lead objects
+            const leadMap = {
+                'LC-2025-8472': sarahChen,
+                'LC-2025-8473': michaelTan,
+                'LC-2025-8474': lindaWong,
+                'LC-2025-8475': davidLim,
+                'LC-2025-8476': amandaNg
+            };
+
+            return leadMap[leadId] || sarahChen;
+        }
+
+        // Populate lead profile dynamically
+        function populateLeadProfile(lead) {
+            // Update page title
+            document.title = `${lead.fullName} - Lead Profile - LeadPulseAI`;
+
+            // Update header info
+            const avatarInitials = lead.firstName.charAt(0) + lead.lastName.charAt(0);
+            document.querySelector('.profile-avatar-large').textContent = avatarInitials;
+            document.querySelector('.profile-info h1').textContent = lead.fullName;
+
+            // Update meta info
+            const metaInfo = document.querySelector('.profile-meta');
+            metaInfo.innerHTML = `
+                <span>✉️ ${lead.email}</span>
+                <span>📞 ${lead.phone}</span>
+                <span>👤 Age: ${lead.age}, ${lead.maritalStatus}</span>
+                <span>📍 ${lead.location || 'Singapore'}</span>
+                <span>🆔 ID: ${lead.id}</span>
+            `;
+
+            // Update LTV section
+            const ltvSection = document.querySelector('.profile-main > div:last-child');
+            const ltvAmount = lead.estimatedLTV ? `$${(lead.estimatedLTV / 1000).toFixed(0)}K` : 'N/A';
+            const customerStatus = lead.lifecycleStage || lead.stage;
+            const npsText = lead.npsScore ? `NPS ${lead.npsScore}/10` : '';
+
+            ltvSection.innerHTML = `
+                <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">LIFETIME VALUE</div>
+                <div style="font-size: 48px; font-weight: 700; color: var(--success); font-family: var(--font-mono);">${ltvAmount}</div>
+                <div style="font-size: 11px; color: var(--success); margin-top: 4px;">✅ ${customerStatus} ${npsText ? '| ' + npsText : ''}</div>
+            `;
+
+            // Populate campaigns
+            populateActiveCampaigns(lead);
+
+            // Populate all overview sections
+            populateOverviewTab(lead);
+        }
+
+        // Populate active campaigns from timeline events
+        function populateActiveCampaigns(lead) {
+            const campaignsContent = document.getElementById('activeCampaignsContent');
+
+            if (!lead.timelineEvents) {
+                campaignsContent.innerHTML = '<p style="color: var(--medium); font-size: 13px;">No campaigns enrolled</p>';
+                return;
+            }
+
+            // Find all campaign enrollment events
+            const campaignEvents = lead.timelineEvents.filter(event =>
+                event.type === 'campaign_enrollment' || event.campaign
+            );
+
+            if (campaignEvents.length === 0) {
+                campaignsContent.innerHTML = '<p style="color: var(--medium); font-size: 13px;">No campaigns enrolled</p>';
+                return;
+            }
+
+            // Get unique campaigns
+            const uniqueCampaigns = {};
+            campaignEvents.forEach(event => {
+                const campaignName = event.campaign || event.description;
+                if (campaignName && !uniqueCampaigns[campaignName]) {
+                    uniqueCampaigns[campaignName] = {
+                        name: campaignName,
+                        enrolledDate: event.timestamp,
+                        status: event.outcome || 'active'
+                    };
+                }
+            });
+
+            // Render campaigns
+            let html = '';
+            Object.values(uniqueCampaigns).forEach(campaign => {
+                const date = new Date(campaign.enrolledDate);
+                const dateStr = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' });
+                const statusBadge = campaign.status === 'active' || campaign.status === 'enrolled'
+                    ? '<span class="badge badge-success">ACTIVE</span>'
+                    : '<span class="badge badge-info">COMPLETED</span>';
+
+                html += `
+                    <div style="margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid var(--light);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
+                            <div style="font-weight: 600; font-size: 14px;">${campaign.name}</div>
+                            ${statusBadge}
+                        </div>
+                        <div style="font-size: 12px; color: var(--medium);">
+                            Enrolled: ${dateStr}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Remove last border
+            html = html.replace(/border-bottom: 1px solid var\(--light\);(?!.*border-bottom)/, '');
+
+            campaignsContent.innerHTML = html || '<p style="color: var(--medium); font-size: 13px;">No campaigns enrolled</p>';
+        }
+
+        // Populate Overview tab sections
+        function populateOverviewTab(lead) {
+            populateLeadMetrics(lead);
+            populateTriggerEvents(lead);
+            populateCoverage(lead);
+            populateRecommendedProducts(lead);
+            populateBehavioralInsights(lead);
+            populateAIStrategy(lead);
+        }
+
+        function populateLeadMetrics(lead) {
+            const content = document.getElementById('leadMetricsContent');
+            const isCustomer = lead.customerStatus === 'Active' || lead.lifecycleStage === 'Loyal Customer' || lead.lifecycleStage === 'Active Customer';
+
+            let html = '<div style="margin-bottom: var(--space-md);">';
+            html += '<div style="font-weight: 600; margin-bottom: 4px;">Lead Score</div>';
+            html += '<div class="flex items-center gap-md">';
+            html += '<div class="progress w-full">';
+            html += `<div class="progress-bar progress-bar-primary" style="width: ${lead.leadScore || 50}%;"></div>`;
+            html += '</div>';
+            html += `<strong>${lead.leadScore || 50}/100</strong>`;
+            html += '</div></div>';
+
+            html += `<div><strong>Conversion Probability:</strong> ${lead.conversionProbability || 0}%</div>`;
+            html += `<div><strong>Estimated LTV:</strong> $${(lead.estimatedLTV || 0).toLocaleString()}</div>`;
+            html += `<div><strong>Stage:</strong> ${lead.stage || 'New'}</div>`;
+            html += `<div><strong>Temperature:</strong> ${lead.temperature || 'cold'}</div>`;
+
+            if (isCustomer) {
+                if (lead.daysAsCustomer) html += `<div><strong>Customer Since:</strong> ${lead.daysAsCustomer} days</div>`;
+                if (lead.activePolicies) html += `<div><strong>Active Policies:</strong> ${lead.activePolicies}</div>`;
+                if (lead.npsScore) html += `<div><strong>NPS Score:</strong> ${lead.npsScore}/10</div>`;
+            } else {
+                html += `<div><strong>Days in Pipeline:</strong> ${lead.daysInPipeline || 0}</div>`;
+            }
+
+            html += `<div><strong>Engagement Rate:</strong> ${lead.engagementRate || 0}%</div>`;
+
+            content.innerHTML = html;
+        }
+
+        function populateTriggerEvents(lead) {
+            const content = document.getElementById('triggerEventsContent');
+
+            if (!lead.triggerEvents || lead.triggerEvents.length === 0) {
+                content.innerHTML = '<p style="color: var(--medium); font-size: 13px;">No trigger events detected</p>';
+                return;
+            }
+
+            let html = '';
+            lead.triggerEvents.forEach((event, index) => {
+                const badgeClass = event.priority === 'high' ? 'badge-danger' : event.priority === 'medium' ? 'badge-warning' : 'badge-info';
+                const icon = event.type === 'pregnancy' ? '🍼' :
+                            event.type === 'birthday' ? '🎂' :
+                            event.type === 'property_purchase' ? '🏠' :
+                            event.type === 'career_milestone' ? '💼' : '🎯';
+
+                html += `<div style="${index > 0 ? 'margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--light);' : ''}">`;
+                html += `<div class="badge ${badgeClass}" style="margin-bottom: 8px;">${icon} ${event.title || event.type}</div>`;
+                html += `<div style="font-size: 13px;">`;
+                if (event.details) html += `<div>${event.details}</div>`;
+                if (event.detected) {
+                    const date = new Date(event.detected);
+                    html += `<div>Detected: ${date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' })}</div>`;
+                }
+                if (event.source) html += `<div>Source: ${event.source}</div>`;
+                if (event.intentWindow) html += `<div><strong>Intent Window: ${event.intentWindow.toUpperCase()}</strong></div>`;
+                html += `</div></div>`;
+            });
+
+            content.innerHTML = html;
+        }
+
+        function populateCoverage(lead) {
+            const content = document.getElementById('coverageContent');
+            let html = '';
+
+            // Current Coverage
+            if (lead.currentCoverage && lead.currentCoverage.length > 0) {
+                html += '<div style="margin-bottom: var(--space-md);"><strong>✅ Current Policies:</strong>';
+                html += '<div style="margin-left: 16px; margin-top: 4px; font-size: 13px;">';
+                lead.currentCoverage.forEach(policy => {
+                    html += `• ${policy.type} - $${policy.coverage?.toLocaleString() || 'N/A'}<br>`;
+                    if (policy.premium) html += `&nbsp;&nbsp;Premium: $${policy.premium}/month<br>`;
+                    if (policy.status) html += `&nbsp;&nbsp;Status: ${policy.status}<br>`;
+                });
+                html += '</div></div>';
+            }
+
+            // Coverage Gaps
+            if (lead.coverageGaps && lead.coverageGaps.length > 0) {
+                html += '<div><strong style="color: var(--danger);">⚠️ Coverage Gaps:</strong>';
+                html += '<div style="margin-left: 16px; margin-top: 4px; font-size: 13px;">';
+                lead.coverageGaps.forEach(gap => {
+                    const color = gap.severity === 'critical' ? 'var(--danger)' : 'var(--warning)';
+                    const icon = gap.severity === 'critical' ? '🔴 CRITICAL' : '🟡 MODERATE';
+                    html += `<div style="color: ${color};">${icon}: ${gap.title}</div>`;
+                    if (gap.description) html += `<div style="margin-left: 20px; font-size: 12px; color: var(--medium);">${gap.description}</div>`;
+                });
+                html += '</div></div>';
+            }
+
+            if (!html) {
+                html = '<p style="color: var(--medium); font-size: 13px;">No coverage information available</p>';
+            }
+
+            content.innerHTML = html;
+        }
+
+        function populateRecommendedProducts(lead) {
+            const content = document.getElementById('recommendedProductsContent');
+
+            if (!lead.recommendedProducts || lead.recommendedProducts.length === 0) {
+                content.innerHTML = '<p style="color: var(--medium);">No product recommendations available</p>';
+                return;
+            }
+
+            let html = '';
+            let totalPremium = 0;
+            let avgCloseProb = 0;
+
+            lead.recommendedProducts.forEach((product, index) => {
+                totalPremium += product.premium || 0;
+                avgCloseProb += (product.closeProbability || 0) * 100;
+
+                html += `<div style="${index < lead.recommendedProducts.length - 1 ? 'margin-bottom: 12px;' : ''}">`;
+                html += `<div style="font-weight: 600;">${index + 1}. ${product.name}</div>`;
+                html += `<div style="color: var(--medium); margin-left: 12px;">`;
+                html += `$${product.premium}/month | Close Prob: ${((product.closeProbability || 0) * 100).toFixed(0)}%<br>`;
+                if (product.benefits && product.benefits[0]) html += product.benefits[0];
+                html += `</div></div>`;
+            });
+
+            if (lead.recommendedProducts.length > 0) {
+                avgCloseProb = avgCloseProb / lead.recommendedProducts.length;
+                html += `<div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--light); font-weight: 600;">`;
+                html += `Total Bundle: $${totalPremium}/month<br>`;
+                html += `Est. Close Rate: ${avgCloseProb.toFixed(0)}%`;
+                html += `</div>`;
+            }
+
+            content.innerHTML = html;
+        }
+
+        function populateBehavioralInsights(lead) {
+            const content = document.getElementById('behavioralInsightsContent');
+
+            if (!lead.behavioralInsights) {
+                content.innerHTML = '<p style="color: var(--medium);">No behavioral insights available yet</p>';
+                return;
+            }
+
+            const insights = lead.behavioralInsights;
+            let html = '';
+
+            if (insights.communicationStyle) html += `<div><strong>Communication Style:</strong> ${insights.communicationStyle}</div>`;
+            if (insights.decisionMaking) html += `<div><strong>Decision Making:</strong> ${insights.decisionMaking}</div>`;
+            if (insights.objections && insights.objections.length > 0) html += `<div><strong>Objections:</strong> ${insights.objections.join(', ')}</div>`;
+            if (insights.painPoints) html += `<div><strong>Pain Points:</strong> ${insights.painPoints}</div>`;
+            if (insights.positiveSignals) html += `<div><strong>Positive Signals:</strong> ${insights.positiveSignals}</div>`;
+            if (insights.engagementPattern) html += `<div><strong>Engagement Pattern:</strong> ${insights.engagementPattern}</div>`;
+            if (insights.competitorsMentioned && insights.competitorsMentioned.length > 0) html += `<div><strong>Competitors:</strong> ${insights.competitorsMentioned.join(', ')}</div>`;
+            if (insights.emotionalState) html += `<div><strong>Emotional State:</strong> ${insights.emotionalState}</div>`;
+            if (insights.trustLevel) html += `<div><strong>Trust Level:</strong> ${insights.trustLevel}</div>`;
+
+            content.innerHTML = html || '<p style="color: var(--medium);">No behavioral insights available yet</p>';
+        }
+
+        function populateAIStrategy(lead) {
+            const content = document.getElementById('aiStrategyContent');
+
+            if (!lead.aiStrategy) {
+                content.innerHTML = '<p style="color: var(--medium);">No AI strategy available</p>';
+                return;
+            }
+
+            const strategy = lead.aiStrategy;
+            let html = '';
+
+            if (strategy.tone) html += `<div>✓ Tone: ${strategy.tone}</div>`;
+            if (strategy.focus) html += `<div>✓ Focus: ${strategy.focus}</div>`;
+            if (strategy.positioning) html += `<div>✓ Positioning: ${strategy.positioning}</div>`;
+            if (strategy.urgency) html += `<div>✓ Urgency: ${strategy.urgency}</div>`;
+
+            if (strategy.nextBestActions && strategy.nextBestActions.length > 0) {
+                html += '<div style="margin-top: var(--space-md); font-weight: 600;">Next Best Actions:</div>';
+                strategy.nextBestActions.forEach(action => {
+                    html += `<div>✓ ${action}</div>`;
+                });
+            }
+
+            content.innerHTML = html || '<p style="color: var(--medium);">No AI strategy available</p>';
+        }
+
         // Initialize
         window.addEventListener('load', () => {
+            // Load the correct lead based on URL
+            currentLead = getLeadFromURL();
+            populateLeadProfile(currentLead);
+
             // Scroll animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
