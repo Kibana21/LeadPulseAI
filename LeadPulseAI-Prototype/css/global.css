@@ -440,3 +440,23 @@ input:focus, textarea:focus, select:focus {
   background-color: var(--aia-red);
   color: white;
 }
+
+/* ============= Logo Styling ============= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-blue);
+  text-decoration: none;
+}
+
+.logo-icon {
+  font-size: 24px;
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: var(--aia-red);
+}

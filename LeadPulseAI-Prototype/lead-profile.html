@@ -844,9 +844,16 @@
         <!-- Header -->
         <div class="profile-header">
             <div class="header-top">
-                <a href="dashboard.html" class="back-link">
-                    ← Back to Dashboard
-                </a>
+                <div class="flex items-center gap-md">
+                    <a href="dashboard.html" class="back-link">
+                        ← Back to Dashboard
+                    </a>
+                    <div style="height: 20px; width: 1px; background: var(--light);"></div>
+                    <a href="dashboard.html" class="logo">
+                        <span class="logo-icon">🎯</span>
+                        <span>LeadPulseAI</span>
+                    </a>
+                </div>
                 <div class="flex items-center gap-md">
                     <span class="badge badge-hot">🔥 HOT LEAD</span>
                     <span class="badge badge-success">Qualified</span>
@@ -1665,48 +1672,135 @@
         // Populate Summary Tab
         function populateSummaryTab(recording, isHuman, typeLabel) {
             const summaryContent = document.getElementById('modalSummaryContent');
-            summaryContent.innerHTML = `
-                <div class="key-insight-box">
-                    <h4 style="margin-bottom: var(--space-sm); color: var(--ai-purple);">📋 Call Summary</h4>
-                    <p style="font-size: 15px; line-height: 1.8;">${recording.summary}</p>
-                </div>
 
-                <div style="margin-bottom: var(--space-xl);">
-                    <h4 style="margin-bottom: var(--space-md);">📊 Call Metrics</h4>
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
-                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
-                            <div style="font-size: 24px; font-weight: 700; color: var(--ai-purple);">${formatDuration(recording.duration)}</div>
-                            <div style="font-size: 12px; color: var(--medium);">Duration</div>
+            // Check if recording has detailed callSummary
+            if (recording.callSummary) {
+                const cs = recording.callSummary;
+                const conversionChange = cs.conversionEnd - cs.conversionStart;
+                const conversionArrow = conversionChange > 0 ? '↗️' : '↘️';
+                const conversionColor = conversionChange > 0 ? 'var(--success)' : 'var(--danger)';
+
+                summaryContent.innerHTML = `
+                    <div class="key-insight-box" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 4px 0; color: var(--ai-purple);">📋 Call Summary</h4>
+                            <p style="font-size: 15px; line-height: 1.8; margin: 0;">${recording.summary}</p>
                         </div>
-                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
-                            <div style="font-size: 24px; font-weight: 700; color: ${recording.sentiment >= 8 ? 'var(--success)' : 'var(--warning)'};">${recording.sentiment ? recording.sentiment.toFixed(1) : 'N/A'}</div>
-                            <div style="font-size: 12px; color: var(--medium);">Sentiment</div>
-                        </div>
-                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
-                            <div style="font-size: 24px; font-weight: 700; color: var(--navy-blue);">${recording.transcript ? recording.transcript.length : recording.meetingNotes ? recording.meetingNotes.length : 0}</div>
-                            <div style="font-size: 12px; color: var(--medium);">Exchanges</div>
-                        </div>
-                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
-                            <div style="font-size: 24px; font-weight: 700; color: var(--success);">${recording.outcome ? '✓' : '-'}</div>
-                            <div style="font-size: 12px; color: var(--medium);">Outcome</div>
+                        <div style="background: ${cs.outcomeColor}; color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px; white-space: nowrap; margin-left: var(--space-lg);">
+                            ${cs.outcome}
                         </div>
                     </div>
-                </div>
 
-                ${recording.conversionProbChange ? `
-                <div style="background: ${recording.conversionProbChange > 0 ? 'rgba(0, 200, 83, 0.1)' : 'rgba(255, 107, 107, 0.1)'}; padding: var(--space-lg); border-radius: var(--radius-sm); margin-bottom: var(--space-xl);">
-                    <h4 style="margin-bottom: var(--space-sm);">📈 Impact on Conversion</h4>
-                    <p style="font-size: 16px; font-weight: 600; color: ${recording.conversionProbChange > 0 ? 'var(--success)' : 'var(--danger)'};">
-                        ${recording.conversionProbChange > 0 ? '↗️' : '↘️'} ${Math.abs(recording.conversionProbChange)}% ${recording.conversionProbChange > 0 ? 'increase' : 'decrease'} in conversion probability
-                    </p>
-                </div>
-                ` : ''}
+                    <!-- Metrics Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-bottom: var(--space-xl);">
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: ${conversionColor};">
+                                ${cs.conversionEnd}%
+                            </div>
+                            <div style="font-size: 11px; color: var(--medium); text-transform: uppercase;">Conversion Probability</div>
+                            <div style="font-size: 12px; color: ${conversionColor}; margin-top: 4px;">
+                                ${conversionArrow} ${Math.abs(conversionChange)}% from start
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--success);">
+                                ${recording.sentiment ? recording.sentiment.toFixed(1) : 'N/A'}/10
+                            </div>
+                            <div style="font-size: 11px; color: var(--medium); text-transform: uppercase;">Final Sentiment</div>
+                            <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                                😊 ${recording.sentimentLabel}
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--ai-purple);">
+                                ${cs.objections.length}
+                            </div>
+                            <div style="font-size: 11px; color: var(--medium); text-transform: uppercase;">Objections Handled</div>
+                            <div style="font-size: 12px; color: var(--ai-purple); margin-top: 4px;">
+                                ✅ All resolved
+                            </div>
+                        </div>
+                    </div>
 
-                <div>
-                    <h4 style="margin-bottom: var(--space-md);">🎯 Next Actions for Agents</h4>
-                    ${generateActionItems(recording)}
-                </div>
-            `;
+                    <!-- Key Moments -->
+                    <div style="margin-bottom: var(--space-xl);">
+                        <h4 style="margin-bottom: var(--space-md); color: var(--navy-blue); font-size: 13px; text-transform: uppercase; font-weight: 700;">🎯 KEY MOMENTS</h4>
+                        ${cs.keyMoments.map(moment => `
+                            <div style="display: flex; align-items: start; gap: var(--space-md); padding: var(--space-sm); margin-bottom: var(--space-sm); background: rgba(147, 51, 234, 0.05); border-left: 3px solid var(--ai-purple); border-radius: var(--radius-sm);">
+                                <div style="font-weight: 600; color: var(--ai-purple); font-family: var(--font-mono); font-size: 12px; min-width: 50px;">${moment.time}</div>
+                                <div style="flex: 1; font-size: 13px;">${moment.description}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Objections Handled -->
+                    <div style="margin-bottom: var(--space-xl);">
+                        <h4 style="margin-bottom: var(--space-md); color: var(--navy-blue); font-size: 13px; text-transform: uppercase; font-weight: 700;">⚠️ OBJECTIONS HANDLED</h4>
+                        ${cs.objections.map(obj => `
+                            <div style="padding: var(--space-sm); margin-bottom: var(--space-sm);">
+                                <div style="color: var(--danger); font-weight: 600; font-size: 13px; margin-bottom: 4px;">❌ ${obj.objection}</div>
+                                <div style="color: var(--success); font-weight: 600; font-size: 13px;">→ ${obj.resolution}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Next Steps -->
+                    <div>
+                        <h4 style="margin-bottom: var(--space-md); color: var(--navy-blue); font-size: 13px; text-transform: uppercase; font-weight: 700;">📋 NEXT STEPS</h4>
+                        ${cs.nextSteps.map(step => `
+                            <div style="display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm); font-size: 13px; color: ${step.status === 'completed' ? 'var(--success)' : 'var(--warning)'};">
+                                <span>${step.status === 'completed' ? '✅' : '→'}</span>
+                                <span style="flex: 1;">${step.text}</span>
+                                <span style="font-size: 11px;">${step.status === 'completed' ? '(Completed)' : '(Pending)'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                // Fallback to basic summary if no detailed callSummary
+                summaryContent.innerHTML = `
+                    <div class="key-insight-box">
+                        <h4 style="margin-bottom: var(--space-sm); color: var(--ai-purple);">📋 Call Summary</h4>
+                        <p style="font-size: 15px; line-height: 1.8;">${recording.summary}</p>
+                    </div>
+
+                    <div style="margin-bottom: var(--space-xl);">
+                        <h4 style="margin-bottom: var(--space-md);">📊 Call Metrics</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md);">
+                            <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--ai-purple);">${formatDuration(recording.duration)}</div>
+                                <div style="font-size: 12px; color: var(--medium);">Duration</div>
+                            </div>
+                            <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                                <div style="font-size: 24px; font-weight: 700; color: ${recording.sentiment >= 8 ? 'var(--success)' : 'var(--warning)'};">${recording.sentiment ? recording.sentiment.toFixed(1) : 'N/A'}</div>
+                                <div style="font-size: 12px; color: var(--medium);">Sentiment</div>
+                            </div>
+                            <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--navy-blue);">${recording.transcript ? recording.transcript.length : recording.meetingNotes ? recording.meetingNotes.length : 0}</div>
+                                <div style="font-size: 12px; color: var(--medium);">Exchanges</div>
+                            </div>
+                            <div style="text-align: center; padding: var(--space-md); background: var(--background); border-radius: var(--radius-sm);">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--success);">${recording.outcome ? '✓' : '-'}</div>
+                                <div style="font-size: 12px; color: var(--medium);">Outcome</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${recording.conversionProbChange ? `
+                    <div style="background: ${recording.conversionProbChange > 0 ? 'rgba(0, 200, 83, 0.1)' : 'rgba(255, 107, 107, 0.1)'}; padding: var(--space-lg); border-radius: var(--radius-sm); margin-bottom: var(--space-xl);">
+                        <h4 style="margin-bottom: var(--space-sm);">📈 Impact on Conversion</h4>
+                        <p style="font-size: 16px; font-weight: 600; color: ${recording.conversionProbChange > 0 ? 'var(--success)' : 'var(--danger)'};">
+                            ${recording.conversionProbChange > 0 ? '↗️' : '↘️'} ${Math.abs(recording.conversionProbChange)}% ${recording.conversionProbChange > 0 ? 'increase' : 'decrease'} in conversion probability
+                        </p>
+                    </div>
+                    ` : ''}
+
+                    <div>
+                        <h4 style="margin-bottom: var(--space-md);">🎯 Next Actions for Agents</h4>
+                        ${generateActionItems(recording)}
+                    </div>
+                `;
+            }
         }
 
         // Generate action items based on recording

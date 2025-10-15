@@ -302,6 +302,143 @@
             }
         }
 
+        /* Post-Call Summary Card */
+        .call-summary-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid var(--aia-red);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-xl);
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .summary-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--light);
+            margin-bottom: var(--space-md);
+        }
+
+        .summary-outcome {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--success);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .summary-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .summary-section-title {
+            font-weight: 700;
+            color: var(--navy-blue);
+            margin-bottom: var(--space-sm);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .summary-metric {
+            text-align: center;
+            padding: var(--space-md);
+            background: var(--background);
+            border-radius: var(--radius-sm);
+        }
+
+        .summary-metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy-blue);
+            margin-bottom: 4px;
+        }
+
+        .summary-metric-label {
+            font-size: 11px;
+            color: var(--medium);
+            text-transform: uppercase;
+        }
+
+        .key-moment {
+            display: flex;
+            align-items: start;
+            gap: var(--space-md);
+            padding: var(--space-sm);
+            margin-bottom: var(--space-sm);
+            background: rgba(147, 51, 234, 0.05);
+            border-left: 3px solid var(--ai-purple);
+            border-radius: var(--radius-sm);
+        }
+
+        .key-moment-time {
+            font-weight: 600;
+            color: var(--ai-purple);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        .objection-item {
+            display: flex;
+            align-items: start;
+            gap: var(--space-md);
+            padding: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .objection-label {
+            color: var(--danger);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .objection-resolution {
+            color: var(--success);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .next-step-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            font-size: 13px;
+        }
+
+        .next-step-item.completed {
+            color: var(--success);
+        }
+
+        .next-step-item.pending {
+            color: var(--warning);
+        }
+
         .lead-context-sidebar {
             background: white;
             border-left: 1px solid var(--light);
@@ -374,10 +511,10 @@
             <div class="flex items-center gap-md">
                 <a href="dashboard.html" class="btn btn-ghost">← Back to Dashboard</a>
                 <div style="height: 30px; width: 1px; background: var(--light);"></div>
-                <div class="logo">
-                    <span class="logo-icon">📞</span>
-                    <span style="font-weight: 600;">AI Calling Center</span>
-                </div>
+                <a href="dashboard.html" class="logo">
+                    <span class="logo-icon">🎯</span>
+                    <span>LeadPulseAI</span>
+                </a>
             </div>
             <div class="flex items-center gap-md">
                 <div class="live-indicator">
@@ -831,6 +968,11 @@
                                 'linda': 'Coverage review agreed!'
                             };
                             showToast(`Call demo completed! ${outcomes[currentLead]}`, 'success');
+
+                            // Show post-call summary after a brief pause
+                            setTimeout(() => {
+                                showPostCallSummary();
+                            }, 1500);
                         }, 3000);
                     }
                 }, delay);
@@ -905,6 +1047,186 @@
         function clearTranscript() {
             document.getElementById('liveTranscript').innerHTML = '';
             currentLineIndex = 0;
+        }
+
+        // Generate post-call summary
+        function showPostCallSummary() {
+            const container = document.getElementById('liveTranscript');
+
+            // Define summary data based on current lead
+            const summaryData = {
+                'sarah': {
+                    outcome: '✅ APPOINTMENT SCHEDULED',
+                    outcomeColor: 'var(--success)',
+                    duration: '3:42',
+                    conversionStart: 70,
+                    conversionEnd: 85,
+                    conversionChange: 15,
+                    sentiment: 8.5,
+                    sentimentLabel: 'Excellent',
+                    keyMoments: [
+                        { time: '00:45', description: 'Price objection handled successfully with monthly breakdown' },
+                        { time: '01:30', description: 'Customer shared pregnancy timeline (due March 2026)' },
+                        { time: '02:45', description: 'Competitor comparison addressed (Prudential quote)' },
+                        { time: '03:20', description: 'Appointment confirmed for Oct 12, 2PM with Rachel Tan' }
+                    ],
+                    objections: [
+                        { objection: '"Feeling overwhelmed with information"', resolution: 'Simplified explanation + step-by-step approach' },
+                        { objection: '"Need to discuss with husband"', resolution: 'Joint consultation offered + flexible scheduling' }
+                    ],
+                    nextSteps: [
+                        { text: 'Send confirmation email with meeting details', status: 'completed' },
+                        { text: 'Send quote breakdown PDF', status: 'completed' },
+                        { text: 'Calendar invite sent to Sarah & David Chen', status: 'completed' },
+                        { text: 'Pre-meeting prep: Review maternity bundle options', status: 'pending' },
+                        { text: 'Human follow-up call 24h before appointment', status: 'pending' }
+                    ]
+                },
+                'michael': {
+                    outcome: '✅ SPECIALIST HANDOFF SCHEDULED',
+                    outcomeColor: 'var(--success)',
+                    duration: '12:00',
+                    conversionStart: 58,
+                    conversionEnd: 78,
+                    conversionChange: 20,
+                    sentiment: 7.8,
+                    sentimentLabel: 'Positive',
+                    keyMoments: [
+                        { time: '01:15', description: 'Price objection overcome with daily cost breakdown' },
+                        { time: '03:45', description: 'Friend\'s cancer diagnosis mentioned (emotional trigger)' },
+                        { time: '08:20', description: 'Portability concern addressed (not tied to employer)' },
+                        { time: '11:30', description: 'Meeting scheduled with David Lim (Young Pro Specialist)' }
+                    ],
+                    objections: [
+                        { objection: '"Seems high for my age (28)"', resolution: '$6/day reframe + lock-in-low-rates positioning' },
+                        { objection: '"What if I switch jobs?"', resolution: 'Portability advantage vs company insurance explained' }
+                    ],
+                    nextSteps: [
+                        { text: 'WhatsApp quote breakdown sent', status: 'completed' },
+                        { text: 'Meeting invite with David Lim sent', status: 'completed' },
+                        { text: 'Send tech industry customer testimonials', status: 'completed' },
+                        { text: 'AIA mobile app demo prepared', status: 'pending' },
+                        { text: 'Follow-up: Share friend referral program details', status: 'pending' }
+                    ]
+                },
+                'linda': {
+                    outcome: '✅ COVERAGE REVIEW AGREED',
+                    outcomeColor: 'var(--success)',
+                    duration: '3:37',
+                    conversionStart: 75,
+                    conversionEnd: 82,
+                    conversionChange: 7,
+                    sentiment: 8.9,
+                    sentimentLabel: 'Excellent',
+                    keyMoments: [
+                        { time: '00:30', description: 'Policy anniversary recognized (5 years with AIA)' },
+                        { time: '01:45', description: 'Children\'s education needs identified' },
+                        { time: '02:30', description: 'Loyalty benefits presented (premium discount)' },
+                        { time: '03:10', description: 'Coverage review meeting scheduled' }
+                    ],
+                    objections: [
+                        { objection: '"Current coverage seems sufficient"', resolution: 'Gap analysis revealed education funding shortfall' }
+                    ],
+                    nextSteps: [
+                        { text: 'Send personalized coverage gap report', status: 'completed' },
+                        { text: 'Schedule review meeting confirmation sent', status: 'completed' },
+                        { text: 'Prepare education savings plan comparison', status: 'pending' },
+                        { text: 'Calculate loyalty discount (5-year customer)', status: 'pending' }
+                    ]
+                }
+            };
+
+            const data = summaryData[currentLead];
+            const conversionArrow = data.conversionChange > 0 ? '↗️' : '↘️';
+            const conversionColor = data.conversionChange > 0 ? 'var(--success)' : 'var(--danger)';
+
+            const summaryHTML = `
+                <div class="call-summary-card">
+                    <div class="summary-header">
+                        <div>
+                            <h3 style="margin: 0 0 8px 0; color: var(--navy-blue); font-size: 18px;">📊 CALL SUMMARY</h3>
+                            <div style="font-size: 13px; color: var(--medium);">Completed in ${data.duration} • AI-powered conversation</div>
+                        </div>
+                        <div class="summary-outcome" style="background: ${data.outcomeColor};">
+                            ${data.outcome}
+                        </div>
+                    </div>
+
+                    <!-- Metrics Grid -->
+                    <div class="summary-metrics">
+                        <div class="summary-metric">
+                            <div class="summary-metric-value" style="color: ${conversionColor};">
+                                ${data.conversionEnd}%
+                            </div>
+                            <div class="summary-metric-label">Conversion Probability</div>
+                            <div style="font-size: 12px; color: ${conversionColor}; margin-top: 4px;">
+                                ${conversionArrow} ${Math.abs(data.conversionChange)}% from start
+                            </div>
+                        </div>
+                        <div class="summary-metric">
+                            <div class="summary-metric-value" style="color: var(--success);">
+                                ${data.sentiment}/10
+                            </div>
+                            <div class="summary-metric-label">Final Sentiment</div>
+                            <div style="font-size: 12px; color: var(--success); margin-top: 4px;">
+                                😊 ${data.sentimentLabel}
+                            </div>
+                        </div>
+                        <div class="summary-metric">
+                            <div class="summary-metric-value" style="color: var(--ai-purple);">
+                                ${data.objections.length}
+                            </div>
+                            <div class="summary-metric-label">Objections Handled</div>
+                            <div style="font-size: 12px; color: var(--ai-purple); margin-top: 4px;">
+                                ✅ All resolved
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Moments -->
+                    <div class="summary-section">
+                        <div class="summary-section-title">🎯 KEY MOMENTS</div>
+                        ${data.keyMoments.map(moment => `
+                            <div class="key-moment">
+                                <div class="key-moment-time">${moment.time}</div>
+                                <div style="flex: 1; font-size: 13px;">${moment.description}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Objections Handled -->
+                    <div class="summary-section">
+                        <div class="summary-section-title">⚠️ OBJECTIONS HANDLED</div>
+                        ${data.objections.map(obj => `
+                            <div class="objection-item">
+                                <div style="flex: 1;">
+                                    <div class="objection-label">❌ ${obj.objection}</div>
+                                    <div class="objection-resolution">→ ${obj.resolution}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Next Steps -->
+                    <div class="summary-section" style="margin-bottom: 0;">
+                        <div class="summary-section-title">📋 NEXT STEPS</div>
+                        ${data.nextSteps.map(step => `
+                            <div class="next-step-item ${step.status}">
+                                <span>${step.status === 'completed' ? '✅' : '→'}</span>
+                                <span style="flex: 1;">${step.text}</span>
+                                ${step.status === 'completed' ? '<span style="font-size: 11px; color: var(--success);">(Auto-completed)</span>' : '<span style="font-size: 11px; color: var(--warning);">(Pending)</span>'}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', summaryHTML);
+
+            // Scroll to summary
+            setTimeout(() => {
+                container.scrollTop = container.scrollHeight;
+            }, 100);
         }
 
         // Global current lead

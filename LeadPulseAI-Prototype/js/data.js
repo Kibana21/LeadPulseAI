@@ -1162,6 +1162,27 @@ const sarahChen = {
             outcome: "in_progress",
             conversionProbChange: +7,
             summary: "Discussing maternity coverage and competitor comparison",
+            callSummary: {
+                outcome: "📋 INFORMATION GATHERED",
+                outcomeColor: "#00C853",
+                conversionStart: 68,
+                conversionEnd: 75,
+                keyMoments: [
+                    { time: "00:01:15", description: "Customer confirmed pregnancy (first child)" },
+                    { time: "00:03:22", description: "Mentioned competitor quote from Prudential" },
+                    { time: "00:05:40", description: "Expressed concerns about overwhelming information" },
+                    { time: "00:06:55", description: "Agreed to receive detailed quote breakdown" }
+                ],
+                objections: [
+                    { objection: "Too much information to process", resolution: "Offered to break down into simple steps" },
+                    { objection: "Need to compare with Prudential", resolution: "Promised side-by-side comparison" }
+                ],
+                nextSteps: [
+                    { text: "Send personalized quote breakdown", status: "completed" },
+                    { text: "Include Prudential comparison", status: "completed" },
+                    { text: "Schedule follow-up call in 2 days", status: "completed" }
+                ]
+            },
             transcript: [
                 {
                     timestamp: "00:00:03",
