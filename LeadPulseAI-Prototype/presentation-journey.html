@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadPulseAI - Product Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background: #f5f7fa;
+            color: #1e293b;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            padding: 15px 40px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-dot.active {
+            background: #667eea;
+            transform: scale(1.4);
+        }
+
+        /* Slides */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 40px 60px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .slide-content {
+            max-width: 1300px;
+            width: 100%;
+        }
+
+        /* Backgrounds */
+        .bg-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .bg-white { background: white; }
+        .bg-light { background: #f8f9fa; }
+
+        /* Typography */
+        h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        /* Title Slide */
+        .title-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .title-content h1 {
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-content .tagline {
+            font-size: 20px;
+            line-height: 1.6;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Journey Steps */
+        .journey-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .journey-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            font-size: 15px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Screenshot Container */
+        .screenshot-container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .screenshot-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .screenshot-header .label {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .screenshot-header h3 {
+            font-size: 32px;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .screenshot-header p {
+            color: #64748b;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Browser Mockup */
+        .browser-mockup {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .browser-header {
+            background: #f1f5f9;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+
+        .browser-content {
+            background: #f8f9fa;
+            padding: 30px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+        }
+
+        .dashboard-card .icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card .value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-card .label {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card .change {
+            color: #10b981;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Lead Card */
+        .lead-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .lead-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .lead-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .lead-badges {
+            display: flex;
+            gap: 8px;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-hot { background: #fef3c7; color: #92400e; }
+        .badge-diamond { background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%); color: white; }
+
+        .lead-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .detail-label {
+            color: #64748b;
+        }
+
+        .detail-value {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* Call Interface */
+        .call-interface {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+        }
+
+        .transcript-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .transcript-header {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .transcript-line {
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .transcript-line:last-child {
+            border-bottom: none;
+        }
+
+        .speaker {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .speaker.ai { color: #667eea; }
+        .speaker.customer { color: #f5576c; }
+
+        .transcript-text {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .intelligence-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .intel-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .intel-card .title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .intel-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .intel-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .intel-label {
+            color: #64748b;
+        }
+
+        .intel-value {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .intel-value.positive {
+            color: #10b981;
+        }
+
+        .coaching-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .coaching-card .title {
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .coaching-card .text {
+            color: #78350f;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .summary-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .summary-badge {
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .summary-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .summary-metric {
+            text-align: center;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .summary-metric .value {
+            font-size: 40px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .summary-metric .label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .summary-metric .change {
+            font-size: 13px;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .key-moments {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 18px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .moment-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(102, 126, 234, 0.05);
+            border-left: 3px solid #667eea;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .moment-time {
+            color: #667eea;
+            font-weight: 600;
+            font-family: monospace;
+            margin-right: 12px;
+        }
+
+        .next-steps {
+            margin-top: 30px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .step-item.completed {
+            color: #10b981;
+        }
+
+        .step-item.pending {
+            color: #f59e0b;
+        }
+
+        /* Timeline */
+        .timeline-container {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #10b981 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -28px;
+            top: 6px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-date {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+
+        .timeline-description {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Recording Card */
+        .recording-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .recording-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        }
+
+        .recording-info {
+            flex: 1;
+        }
+
+        .recording-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .recording-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .recording-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .recording-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tag-success { background: #dcfce7; color: #166534; }
+        .tag-info { background: #e0e7ff; color: #3730a3; }
+        .tag-warning { background: #fef3c7; color: #92400e; }
+
+        .sentiment-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .sentiment-label {
+            font-size: 13px;
+            color: #64748b;
+            min-width: 100px;
+        }
+
+        .sentiment-track {
+            flex: 1;
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .sentiment-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+        }
+
+        .sentiment-value {
+            font-weight: 700;
+            color: #10b981;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* Campaign Card */
+        .campaign-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .campaign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .campaign-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .campaign-type {
+            font-size: 13px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .campaign-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .campaign-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .campaign-metric {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .campaign-metric .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .campaign-metric .label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .touchpoint-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .touchpoint-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .touchpoint-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .touchpoint-details {
+            flex: 1;
+        }
+
+        .touchpoint-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+
+        .touchpoint-timing {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .touchpoint-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .status-completed { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+
+        /* Value Props */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .value-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .value-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .value-card h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .value-card p {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* CTA */
+        .cta-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 20px;
+            margin-bottom: 50px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 18px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            h1 { font-size: 42px; }
+            h2 { font-size: 32px; }
+            .journey-steps,
+            .value-grid,
+            .dashboard-grid,
+            .summary-metrics {
+                grid-template-columns: 1fr;
+            }
+            .call-interface {
+                grid-template-columns: 1fr;
+            }
+            .screenshot-container {
+                padding: 30px 20px;
+            }
+        }
+
+        @media print {
+            .nav { display: none; }
+            .slide {
+                page-break-after: always;
+                min-height: auto;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span>🎯</span>
+                <span>LeadPulseAI</span>
+            </div>
+            <div class="nav-dots">
+                <div class="nav-dot active" onclick="scrollToSlide(0)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(1)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(2)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(3)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(5)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(6)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(7)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(8)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(9)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(10)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(11)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(12)"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Slide 1: Title & Vision -->
+    <section class="slide bg-gradient" id="slide-0">
+        <div class="slide-content title-content">
+            <h1>🎯 LeadPulseAI</h1>
+            <div class="subtitle">Reimagining Insurance Lead Nurturing</div>
+            <div class="tagline">
+                What if every lead received personalized, timely engagement—regardless of when they reach out?
+                See how AI transforms the customer journey from first contact to loyal advocate.
+            </div>
+            <div class="journey-steps">
+                <div class="journey-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Trigger Detection</div>
+                    <div class="step-description">Life events identified within hours</div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">AI Engagement</div>
+                    <div class="step-description">Personalized conversations 24/7</div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Lifecycle Nurture</div>
+                    <div class="step-description">From prospect to advocate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: The Challenge -->
+    <section class="slide bg-light" id="slide-1">
+        <div class="slide-content">
+            <div class="section-label">THE CHALLENGE</div>
+            <h2>The Current Reality</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="icon">⏰</div>
+                    <h3>Timing Matters</h3>
+                    <p>A customer announces their pregnancy on social media. By the time a human agent calls them 2 days later, they've already received 3 competitor quotes.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">📞</div>
+                    <h3>Capacity Limits</h3>
+                    <p>Your best agents can handle 8-10 meaningful conversations per day. With 500+ daily leads, most receive generic emails or no follow-up at all.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🔄</div>
+                    <h3>Journey Ends Too Early</h3>
+                    <p>After the policy is sold, nurturing stops. No onboarding sequence, no milestone celebrations, no upsell opportunities. The customer relationship barely begins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Screen - Dashboard -->
+    <section class="slide bg-white" id="slide-2">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 1 • COMMAND CENTER</div>
+                    <h3>See Everything at a Glance</h3>
+                    <p>One unified dashboard shows all leads, active campaigns, AI agent activity, and real-time performance metrics.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px;">
+                            <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">Good morning, Sarah</div>
+                            <div style="font-size: 16px; opacity: 0.95;">Here's what's happening today • Thursday, Oct 16, 2025</div>
+                        </div>
+                        <div class="dashboard-grid">
+                            <div class="dashboard-card">
+                                <div class="icon">🔴</div>
+                                <div class="value">47</div>
+                                <div class="label">Active AI Calls Right Now</div>
+                                <div class="change">↗️ Peak hours: 6-9 PM</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="icon">👥</div>
+                                <div class="value">347</div>
+                                <div class="label">Leads in Active Campaigns</div>
+                                <div class="change">🔥 124 Hot Leads This Week</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="icon">✅</div>
+                                <div class="value">23</div>
+                                <div class="label">Appointments Scheduled Today</div>
+                                <div class="change">↗️ +8 vs yesterday</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="icon">📊</div>
+                                <div class="value">6</div>
+                                <div class="label">Active Campaigns</div>
+                                <div class="change">✓ All performing well</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="icon">😊</div>
+                                <div class="value">8.2</div>
+                                <div class="label">Avg Sentiment Score (Last 24h)</div>
+                                <div class="change">🎯 Target: 7.5+</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="icon">🎯</div>
+                                <div class="value">73%</div>
+                                <div class="label">Response Rate This Week</div>
+                                <div class="change">↗️ Industry avg: 22%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Screen - Lead Profile -->
+    <section class="slide bg-light" id="slide-3">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 2 • LEAD INTELLIGENCE</div>
+                    <h3>Every Lead Gets a Personalized Profile</h3>
+                    <p>AI automatically enriches each lead with behavioral insights, trigger events, recommended approach, and predicted lifetime value.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div class="lead-card">
+                            <div class="lead-header">
+                                <div style="display: flex; align-items: center; gap: 20px;">
+                                    <div class="lead-avatar">SC</div>
+                                    <div>
+                                        <div style="font-size: 22px; font-weight: 700; color: #1e293b; margin-bottom: 5px;">Sarah Chen</div>
+                                        <div style="color: #64748b; font-size: 15px;">Age 32 • Expecting first child • Tanjong Pagar</div>
+                                    </div>
+                                </div>
+                                <div class="lead-badges">
+                                    <div class="badge badge-hot">🔥 HOT LEAD</div>
+                                    <div class="badge badge-diamond">💎 DIAMOND TIER</div>
+                                </div>
+                            </div>
+                            <div class="lead-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Lead Score:</span>
+                                    <span class="detail-value">95/100</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Conversion Probability:</span>
+                                    <span class="detail-value">85%</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Est. Lifetime Value:</span>
+                                    <span class="detail-value">$95,000</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Stage:</span>
+                                    <span class="detail-value">Qualified</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Trigger Event:</span>
+                                    <span class="detail-value">🍼 Pregnancy Announced</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Detected:</span>
+                                    <span class="detail-value">6 hours ago</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Active Campaign:</span>
+                                    <span class="detail-value">Pregnancy Nurture</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Last Contact:</span>
+                                    <span class="detail-value">2 hours ago (AI Call)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Communication Style:</span>
+                                    <span class="detail-value">Responsive, Detail-Oriented</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Next Action:</span>
+                                    <span class="detail-value">Specialist Consultation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 12px; border-left: 4px solid #667eea;">
+                            <div style="font-weight: 700; color: #667eea; margin-bottom: 10px; font-size: 14px;">🧠 AI RECOMMENDED APPROACH</div>
+                            <ul style="color: #475569; line-height: 1.8; font-size: 14px; padding-left: 20px;">
+                                <li>Tone: Warm, educational, non-pushy (she mentioned feeling "overwhelmed")</li>
+                                <li>Focus: Peace of mind for baby's arrival, not just policy features</li>
+                                <li>Address: Joint decision-making (mentioned husband 3 times)</li>
+                                <li>Offer: Side-by-side comparison with Prudential (competitor mentioned)</li>
+                                <li>Timing: Follow up within 48 hours for specialist consultation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Screen - Live Call -->
+    <section class="slide bg-white" id="slide-4">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 3 • LIVE AI CALLING CENTER</div>
+                    <h3>Watch AI Agents Work in Real-Time</h3>
+                    <p>Supervisors can monitor live calls, see sentiment analysis updating every second, and get coaching suggestions on when to have a human join.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; text-align: center;">
+                            <div style="font-size: 14px; margin-bottom: 8px;">🔴 LIVE CALL IN PROGRESS</div>
+                            <div style="font-size: 26px; font-weight: 700; margin-bottom: 8px;">Sarah Chen • Maternity Coverage Discussion</div>
+                            <div style="font-size: 16px; opacity: 0.95;">Call Duration: 3:42 • AI Agent: Emma</div>
+                        </div>
+                        <div class="call-interface">
+                            <div class="transcript-panel">
+                                <div class="transcript-header">📄 Live Transcript</div>
+                                <div class="transcript-line">
+                                    <div class="speaker ai">[00:03:15] Emma (AI Agent):</div>
+                                    <div class="transcript-text">I completely understand, Sarah. Many expecting parents feel overwhelmed with all the decisions to make. That's exactly why I want to break this down into simple, clear steps for you.</div>
+                                </div>
+                                <div class="transcript-line">
+                                    <div class="speaker customer">[00:03:28] Sarah Chen:</div>
+                                    <div class="transcript-text">That would be really helpful, thank you. I just want to make sure we're making the right choice for our baby.</div>
+                                </div>
+                                <div class="transcript-line">
+                                    <div class="speaker ai">[00:03:35] Emma (AI Agent):</div>
+                                    <div class="transcript-text">Of course! Let's start with the maternity coverage. It includes all delivery costs up to $25,000, plus newborn care from day one. What specific concerns do you have about delivery?</div>
+                                </div>
+                                <div class="transcript-line">
+                                    <div class="speaker customer">[00:03:48] Sarah Chen:</div>
+                                    <div class="transcript-text">What if there are complications? My friend had an emergency C-section and the costs were really high.</div>
+                                </div>
+                            </div>
+                            <div class="intelligence-panel">
+                                <div class="intel-card">
+                                    <div class="title">🧠 Real-Time Intelligence</div>
+                                    <div class="intel-item">
+                                        <span class="intel-label">Sentiment:</span>
+                                        <span class="intel-value positive">😊 8.3/10</span>
+                                    </div>
+                                    <div class="intel-item">
+                                        <span class="intel-label">Intent Level:</span>
+                                        <span class="intel-value">High</span>
+                                    </div>
+                                    <div class="intel-item">
+                                        <span class="intel-label">Engagement:</span>
+                                        <span class="intel-value positive">Strong</span>
+                                    </div>
+                                    <div class="intel-item">
+                                        <span class="intel-label">Conversion Prob:</span>
+                                        <span class="intel-value positive">75% ↗️</span>
+                                    </div>
+                                    <div class="intel-item">
+                                        <span class="intel-label">Objections:</span>
+                                        <span class="intel-value">None</span>
+                                    </div>
+                                </div>
+                                <div class="coaching-card">
+                                    <div class="title">💡 AI Coaching</div>
+                                    <div class="text">Customer is asking detailed questions about complications—this is a high-intent signal. Continue with educational tone, address the specific concern, then pivot to scheduling specialist consultation to build trust.</div>
+                                </div>
+                                <div style="background: #dcfce7; padding: 18px; border-radius: 12px; border-left: 4px solid #10b981;">
+                                    <div style="font-weight: 700; color: #166534; margin-bottom: 8px; font-size: 14px;">✓ AI Handling Well</div>
+                                    <div style="color: #166534; font-size: 13px;">No human intervention needed. AI is successfully building rapport and addressing concerns.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Screen - Post-Call Summary -->
+    <section class="slide bg-light" id="slide-5">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 4 • POST-CALL INTELLIGENCE</div>
+                    <h3>Every Call Generates Actionable Insights</h3>
+                    <p>After each conversation, AI automatically creates a comprehensive summary with key moments, objections handled, sentiment analysis, and recommended next steps for agents.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div class="summary-card">
+                            <div class="summary-header">
+                                <div>
+                                    <div class="summary-title">📊 Call Summary • Sarah Chen</div>
+                                    <div style="color: #64748b; font-size: 14px;">Completed in 3:42 • Oct 16, 2025 at 3:15 PM</div>
+                                </div>
+                                <div class="summary-badge">✅ APPOINTMENT SCHEDULED</div>
+                            </div>
+
+                            <div class="summary-metrics">
+                                <div class="summary-metric">
+                                    <div class="value">85%</div>
+                                    <div class="label">Conversion Probability</div>
+                                    <div class="change">↗️ +15% from call start</div>
+                                </div>
+                                <div class="summary-metric">
+                                    <div class="value">8.5</div>
+                                    <div class="label">Final Sentiment</div>
+                                    <div class="change">😊 Excellent mood</div>
+                                </div>
+                                <div class="summary-metric">
+                                    <div class="value">2</div>
+                                    <div class="label">Objections Handled</div>
+                                    <div class="change">✅ Both resolved</div>
+                                </div>
+                            </div>
+
+                            <div class="key-moments">
+                                <div class="section-title">🎯 Key Moments</div>
+                                <div class="moment-item">
+                                    <span class="moment-time">00:45</span>
+                                    Price objection handled successfully with monthly breakdown approach
+                                </div>
+                                <div class="moment-item">
+                                    <span class="moment-time">01:30</span>
+                                    Customer shared pregnancy timeline—due date March 2026
+                                </div>
+                                <div class="moment-item">
+                                    <span class="moment-time">02:45</span>
+                                    Competitor (Prudential) comparison addressed with value positioning
+                                </div>
+                                <div class="moment-item">
+                                    <span class="moment-time">03:20</span>
+                                    Appointment confirmed for Oct 12, 2PM with specialist Rachel Tan
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="section-title">⚠️ Objections Handled</div>
+                                <div style="margin-bottom: 15px; padding: 15px; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 8px;">
+                                    <div style="color: #991b1b; font-weight: 600; margin-bottom: 8px; font-size: 14px;">❌ "I'm feeling overwhelmed with all the information"</div>
+                                    <div style="color: #166534; font-weight: 600; font-size: 14px;">→ AI simplified explanation into 3 clear steps, offered to break discussion across multiple calls</div>
+                                </div>
+                                <div style="padding: 15px; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 8px;">
+                                    <div style="color: #991b1b; font-weight: 600; margin-bottom: 8px; font-size: 14px;">❌ "Need to discuss with my husband"</div>
+                                    <div style="color: #166534; font-weight: 600; font-size: 14px;">→ AI offered joint consultation, sent materials to both for review before meeting</div>
+                                </div>
+                            </div>
+
+                            <div class="next-steps">
+                                <div class="section-title">📋 Next Steps</div>
+                                <div class="step-item completed">
+                                    <span>✅</span>
+                                    <span style="flex: 1;">Confirmation email sent with meeting details</span>
+                                    <span style="font-size: 12px;">(Auto-sent)</span>
+                                </div>
+                                <div class="step-item completed">
+                                    <span>✅</span>
+                                    <span style="flex: 1;">Quote breakdown PDF emailed to Sarah & husband</span>
+                                    <span style="font-size: 12px;">(Auto-sent)</span>
+                                </div>
+                                <div class="step-item completed">
+                                    <span>✅</span>
+                                    <span style="flex: 1;">Calendar invite sent to both Sarah and David Chen</span>
+                                    <span style="font-size: 12px;">(Auto-sent)</span>
+                                </div>
+                                <div class="step-item pending">
+                                    <span>→</span>
+                                    <span style="flex: 1;">Rachel Tan to review case before consultation</span>
+                                    <span style="font-size: 12px;">(Assigned)</span>
+                                </div>
+                                <div class="step-item pending">
+                                    <span>→</span>
+                                    <span style="flex: 1;">Human follow-up call 24h before appointment</span>
+                                    <span style="font-size: 12px;">(Scheduled)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Screen - Call Recordings Library -->
+    <section class="slide bg-white" id="slide-6">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 5 • CALL RECORDINGS & SENTIMENT</div>
+                    <h3>Complete Call History with Sentiment Tracking</h3>
+                    <p>Every conversation is recorded, analyzed, and scored. Supervisors can review any call, track sentiment changes throughout the conversation, and identify coaching opportunities.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 12px;">
+                            <div style="font-size: 18px; font-weight: 700; color: #667eea; margin-bottom: 5px;">📞 Call Recordings • Sarah Chen</div>
+                            <div style="font-size: 14px; color: #64748b;">4 recorded conversations • Average sentiment: 8.3/10</div>
+                        </div>
+
+                        <div class="recording-card">
+                            <div class="recording-info">
+                                <div class="recording-title">🤖 Initial Maternity Coverage Discussion</div>
+                                <div class="recording-meta">
+                                    <span>📅 Oct 16, 2025 • 3:15 PM</span>
+                                    <span>⏱️ Duration: 3:42</span>
+                                    <span>👤 AI Agent: Emma</span>
+                                </div>
+                                <div class="recording-tags">
+                                    <span class="recording-tag tag-success">✅ Appointment Scheduled</span>
+                                    <span class="recording-tag tag-info">First Contact</span>
+                                    <span class="recording-tag tag-info">Maternity</span>
+                                </div>
+                                <div class="sentiment-bar">
+                                    <span class="sentiment-label">Sentiment Journey:</span>
+                                    <div class="sentiment-track">
+                                        <div class="sentiment-fill" style="width: 85%;"></div>
+                                    </div>
+                                    <span class="sentiment-value">8.5/10</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recording-card">
+                            <div class="recording-info">
+                                <div class="recording-title">👤 Specialist Consultation with Rachel Tan</div>
+                                <div class="recording-meta">
+                                    <span>📅 Oct 18, 2025 • 2:00 PM</span>
+                                    <span>⏱️ Duration: 28:15</span>
+                                    <span>👤 Human: Rachel Tan</span>
+                                </div>
+                                <div class="recording-tags">
+                                    <span class="recording-tag tag-success">✅ Policy Purchased</span>
+                                    <span class="recording-tag tag-success">$42,000 ACV</span>
+                                    <span class="recording-tag tag-info">Joint Call</span>
+                                </div>
+                                <div class="sentiment-bar">
+                                    <span class="sentiment-label">Sentiment Journey:</span>
+                                    <div class="sentiment-track">
+                                        <div class="sentiment-fill" style="width: 90%;"></div>
+                                    </div>
+                                    <span class="sentiment-value">9.0/10</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recording-card">
+                            <div class="recording-info">
+                                <div class="recording-title">🤖 Policy Onboarding Walkthrough</div>
+                                <div class="recording-meta">
+                                    <span>📅 Oct 25, 2025 • 10:30 AM</span>
+                                    <span>⏱️ Duration: 12:18</span>
+                                    <span>👤 AI Agent: Emma</span>
+                                </div>
+                                <div class="recording-tags">
+                                    <span class="recording-tag tag-success">✅ Completed</span>
+                                    <span class="recording-tag tag-info">Onboarding</span>
+                                    <span class="recording-tag tag-info">Education</span>
+                                </div>
+                                <div class="sentiment-bar">
+                                    <span class="sentiment-label">Sentiment Journey:</span>
+                                    <div class="sentiment-track">
+                                        <div class="sentiment-fill" style="width: 82%;"></div>
+                                    </div>
+                                    <span class="sentiment-value">8.2/10</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recording-card">
+                            <div class="recording-info">
+                                <div class="recording-title">🤖 3-Month Check-in & Satisfaction Survey</div>
+                                <div class="recording-meta">
+                                    <span>📅 Jan 18, 2026 • 4:45 PM</span>
+                                    <span>⏱️ Duration: 8:22</span>
+                                    <span>👤 AI Agent: Emma</span>
+                                </div>
+                                <div class="recording-tags">
+                                    <span class="recording-tag tag-success">NPS: 9</span>
+                                    <span class="recording-tag tag-success">Promoter</span>
+                                    <span class="recording-tag tag-info">Retention</span>
+                                </div>
+                                <div class="sentiment-bar">
+                                    <span class="sentiment-label">Sentiment Journey:</span>
+                                    <div class="sentiment-track">
+                                        <div class="sentiment-fill" style="width: 88%;"></div>
+                                    </div>
+                                    <span class="sentiment-value">8.8/10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Screen - Complete Timeline -->
+    <section class="slide bg-light" id="slide-7">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 6 • COMPLETE CUSTOMER TIMELINE</div>
+                    <h3>Every Interaction, Every Milestone</h3>
+                    <p>The timeline shows the complete customer journey from first contact through every touchpoint, campaign enrollment, policy purchase, and lifecycle milestone.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 12px;">
+                            <div style="font-size: 18px; font-weight: 700; color: #667eea; margin-bottom: 5px;">📅 Customer Timeline • Sarah Chen</div>
+                            <div style="font-size: 14px; color: #64748b;">23 events • 5 months of nurturing • From lead to loyal customer</div>
+                        </div>
+
+                        <div class="timeline-container">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">🎯</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Oct 16, 2025 • 9:30 AM</div>
+                                    <div class="timeline-title">🍼 Pregnancy Trigger Detected</div>
+                                    <div class="timeline-description">Social media post: "Excited to announce we're expecting our first baby in March 2026!" • Lead score: 95/100</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">📧</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Oct 16, 2025 • 10:45 AM</div>
+                                    <div class="timeline-title">✉️ Welcome Email Sent</div>
+                                    <div class="timeline-description">Campaign: Pregnancy Nurture Sequence • Subject: "Congratulations! Here's how we can help protect your growing family"</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">📞</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Oct 16, 2025 • 3:15 PM</div>
+                                    <div class="timeline-title">🤖 First AI Call Completed</div>
+                                    <div class="timeline-description">Duration: 3:42 • Outcome: Appointment Scheduled • Sentiment: 8.5/10 • Handled objections about information overload</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">👤</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Oct 18, 2025 • 2:00 PM</div>
+                                    <div class="timeline-title">✅ Specialist Consultation • Policy Purchased</div>
+                                    <div class="timeline-description">Joint call with husband David • Maternity coverage + Life insurance bundle • $42,000 Annual Value • LTV: $95,000</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">🎉</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Oct 19, 2025 • 9:00 AM</div>
+                                    <div class="timeline-title">🚀 Enrolled in Customer Onboarding Campaign</div>
+                                    <div class="timeline-description">30-day welcome sequence • Educational materials • Policy walkthrough • Milestone check-ins</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">📱</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Oct 25, 2025 • 10:30 AM</div>
+                                    <div class="timeline-title">🤖 Policy Onboarding Call</div>
+                                    <div class="timeline-description">Duration: 12:18 • AI walked through portal access, claim process, and answered 8 questions • Sentiment: 8.2/10</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">📊</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Jan 18, 2026 • 4:45 PM</div>
+                                    <div class="timeline-title">😊 3-Month Satisfaction Survey</div>
+                                    <div class="timeline-description">NPS Score: 9 (Promoter) • Would recommend to friends • Enrolled in referral program • Mentioned potential baby #2 in 2-3 years</div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">🎯</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Feb 15, 2026 • Present</div>
+                                    <div class="timeline-title">🔄 Active in Growth Campaign</div>
+                                    <div class="timeline-description">Upcoming touchpoints: Baby arrival celebration • Education savings offer • Critical illness rider upsell at 6-month milestone</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Screen - Campaign Orchestration -->
+    <section class="slide bg-white" id="slide-8">
+        <div class="slide-content">
+            <div class="screenshot-container">
+                <div class="screenshot-header">
+                    <div class="label">SCREEN 7 • CAMPAIGN ORCHESTRATION</div>
+                    <h3>Automated Nurture Sequences That Evolve</h3>
+                    <p>Campaigns are the orchestration engine behind every touchpoint. Each customer is enrolled in event-driven sequences that automatically adjust based on behavior and lifecycle stage.</p>
+                </div>
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-dot dot-red"></div>
+                        <div class="browser-dot dot-yellow"></div>
+                        <div class="browser-dot dot-green"></div>
+                    </div>
+                    <div class="browser-content">
+                        <div class="campaign-card">
+                            <div class="campaign-header">
+                                <div>
+                                    <div class="campaign-title">🍼 Pregnancy Nurture Campaign</div>
+                                    <div class="campaign-type">
+                                        <span>⚡</span>
+                                        <span>Event-Triggered • Active for Sarah Chen</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-status">✅ ACTIVE</div>
+                            </div>
+
+                            <div class="campaign-metrics">
+                                <div class="campaign-metric">
+                                    <div class="value">347</div>
+                                    <div class="label">Active Leads</div>
+                                </div>
+                                <div class="campaign-metric">
+                                    <div class="value">73%</div>
+                                    <div class="label">Engagement Rate</div>
+                                </div>
+                                <div class="campaign-metric">
+                                    <div class="value">42%</div>
+                                    <div class="label">Conversion Rate</div>
+                                </div>
+                                <div class="campaign-metric">
+                                    <div class="value">$38K</div>
+                                    <div class="label">Avg Deal Size</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <div class="section-title">📋 CAMPAIGN SEQUENCE (Sarah's Progress)</div>
+                            </div>
+
+                            <div class="touchpoint-list">
+                                <div class="touchpoint-item">
+                                    <div class="touchpoint-icon">✉️</div>
+                                    <div class="touchpoint-details">
+                                        <div class="touchpoint-name">Welcome Email</div>
+                                        <div class="touchpoint-timing">Sent immediately after trigger detection</div>
+                                    </div>
+                                    <span class="touchpoint-status status-completed">✓ Completed</span>
+                                </div>
+
+                                <div class="touchpoint-item">
+                                    <div class="touchpoint-icon">📞</div>
+                                    <div class="touchpoint-details">
+                                        <div class="touchpoint-name">Initial AI Discovery Call</div>
+                                        <div class="touchpoint-timing">Scheduled 4-6 hours after trigger</div>
+                                    </div>
+                                    <span class="touchpoint-status status-completed">✓ Completed</span>
+                                </div>
+
+                                <div class="touchpoint-item">
+                                    <div class="touchpoint-icon">📄</div>
+                                    <div class="touchpoint-details">
+                                        <div class="touchpoint-name">Personalized Quote + Comparison</div>
+                                        <div class="touchpoint-timing">Sent within 1 hour of first call</div>
+                                    </div>
+                                    <span class="touchpoint-status status-completed">✓ Completed</span>
+                                </div>
+
+                                <div class="touchpoint-item">
+                                    <div class="touchpoint-icon">👤</div>
+                                    <div class="touchpoint-details">
+                                        <div class="touchpoint-name">Specialist Consultation</div>
+                                        <div class="touchpoint-timing">Scheduled within 2-5 days</div>
+                                    </div>
+                                    <span class="touchpoint-status status-completed">✓ Completed</span>
+                                </div>
+
+                                <div class="touchpoint-item">
+                                    <div class="touchpoint-icon">📧</div>
+                                    <div class="touchpoint-details">
+                                        <div class="touchpoint-name">Educational Drip Series (4 emails)</div>
+                                        <div class="touchpoint-timing">Weeks 1-4: Policy benefits, claims, FAQs</div>
+                                    </div>
+                                    <span class="touchpoint-status status-completed">✓ Completed</span>
+                                </div>
+
+                                <div class="touchpoint-item">
+                                    <div class="touchpoint-icon">🎯</div>
+                                    <div class="touchpoint-details">
+                                        <div class="touchpoint-name">Campaign Graduation</div>
+                                        <div class="touchpoint-timing">Moved to Customer Onboarding Campaign</div>
+                                    </div>
+                                    <span class="touchpoint-status status-completed">✓ Completed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05)); border-radius: 12px; border-left: 4px solid #10b981;">
+                            <div style="font-weight: 700; color: #10b981; margin-bottom: 10px; font-size: 14px;">✅ SARAH'S STATUS</div>
+                            <div style="color: #475569; line-height: 1.6; font-size: 14px;">
+                                Graduated from Pregnancy Nurture → Now active in <strong>Customer Onboarding</strong> and <strong>Retention Growth</strong> campaigns. Next touchpoint: Baby arrival celebration (March 2026) with education savings cross-sell opportunity.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Complete Journey -->
+    <section class="slide bg-light" id="slide-9">
+        <div class="slide-content">
+            <div class="section-label">THE COMPLETE PICTURE</div>
+            <h2>Sarah's Full Journey with LeadPulseAI</h2>
+            <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+                    <div>
+                        <div style="font-weight: 700; color: #667eea; margin-bottom: 20px; font-size: 16px;">📍 WHERE WE'VE SEEN</div>
+                        <div style="padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 15px;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Day 1: Trigger Detection</div>
+                            <div style="font-size: 14px; color: #64748b;">Pregnancy announcement → Lead profile created → AI call scheduled</div>
+                        </div>
+                        <div style="padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 15px;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Day 1: First AI Call</div>
+                            <div style="font-size: 14px; color: #64748b;">3:42 conversation → Objections handled → Appointment scheduled</div>
+                        </div>
+                        <div style="padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #667eea;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Day 1: Post-Call</div>
+                            <div style="font-size: 14px; color: #64748b;">Summary generated → Materials sent → Next steps assigned</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; color: #10b981; margin-bottom: 20px; font-size: 16px;">🔮 WHAT HAPPENS NEXT</div>
+                        <div style="padding: 20px; background: #f0fdf4; border-radius: 12px; border-left: 4px solid #10b981; margin-bottom: 15px;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Day 5: Specialist Meeting</div>
+                            <div style="font-size: 14px; color: #64748b;">Joint consultation with Rachel → Policy customization → Purchase decision</div>
+                        </div>
+                        <div style="padding: 20px; background: #f0fdf4; border-radius: 12px; border-left: 4px solid #10b981; margin-bottom: 15px;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Week 2-12: Onboarding Campaign</div>
+                            <div style="font-size: 14px; color: #64748b;">Policy walkthrough → Educational emails → Milestone check-ins</div>
+                        </div>
+                        <div style="padding: 20px; background: #f0fdf4; border-radius: 12px; border-left: 4px solid #10b981; margin-bottom: 15px;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Month 3-9: Retention Campaign</div>
+                            <div style="font-size: 14px; color: #64748b;">Baby milestone celebrations → NPS survey → Cross-sell opportunities</div>
+                        </div>
+                        <div style="padding: 20px; background: #f0fdf4; border-radius: 12px; border-left: 4px solid #10b981;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Year 2+: Growth Campaign</div>
+                            <div style="font-size: 14px; color: #64748b;">Education savings offer → Family protection upsell → Referral program</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 12px; text-align: center;">
+                    <div style="font-size: 18px; font-weight: 700; color: #667eea; margin-bottom: 10px;">This is the power of complete lifecycle nurturing</div>
+                    <div style="color: #475569; line-height: 1.6;">From a single social media post to a $95,000 lifetime customer relationship—all orchestrated by AI, with human specialists stepping in at the right moments.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: The Potential -->
+    <section class="slide bg-white" id="slide-10">
+        <div class="slide-content">
+            <div class="section-label">THE OPPORTUNITY</div>
+            <h2>What This Means for Us</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="icon">⚡</div>
+                    <h3>Speed to Engagement</h3>
+                    <p>Respond to life event triggers within hours instead of days. Reach customers while they're actively researching, before competitors do.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">📈</div>
+                    <h3>Scale Without Limits</h3>
+                    <p>Handle 500+ simultaneous conversations with consistent quality. Every lead gets the attention they deserve, regardless of time or day.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🎯</div>
+                    <h3>Personalization at Scale</h3>
+                    <p>Each interaction is tailored to the individual's situation, communication style, and stage in their journey. No more generic scripts.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🔄</div>
+                    <h3>Complete Lifecycle Management</h3>
+                    <p>The relationship doesn't end at purchase. Onboarding, retention, upsell—all automated with the same personalized touch.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🧠</div>
+                    <h3>Continuous Learning</h3>
+                    <p>Every conversation makes the AI smarter. It learns which approaches work, which objections come up, and how to handle them better.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">👥</div>
+                    <h3>Empower Your Team</h3>
+                    <p>Human agents focus on complex consultations and high-value relationships. AI handles the repetitive nurturing, qualification, and follow-ups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: What We're Building -->
+    <section class="slide bg-light" id="slide-11">
+        <div class="slide-content">
+            <div class="section-label">THE VISION</div>
+            <h2>What We're Really Building</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                    <div style="font-size: 20px; line-height: 1.8; color: #475569; margin-bottom: 40px;">
+                        This isn't just about automation or efficiency gains. We're building a system that fundamentally changes <strong>how customers experience insurance</strong>.
+                    </div>
+                    <div style="display: grid; gap: 30px;">
+                        <div style="padding-left: 30px; border-left: 4px solid #667eea;">
+                            <div style="font-weight: 700; color: #1e293b; margin-bottom: 10px; font-size: 18px;">From</div>
+                            <div style="color: #64748b; font-size: 16px; line-height: 1.6;">Waiting days for a callback, receiving generic emails, feeling like just another number in a CRM</div>
+                        </div>
+                        <div style="padding-left: 30px; border-left: 4px solid #10b981;">
+                            <div style="font-weight: 700; color: #1e293b; margin-bottom: 10px; font-size: 18px;">To</div>
+                            <div style="color: #64748b; font-size: 16px; line-height: 1.6;">Immediate, personalized engagement that understands their situation, addresses their concerns, and guides them to the right protection—at the exact moment they need it</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 22px; font-weight: 700; margin-bottom: 15px;">A customer relationship that evolves</div>
+                        <div style="font-size: 16px; opacity: 0.95; line-height: 1.7;">From their first life event through every milestone—pregnancy, home purchase, children's education, retirement. We're not just nurturing leads. We're building lifelong relationships.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Next Steps -->
+    <section class="slide bg-gradient" id="slide-12">
+        <div class="slide-content cta-content">
+            <h2>Let's Build This Together</h2>
+            <p>We've built the prototype. You've seen the screens. You've walked through Sarah's journey.<br><br>Now let's discuss how we bring this to life.</p>
+            <div class="cta-buttons">
+                <button class="cta-button btn-primary">Schedule Pilot Program</button>
+                <button class="cta-button btn-secondary">See Live Demo</button>
+            </div>
+            <div style="margin-top: 60px; font-size: 16px; opacity: 0.9;">
+                <div style="margin-bottom: 15px;">Questions? Let's talk about implementation, timelines, and ROI.</div>
+                <div style="margin-top: 30px;">📧 team@leadpulseai.com • 🌐 leadpulseai.com</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function scrollToSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            slides[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.nav-dot');
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    dots[index].classList.add('active');
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const slides = document.querySelectorAll('.slide');
+            const currentSlide = Array.from(slides).findIndex(slide => {
+                const rect = slide.getBoundingClientRect();
+                return rect.top >= 0 && rect.top < window.innerHeight / 2;
+            });
+            if (e.key === 'ArrowDown' && currentSlide < slides.length - 1) {
+                scrollToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowUp' && currentSlide > 0) {
+                scrollToSlide(currentSlide - 1);
+            }
+        });
+
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Thank you! We\'ll follow up to discuss next steps.');
+            });
+        });
+    </script>
+</body>
+</html>
