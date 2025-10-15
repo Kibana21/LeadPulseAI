@@ -281,6 +281,27 @@
             box-shadow: var(--shadow-sm);
         }
 
+        #playDemoBtn {
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 0 0 rgba(228, 5, 33, 0.7);
+        }
+
+        #playDemoBtn:disabled {
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(228, 5, 33, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(228, 5, 33, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(228, 5, 33, 0);
+            }
+        }
+
         .lead-context-sidebar {
             background: white;
             border-left: 1px solid var(--light);
@@ -425,6 +446,16 @@
 
         <!-- Center: Live Call Interface -->
         <div class="live-call-panel">
+            <!-- Demo Instructions Banner -->
+            <div id="demoInstructions" style="background: linear-gradient(135deg, rgba(228, 5, 33, 0.1), rgba(228, 5, 33, 0.05)); border: 2px solid var(--aia-red); border-radius: var(--radius-md); padding: var(--space-md); margin-bottom: var(--space-lg); text-align: center;">
+                <div style="font-size: 14px; font-weight: 600; color: var(--aia-red); margin-bottom: 4px;">
+                    👉 Click the pulsing "▶️ Play Demo Call" button below to start the live transcript!
+                </div>
+                <div style="font-size: 12px; color: var(--medium);">
+                    Watch as the AI conversation unfolds in real-time with sentiment analysis and live coaching
+                </div>
+            </div>
+
             <div class="call-header">
                 <div class="call-status-badge">
                     <span class="live-dot"></span>
@@ -461,7 +492,18 @@
                     </div>
                 </div>
                 <div id="liveTranscript">
-                    <!-- Populated by JavaScript -->
+                    <div style="padding: var(--space-xl); text-align: center; color: var(--medium); border: 2px dashed var(--light); border-radius: var(--radius-md); margin: var(--space-md);">
+                        <div style="font-size: 48px; margin-bottom: var(--space-md);">🎬</div>
+                        <div style="font-size: 16px; font-weight: 600; color: var(--navy-blue); margin-bottom: var(--space-sm);">Ready to Watch AI in Action?</div>
+                        <div style="font-size: 14px; margin-bottom: var(--space-lg);">Click the <strong>"▶️ Play Demo Call"</strong> button below to see the live transcript unfold in real-time</div>
+                        <div style="font-size: 12px; color: var(--medium);">
+                            💡 You'll see:<br>
+                            • Live conversation with typewriter effect<br>
+                            • Real-time sentiment analysis<br>
+                            • AI coaching suggestions<br>
+                            • Speech synthesis (if audio enabled)
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -749,6 +791,12 @@
             const btn = document.getElementById('playDemoBtn');
             btn.disabled = true;
             btn.textContent = '⏳ Playing...';
+
+            // Hide instructions banner
+            const banner = document.getElementById('demoInstructions');
+            if (banner) {
+                banner.style.display = 'none';
+            }
 
             // Clear transcript
             document.getElementById('liveTranscript').innerHTML = '';
