@@ -221,6 +221,295 @@
             line-height: 1.6;
         }
 
+        /* Enhanced Timeline Styles */
+        .timeline-event {
+            position: relative;
+            margin-bottom: var(--space-xl);
+            background: white;
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid #4facfe;
+            transition: all var(--transition-fast);
+        }
+
+        .timeline-event:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 24px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #4facfe;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-event.milestone { border-left-color: #4facfe; }
+        .timeline-event.milestone::before { border-color: #4facfe; }
+
+        .timeline-event.trigger { border-left-color: #FF6B6B; }
+        .timeline-event.trigger::before { border-color: #FF6B6B; }
+
+        .timeline-event.communication { border-left-color: #9333EA; }
+        .timeline-event.communication::before { border-color: #9333EA; }
+
+        .timeline-event.engagement { border-left-color: #00C853; }
+        .timeline-event.engagement::before { border-color: #00C853; }
+
+        .timeline-event.system_action { border-left-color: #9E9E9E; }
+        .timeline-event.system_action::before { border-color: #9E9E9E; }
+
+        .timeline-event.intelligence { border-left-color: #00C853; }
+        .timeline-event.intelligence::before { border-color: #00C853; }
+
+        .timeline-event.risk { border-left-color: #FFA500; }
+        .timeline-event.risk::before { border-color: #FFA500; }
+
+        .timeline-event-icon {
+            font-size: 24px;
+            margin-right: var(--space-sm);
+        }
+
+        .timeline-event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .timeline-event-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy-blue);
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-event-time {
+            font-size: 12px;
+            color: var(--medium);
+        }
+
+        .timeline-event-description {
+            font-size: 14px;
+            color: var(--navy-blue);
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+
+        .timeline-event-details {
+            background: var(--background);
+            border-radius: var(--radius-sm);
+            padding: var(--space-md);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .timeline-event-detail-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            margin-bottom: 4px;
+        }
+
+        .timeline-event-detail-label {
+            font-weight: 600;
+            color: var(--medium);
+        }
+
+        .timeline-event-detail-value {
+            color: var(--navy-blue);
+        }
+
+        .timeline-event-impact {
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.1), rgba(0, 200, 83, 0.05));
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-sm);
+            margin-top: var(--space-md);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .timeline-event-status-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--danger);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-day-separator {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy-blue);
+            margin: var(--space-xl) 0 var(--space-md) 0;
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .timeline-day-badge {
+            background: var(--aia-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Sentiment Chart Styles */
+        .sentiment-chart-container {
+            padding: var(--space-lg);
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sentiment-chart {
+            position: relative;
+            height: 300px;
+            margin-top: var(--space-lg);
+        }
+
+        .chart-y-axis {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 40px;
+            width: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--medium);
+        }
+
+        .chart-area {
+            position: absolute;
+            left: 50px;
+            right: 0;
+            top: 0;
+            bottom: 40px;
+            border-left: 2px solid var(--light);
+            border-bottom: 2px solid var(--light);
+        }
+
+        .chart-grid-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--light);
+        }
+
+        .chart-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .chart-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--ai-purple);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            z-index: 10;
+        }
+
+        .chart-point:hover {
+            transform: scale(1.5);
+            border-width: 4px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-point.positive {
+            border-color: var(--success);
+        }
+
+        .chart-point.neutral {
+            border-color: var(--warning);
+        }
+
+        .chart-point.negative {
+            border-color: var(--danger);
+        }
+
+        .chart-point-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: var(--medium);
+            white-space: nowrap;
+        }
+
+        .chart-point-tooltip {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--navy-blue);
+            color: white;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-fast);
+            z-index: 100;
+        }
+
+        .chart-point:hover .chart-point-tooltip {
+            opacity: 1;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--light);
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
         .conversation-transcript {
             background: var(--background);
             border-radius: var(--radius-sm);
@@ -388,7 +677,8 @@
                             <div style="font-size: 13px;">
                                 <div>First Child Expected</div>
                                 <div>Detected: Oct 1, 2025 (14 days ago)</div>
-                                <div>Source: Digital footprint + Website behavior</div>
+                                <div>Source: Hospital Partnership Program - Thomson Medical inquiry form</div>
+                                <div>Consent: ✅ Explicit consent via inquiry form checkbox</div>
                                 <div><strong>Intent Window: 🔴 ACTIVE</strong></div>
                                 <div>Day 14 of 72-day window</div>
                             </div>
@@ -537,9 +827,11 @@
 
         <!-- Tab Content: Timeline -->
         <div class="tab-content" id="timeline">
-            <div class="chart-container">
+            <div class="sentiment-chart-container">
                 <div class="chart-title">📈 Sentiment Journey (Last 8 Touchpoints)</div>
-                <canvas id="sentimentChart" style="max-height: 300px;"></canvas>
+                <div class="sentiment-chart" id="sentimentChart">
+                    <!-- Populated by JavaScript -->
+                </div>
             </div>
 
             <div class="timeline" id="fullTimeline">
@@ -777,16 +1069,216 @@
             });
         }
 
-        // Load timeline
+        // Load comprehensive timeline
         function loadTimeline() {
-            // Similar to conversation history but with all events
-            loadConversationHistory();
+            const container = document.getElementById('fullTimeline');
+            if (container.children.length > 0) return; // Already loaded
+
+            // Group events by date
+            const eventsByDate = {};
+            sarahChen.timelineEvents.forEach(event => {
+                const date = new Date(event.timestamp);
+                const dateKey = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric', year: 'numeric' });
+                if (!eventsByDate[dateKey]) {
+                    eventsByDate[dateKey] = [];
+                }
+                eventsByDate[dateKey].push(event);
+            });
+
+            // Render events grouped by day
+            Object.keys(eventsByDate).forEach(dateKey => {
+                const events = eventsByDate[dateKey];
+
+                // Day separator
+                const separator = document.createElement('div');
+                separator.className = 'timeline-day-separator';
+                separator.innerHTML = `
+                    <span>📅 ${dateKey}</span>
+                    <span class="timeline-day-badge">${events.length} events</span>
+                `;
+                container.appendChild(separator);
+
+                // Render each event
+                events.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.className = `timeline-event ${event.category}`;
+
+                    const time = new Date(event.timestamp).toLocaleTimeString('en-SG', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    let detailsHTML = '';
+                    if (event.details) {
+                        detailsHTML = '<div class="timeline-event-details">';
+
+                        // Handle different detail structures
+                        if (typeof event.details === 'object') {
+                            Object.keys(event.details).forEach(key => {
+                                const label = key.replace(/([A-Z])/g, ' $1')
+                                    .replace(/^./, str => str.toUpperCase());
+                                detailsHTML += `
+                                    <div class="timeline-event-detail-row">
+                                        <div class="timeline-event-detail-label">${label}:</div>
+                                        <div class="timeline-event-detail-value">${event.details[key]}</div>
+                                    </div>
+                                `;
+                            });
+                        }
+
+                        // Add coverage gaps if present
+                        if (event.gaps && event.gaps.length > 0) {
+                            detailsHTML += '<div style="margin-top: 12px;"><strong>Coverage Gaps:</strong><br>';
+                            event.gaps.forEach(gap => {
+                                detailsHTML += `<div style="margin-left: 12px; margin-top: 4px;">${gap}</div>`;
+                            });
+                            detailsHTML += '</div>';
+                        }
+
+                        detailsHTML += '</div>';
+                    }
+
+                    let impactHTML = '';
+                    if (event.impact) {
+                        impactHTML = `<div class="timeline-event-impact">📊 Impact: ${event.impact}</div>`;
+                    }
+
+                    let statusBadge = '';
+                    if (event.status === 'LIVE') {
+                        statusBadge = '<span class="timeline-event-status-live">🔴 LIVE</span>';
+                    }
+
+                    eventDiv.innerHTML = `
+                        <div class="timeline-event-header">
+                            <div class="timeline-event-title">
+                                <span class="timeline-event-icon">${event.icon}</span>
+                                <span>${event.title}</span>
+                                ${statusBadge}
+                            </div>
+                            <div class="timeline-event-time">${time}</div>
+                        </div>
+                        <div class="timeline-event-description">${event.description}</div>
+                        ${detailsHTML}
+                        ${impactHTML}
+                    `;
+
+                    container.appendChild(eventDiv);
+                });
+            });
         }
 
         // Draw sentiment chart
         function drawSentimentChart() {
-            // Simple text-based chart since we're not using Chart.js
-            // In production, would use Chart.js or similar
+            const chartContainer = document.getElementById('sentimentChart');
+            if (chartContainer.children.length > 0) return; // Already drawn
+
+            // Get last 8 touchpoints with sentiment data
+            const touchpoints = sarahChen.touchpoints
+                .filter(tp => tp.sentiment !== undefined)
+                .reverse()
+                .slice(0, 8)
+                .reverse();
+
+            if (touchpoints.length === 0) return;
+
+            // Create chart structure
+            chartContainer.innerHTML = `
+                <div class="chart-y-axis">
+                    <div>10</div>
+                    <div>8</div>
+                    <div>6</div>
+                    <div>4</div>
+                    <div>2</div>
+                    <div>0</div>
+                </div>
+                <div class="chart-area" id="chartArea">
+                    <div class="chart-grid-line" style="top: 0%;"></div>
+                    <div class="chart-grid-line" style="top: 20%;"></div>
+                    <div class="chart-grid-line" style="top: 40%;"></div>
+                    <div class="chart-grid-line" style="top: 60%;"></div>
+                    <div class="chart-grid-line" style="top: 80%;"></div>
+                    <svg class="chart-line" style="position: absolute; width: 100%; height: 100%; pointer-events: none;">
+                        <polyline id="sentimentLine" fill="none" stroke="#9333EA" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--success); border: 2px solid var(--success);"></div>
+                        <span>Positive (7-10)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--warning); border: 2px solid var(--warning);"></div>
+                        <span>Neutral (5-7)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--danger); border: 2px solid var(--danger);"></div>
+                        <span>Negative (0-5)</span>
+                    </div>
+                    <div class="legend-item" style="margin-left: auto;">
+                        <strong>Trend:</strong>
+                        <span style="color: var(--success);">📈 Improving (${touchpoints[0].sentiment.toFixed(1)} → ${touchpoints[touchpoints.length - 1].sentiment.toFixed(1)})</span>
+                    </div>
+                </div>
+            `;
+
+            const chartArea = document.getElementById('chartArea');
+            const chartWidth = chartArea.offsetWidth;
+            const chartHeight = chartArea.offsetHeight;
+
+            // Calculate positions
+            const points = touchpoints.map((tp, index) => {
+                const x = (index / (touchpoints.length - 1)) * chartWidth;
+                const y = chartHeight - ((tp.sentiment / 10) * chartHeight);
+                return { x, y, tp };
+            });
+
+            // Draw connecting line
+            const polyline = document.getElementById('sentimentLine');
+            const pointsString = points.map(p => `${p.x},${p.y}`).join(' ');
+            polyline.setAttribute('points', pointsString);
+
+            // Add data points
+            points.forEach((point, index) => {
+                const tp = point.tp;
+                const date = new Date(tp.timestamp);
+                const label = date.toLocaleDateString('en-SG', { month: 'short', day: 'numeric' });
+
+                // Determine sentiment class
+                let sentimentClass = 'neutral';
+                if (tp.sentiment >= 7) sentimentClass = 'positive';
+                else if (tp.sentiment < 5) sentimentClass = 'negative';
+
+                const pointDiv = document.createElement('div');
+                pointDiv.className = `chart-point ${sentimentClass}`;
+                pointDiv.style.left = `${point.x}px`;
+                pointDiv.style.top = `${point.y}px`;
+                pointDiv.style.transform = 'translate(-50%, -50%)';
+
+                // Get touchpoint type icon
+                let typeIcon = '📞';
+                let typeName = 'Call';
+                if (tp.type === 'voice_call') {
+                    typeIcon = '📞';
+                    typeName = 'Call';
+                } else if (tp.type === 'sms') {
+                    typeIcon = '💬';
+                    typeName = 'SMS';
+                } else if (tp.type === 'email') {
+                    typeIcon = '📧';
+                    typeName = 'Email';
+                }
+
+                pointDiv.innerHTML = `
+                    <div class="chart-point-label">${label}</div>
+                    <div class="chart-point-tooltip">
+                        ${typeIcon} ${typeName} #${tp.number}<br>
+                        Sentiment: ${tp.sentiment.toFixed(1)}/10 (${tp.sentimentLabel})<br>
+                        ${date.toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                `;
+
+                chartArea.appendChild(pointDiv);
+            });
         }
 
         // Action functions

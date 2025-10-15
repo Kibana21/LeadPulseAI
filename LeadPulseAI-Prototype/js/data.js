@@ -180,6 +180,418 @@ const sarahChen = {
         ]
     },
 
+    // Comprehensive Timeline Events (All events in chronological order)
+    timelineEvents: [
+        // DAY 1 - OCT 1, 2025
+        {
+            id: "TL-001",
+            timestamp: "2025-10-01T08:15:00+08:00",
+            type: "lead_created",
+            category: "milestone",
+            icon: "🆕",
+            title: "Lead Created",
+            description: "New lead added to system from hospital partnership referral",
+            details: {
+                source: "Thomson Medical - First-Time Parents Package inquiry",
+                initialScore: 32,
+                stage: "New",
+                assignedTo: "AI Agent Emma"
+            },
+            color: "#4facfe"
+        },
+        {
+            id: "TL-002",
+            timestamp: "2025-10-01T08:16:00+08:00",
+            type: "trigger_detected",
+            category: "trigger",
+            icon: "🎯",
+            title: "Pregnancy Trigger Detected",
+            description: "Critical life event trigger activated - First child expected",
+            details: {
+                triggerType: "Pregnancy",
+                source: "Hospital Partnership Program - Thomson Medical inquiry form",
+                intentWindow: "72 days (Active)",
+                priority: "CRITICAL",
+                consent: "✅ Explicit consent via inquiry form checkbox"
+            },
+            color: "#FF6B6B",
+            impact: "Lead Score: 32% → 45% (+13%)"
+        },
+        {
+            id: "TL-003",
+            timestamp: "2025-10-01T08:20:00+08:00",
+            type: "coverage_analysis",
+            category: "system_action",
+            icon: "🔍",
+            title: "Coverage Gap Analysis Completed",
+            description: "AI analyzed current coverage and identified critical gaps",
+            details: {
+                currentPolicies: 1,
+                gapsFound: 4,
+                criticalGaps: 2,
+                recommendations: "4 products matched to life stage"
+            },
+            color: "#FFA500",
+            gaps: [
+                "🔴 CRITICAL: No maternity coverage ($15-25K risk)",
+                "🔴 CRITICAL: No life insurance (Family unprotected)",
+                "🟡 MODERATE: No critical illness coverage",
+                "🟡 MODERATE: No newborn coverage"
+            ]
+        },
+        {
+            id: "TL-004",
+            timestamp: "2025-10-01T08:25:00+08:00",
+            type: "campaign_enrollment",
+            category: "system_action",
+            icon: "🤖",
+            title: "Auto-Enrolled in Campaign",
+            description: "Lead automatically added to Pregnancy Nurture Campaign",
+            details: {
+                campaign: "Pregnancy Nurture Campaign",
+                duration: "72 days",
+                touchpoints: 12,
+                expectedConversion: "68%"
+            },
+            color: "#9333EA"
+        },
+        {
+            id: "TL-005",
+            timestamp: "2025-10-01T09:00:00+08:00",
+            type: "email_sent",
+            category: "communication",
+            icon: "📧",
+            title: "Welcome Email Sent",
+            description: "Day 1 Campaign Email: Coverage Analysis Report",
+            details: {
+                subject: "Welcome to AIA - Your Coverage Analysis",
+                template: "Pregnancy_Welcome_v3",
+                status: "Sent",
+                deliveryTime: "2 seconds"
+            },
+            color: "#4facfe"
+        },
+        {
+            id: "TL-006",
+            timestamp: "2025-10-01T09:00:02+08:00",
+            type: "email_delivered",
+            category: "system_action",
+            icon: "✅",
+            title: "Email Delivered",
+            description: "Welcome email successfully delivered to inbox",
+            details: {
+                status: "Delivered",
+                bounced: false,
+                spamScore: "0.2 (Clean)"
+            },
+            color: "#00C853"
+        },
+
+        // DAY 2 - OCT 2, 2025
+        {
+            id: "TL-007",
+            timestamp: "2025-10-02T10:32:00+08:00",
+            type: "email_opened",
+            category: "engagement",
+            icon: "📧",
+            title: "Email Opened",
+            description: "Sarah opened Welcome Email - Coverage Analysis Report",
+            details: {
+                timeSpent: "2 minutes 15 seconds",
+                device: "iPhone 14",
+                location: "Singapore",
+                readComplete: "Yes (scrolled to bottom)"
+            },
+            color: "#4facfe",
+            impact: "Engagement Score +8%"
+        },
+        {
+            id: "TL-008",
+            timestamp: "2025-10-02T10:35:00+08:00",
+            type: "link_clicked",
+            category: "engagement",
+            icon: "🖱️",
+            title: "Link Clicked",
+            description: "Clicked 'Learn More About Maternity Coverage' button",
+            details: {
+                link: "Maternity Protection Plan details",
+                destination: "Product page",
+                timeOnPage: "45 seconds"
+            },
+            color: "#4facfe",
+            impact: "Intent Signal: High"
+        },
+        {
+            id: "TL-009",
+            timestamp: "2025-10-02T15:00:00+08:00",
+            type: "call_scheduled",
+            category: "system_action",
+            icon: "📞",
+            title: "AI Call #1 Scheduled",
+            description: "AI scheduled first outbound call for 7:15 PM (optimal engagement time)",
+            details: {
+                scheduledFor: "Oct 2, 2025 7:15 PM",
+                agent: "Emma (AI)",
+                reason: "Email engagement detected - follow up within 12 hours",
+                expectedDuration: "8-10 minutes"
+            },
+            color: "#9333EA"
+        },
+        {
+            id: "TL-010",
+            timestamp: "2025-10-02T19:15:00+08:00",
+            type: "voice_call",
+            category: "communication",
+            icon: "📞",
+            title: "AI Call #1 Completed",
+            description: "First AI outbound call - Introduction and needs assessment",
+            details: {
+                duration: "8 minutes 42 seconds",
+                sentiment: "7.5/10 (Positive)",
+                outcome: "Successful introduction",
+                nextAction: "Send educational content"
+            },
+            color: "#9333EA",
+            impact: "Conversion Probability: 45% → 52% (+7%)",
+            transcript: "13 exchanges"
+        },
+
+        // DAY 3 - OCT 3, 2025
+        {
+            id: "TL-011",
+            timestamp: "2025-10-03T22:42:00+08:00",
+            type: "email_opened",
+            category: "engagement",
+            icon: "📧",
+            title: "Email Engagement - Late Night",
+            description: "Opened 'Pregnancy Insurance Checklist' email at 10:42 PM",
+            details: {
+                timeSpent: "4 minutes 32 seconds",
+                linksClicked: 2,
+                links: ["Pricing calculator", "Coverage comparison table"],
+                device: "iPad"
+            },
+            color: "#4facfe",
+            impact: "High engagement - researching actively"
+        },
+        {
+            id: "TL-012",
+            timestamp: "2025-10-03T23:00:00+08:00",
+            type: "score_change",
+            category: "intelligence",
+            icon: "📈",
+            title: "Lead Score Increased",
+            description: "Conversion probability increased based on engagement pattern",
+            details: {
+                previousScore: "52%",
+                newScore: "55%",
+                change: "+3%",
+                reason: "Active email engagement + link clicks",
+                confidence: "High"
+            },
+            color: "#00C853"
+        },
+
+        // DAY 5 - OCT 5, 2025
+        {
+            id: "TL-013",
+            timestamp: "2025-10-05T20:15:00+08:00",
+            type: "sms_sent",
+            category: "communication",
+            icon: "💬",
+            title: "SMS Campaign Sent",
+            description: "Day 5 touchpoint - Quick check-in message",
+            details: {
+                message: "Hi Sarah! Just checking if you had any questions...",
+                length: "156 characters",
+                deliveryStatus: "Delivered"
+            },
+            color: "#FFB347"
+        },
+        {
+            id: "TL-014",
+            timestamp: "2025-10-05T20:42:00+08:00",
+            type: "sms_reply",
+            category: "engagement",
+            icon: "💬",
+            title: "SMS Reply Received",
+            description: "Sarah replied to SMS - Voluntary engagement signal",
+            details: {
+                message: "Yes, I'd like to know more about the life insurance option",
+                responseTime: "27 minutes",
+                sentiment: "Positive",
+                voluntaryEngagement: true
+            },
+            color: "#FFB347",
+            impact: "Conversion Probability: 55% → 62% (+7%)"
+        },
+
+        // DAY 7 - OCT 7, 2025
+        {
+            id: "TL-015",
+            timestamp: "2025-10-07T09:00:00+08:00",
+            type: "email_sent",
+            category: "communication",
+            icon: "📧",
+            title: "Educational Email Sent",
+            description: "Day 7 touchpoint - Maternity Coverage Benefits Guide",
+            details: {
+                subject: "Everything You Need to Know About Maternity Insurance",
+                template: "Education_Maternity_v2",
+                attachments: ["Benefit comparison chart", "FAQ document"]
+            },
+            color: "#4facfe"
+        },
+        {
+            id: "TL-016",
+            timestamp: "2025-10-07T11:23:00+08:00",
+            type: "email_opened",
+            category: "engagement",
+            icon: "📧",
+            title: "Email Opened - Multiple Times",
+            description: "Opened educational email 3 times over 2 hours",
+            details: {
+                opens: 3,
+                totalTimeSpent: "8 minutes 15 seconds",
+                linksClicked: 4,
+                downloadedPDF: "Yes (Benefit comparison chart)"
+            },
+            color: "#4facfe",
+            impact: "Researching actively - Intent Score: High"
+        },
+
+        // DAY 9 - OCT 9, 2025
+        {
+            id: "TL-017",
+            timestamp: "2025-10-09T19:30:00+08:00",
+            type: "voice_call",
+            category: "communication",
+            icon: "📞",
+            title: "AI Call #2 Completed",
+            description: "Second AI call - Addressing questions and objections",
+            details: {
+                duration: "11 minutes 18 seconds",
+                sentiment: "7.8/10 (Very Positive)",
+                outcome: "Addressed affordability concerns",
+                objections: ["Too expensive", "Need husband's input"]
+            },
+            color: "#9333EA",
+            impact: "Conversion Probability: 62% → 68% (+6%)",
+            transcript: "17 exchanges"
+        },
+
+        // DAY 12 - OCT 12, 2025
+        {
+            id: "TL-018",
+            timestamp: "2025-10-12T16:45:00+08:00",
+            type: "score_change",
+            category: "intelligence",
+            icon: "📈",
+            title: "Stage Changed: Qualified",
+            description: "Lead progressed from Contacted → Qualified",
+            details: {
+                previousStage: "Contacted",
+                newStage: "Qualified",
+                trigger: "Multiple positive touchpoints + high engagement",
+                qualificationCriteria: "Score >85, Engagement >90%, Intent: High"
+            },
+            color: "#00C853",
+            impact: "Lead Score: 85/100"
+        },
+
+        // DAY 14 - OCT 14, 2025
+        {
+            id: "TL-019",
+            timestamp: "2025-10-14T14:30:00+08:00",
+            type: "competitor_activity",
+            category: "risk",
+            icon: "⚠️",
+            title: "Competitive Intelligence Alert",
+            description: "Sarah uploaded Prudential quote document",
+            details: {
+                competitor: "Prudential",
+                quoteAmount: "$320/month",
+                ourQuote: "$440/month",
+                priceDifference: "+$120/month",
+                status: "AT RISK - Comparing competitors"
+            },
+            color: "#FF6B6B",
+            impact: "Risk Level: Medium",
+            aiAction: "Auto-triggered competitor comparison email"
+        },
+        {
+            id: "TL-020",
+            timestamp: "2025-10-14T14:45:00+08:00",
+            type: "email_sent",
+            category: "system_action",
+            icon: "📧",
+            title: "Competitor Comparison Email Sent",
+            description: "AI auto-sent side-by-side comparison with Prudential",
+            details: {
+                subject: "AIA vs Prudential - Coverage Comparison",
+                trigger: "Competitive activity detected",
+                responseTime: "15 minutes (automated)",
+                template: "Competitor_Comparison_Prudential"
+            },
+            color: "#9333EA"
+        },
+
+        // DAY 15 - OCT 15, 2025
+        {
+            id: "TL-021",
+            timestamp: "2025-10-15T10:15:00+08:00",
+            type: "email_opened",
+            category: "engagement",
+            icon: "📧",
+            title: "Competitor Email Opened",
+            description: "Opened comparison email - spent 6 minutes reviewing",
+            details: {
+                timeSpent: "6 minutes 42 seconds",
+                linksClicked: 5,
+                sections: ["Pricing breakdown", "Coverage gaps", "Customer reviews"],
+                downloadedPDF: "Yes (Full comparison chart)"
+            },
+            color: "#4facfe",
+            impact: "Re-engaged after competitive threat"
+        },
+        {
+            id: "TL-022",
+            timestamp: "2025-10-15T19:32:00+08:00",
+            type: "voice_call",
+            category: "communication",
+            icon: "📞",
+            title: "AI Call #3 (ONGOING)",
+            description: "Currently discussing maternity coverage and competitor comparison",
+            details: {
+                duration: "In progress",
+                sentiment: "8.2/10 (Very Positive)",
+                currentTopic: "Addressing Prudential comparison",
+                stage: "Building value case"
+            },
+            color: "#9333EA",
+            impact: "Conversion Probability: 68% → 75% (+7%)",
+            status: "LIVE"
+        },
+        {
+            id: "TL-023",
+            timestamp: "2025-10-15T19:45:00+08:00",
+            type: "handoff_prepared",
+            category: "milestone",
+            icon: "👤",
+            title: "Specialist Handoff Prepared",
+            description: "AI prepared handoff to human specialist Rachel Tan",
+            details: {
+                specialist: "Rachel Tan (Senior Maternity Specialist)",
+                reason: "High-value lead ready for consultation",
+                leadScore: "87/100",
+                conversionProb: "75%",
+                estimatedLTV: "$63,000",
+                briefStatus: "Agent notified, awaiting appointment confirmation"
+            },
+            color: "#00C853"
+        }
+    ],
+
     // Complete Touchpoint History
     touchpoints: [
         {
