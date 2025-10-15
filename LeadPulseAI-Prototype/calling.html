@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Calling Center - LeadPulseAI</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .calling-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            grid-template-rows: 70px 1fr;
+            height: 100vh;
+            background: var(--background);
+        }
+
+        .top-nav {
+            grid-column: 1 / -1;
+            background: white;
+            border-bottom: 1px solid var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calls-sidebar {
+            background: white;
+            border-right: 1px solid var(--light);
+            overflow-y: auto;
+            padding: var(--space-lg);
+        }
+
+        .call-card {
+            padding: var(--space-md);
+            border: 2px solid var(--light);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .call-card:hover {
+            border-color: var(--sky-blue);
+            background: var(--background);
+        }
+
+        .call-card.active {
+            border-color: var(--aia-red);
+            background: rgba(228, 5, 33, 0.05);
+        }
+
+        .call-lead-name {
+            font-weight: 600;
+            color: var(--navy-blue);
+            margin-bottom: 4px;
+        }
+
+        .call-duration {
+            font-size: 12px;
+            color: var(--medium);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .live-call-panel {
+            padding: var(--space-lg);
+            overflow-y: auto;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .call-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .call-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--aia-red);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: var(--space-md);
+        }
+
+        .ai-avatar-container {
+            display: flex;
+            justify-content: center;
+            margin: var(--space-xl) 0;
+        }
+
+        .ai-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+
+        .ai-avatar.speaking {
+            animation: pulseRing 2s ease-in-out infinite;
+        }
+
+        .waveform-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 80px;
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: rgba(147, 51, 234, 0.05);
+            border-radius: var(--radius-md);
+        }
+
+        .waveform-bar {
+            width: 4px;
+            background: var(--ai-purple);
+            border-radius: 2px;
+            transition: height 0.1s ease;
+        }
+
+        .waveform-bar.active {
+            background: var(--neon-green);
+            animation: waveAnimate 0.8s ease-in-out infinite;
+        }
+
+        @keyframes waveAnimate {
+            0%, 100% { height: 10px; }
+            50% { height: 60px; }
+        }
+
+        .transcript-panel {
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transcript-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--light);
+        }
+
+        .transcript-line {
+            margin-bottom: var(--space-md);
+            padding: var(--space-md);
+            border-radius: var(--radius-sm);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .transcript-line.ai {
+            background: rgba(147, 51, 234, 0.05);
+            border-left: 3px solid var(--ai-purple);
+        }
+
+        .transcript-line.lead {
+            background: rgba(0, 102, 204, 0.05);
+            border-left: 3px solid var(--sky-blue);
+        }
+
+        .transcript-timestamp {
+            font-size: 11px;
+            color: var(--medium);
+            margin-bottom: 4px;
+        }
+
+        .transcript-speaker {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .transcript-speaker.ai {
+            color: var(--ai-purple);
+        }
+
+        .transcript-speaker.lead {
+            color: var(--sky-blue);
+        }
+
+        .transcript-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .intelligence-panel {
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .intel-grid {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .intel-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+        }
+
+        .intel-label {
+            font-size: 13px;
+            color: var(--medium);
+        }
+
+        .intel-value {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .sentiment-gauge {
+            margin: var(--space-md) 0;
+        }
+
+        .gauge-container {
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .gauge-bar {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(90deg, #F44336 0%, #FF9800 50%, #00C853 100%);
+            border-radius: var(--radius-full);
+            position: relative;
+        }
+
+        .gauge-needle {
+            position: absolute;
+            width: 4px;
+            height: 40px;
+            background: var(--navy-blue);
+            border-radius: 2px;
+            bottom: 20px;
+            transform-origin: bottom center;
+            transition: left var(--transition-slow);
+        }
+
+        .call-controls {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            padding: var(--space-lg);
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .lead-context-sidebar {
+            background: white;
+            border-left: 1px solid var(--light);
+            overflow-y: auto;
+            padding: var(--space-lg);
+        }
+
+        .context-section {
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--light);
+        }
+
+        .context-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--medium);
+            margin-bottom: var(--space-md);
+            letter-spacing: 0.5px;
+        }
+
+        .context-value {
+            font-size: 14px;
+            color: var(--navy-blue);
+            margin-bottom: var(--space-sm);
+        }
+
+        .progress-bar-wrapper {
+            margin: var(--space-sm) 0;
+        }
+
+        .conversion-prob {
+            text-align: center;
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.1) 0%, rgba(0, 200, 83, 0.05) 100%);
+            border-radius: var(--radius-md);
+            margin: var(--space-md) 0;
+        }
+
+        .conversion-prob-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--success);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 1280px) {
+            .calling-layout {
+                grid-template-columns: 250px 1fr 300px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .calling-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .calls-sidebar,
+            .lead-context-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calling-layout">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="flex items-center gap-md">
+                <a href="dashboard.html" class="btn btn-ghost">← Back to Dashboard</a>
+                <div style="height: 30px; width: 1px; background: var(--light);"></div>
+                <div class="logo">
+                    <span class="logo-icon">📞</span>
+                    <span style="font-weight: 600;">AI Calling Center</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-md">
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span id="activeCallsCount">4 Active Calls</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Left: Active Calls List -->
+        <div class="calls-sidebar">
+            <h3 style="margin-bottom: var(--space-lg); color: var(--navy-blue);">Active Calls (4)</h3>
+
+            <div class="call-card active" onclick="loadCall('sarah')">
+                <div class="call-lead-name">🔴 Sarah Chen</div>
+                <div class="call-duration">
+                    <span class="status-dot status-dot-green status-dot-pulse"></span>
+                    <span id="sarahDuration">00:03:42</span>
+                </div>
+                <div class="badge badge-success" style="margin-top: 8px; font-size: 11px;">
+                    😊 Positive (8.2/10)
+                </div>
+            </div>
+
+            <div class="call-card" onclick="loadCall('michael')">
+                <div class="call-lead-name">🔴 Michael Tan</div>
+                <div class="call-duration">
+                    <span class="status-dot status-dot-green status-dot-pulse"></span>
+                    <span>00:01:15</span>
+                </div>
+                <div class="badge badge-info" style="margin-top: 8px; font-size: 11px;">
+                    😐 Neutral (5.8/10)
+                </div>
+            </div>
+
+            <div class="call-card" onclick="loadCall('lisa')">
+                <div class="call-lead-name">🔴 Lisa Wong</div>
+                <div class="call-duration">
+                    <span class="status-dot status-dot-green status-dot-pulse"></span>
+                    <span>00:05:22</span>
+                </div>
+                <div class="badge badge-success" style="margin-top: 8px; font-size: 11px;">
+                    😊 Positive (7.9/10)
+                </div>
+            </div>
+
+            <div style="margin-top: var(--space-xl);">
+                <h3 style="margin-bottom: var(--space-lg); color: var(--navy-blue);">Queued Calls (23)</h3>
+                <div style="font-size: 13px; color: var(--medium); line-height: 1.8;">
+                    <div>⏳ David Lim - Birthday Campaign</div>
+                    <div style="margin-left: 20px; font-size: 11px;">Scheduled: 8:00 PM (2h 15m)</div>
+                    <div style="margin-top: var(--space-sm);">⏳ Amanda Lee - Follow-up #4</div>
+                    <div style="margin-left: 20px; font-size: 11px;">Scheduled: 8:30 PM (2h 45m)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center: Live Call Interface -->
+        <div class="live-call-panel">
+            <div class="call-header">
+                <div class="call-status-badge">
+                    <span class="live-dot"></span>
+                    <span>LIVE CALL IN PROGRESS</span>
+                </div>
+                <h2 style="font-size: 24px; color: var(--navy-blue); margin: 0;">Sarah Chen - Maternity Coverage Discussion</h2>
+                <div style="font-size: 14px; color: var(--medium); margin-top: 8px;">
+                    Call Duration: <span id="callDuration" style="font-weight: 600; font-family: var(--font-mono);">00:03:42</span>
+                </div>
+            </div>
+
+            <!-- AI Avatar -->
+            <div class="ai-avatar-container">
+                <div class="ai-avatar speaking" id="aiAvatar">
+                    🤖
+                </div>
+            </div>
+
+            <!-- Waveform -->
+            <div class="waveform-container" id="waveform">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <!-- Live Transcript -->
+            <div class="transcript-panel">
+                <div class="transcript-header">
+                    <h4 style="margin: 0; color: var(--navy-blue);">📄 Live Transcript</h4>
+                    <div class="flex items-center gap-sm">
+                        <label class="flex items-center gap-sm cursor-pointer">
+                            <input type="checkbox" id="audioEnabled" checked>
+                            <span style="font-size: 12px;">🔊 Audio</span>
+                        </label>
+                        <button class="btn btn-sm btn-ghost" onclick="clearTranscript()">Clear</button>
+                    </div>
+                </div>
+                <div id="liveTranscript">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Real-time Intelligence -->
+            <div class="intelligence-panel">
+                <h4 style="margin-bottom: var(--space-md); color: var(--navy-blue);">🧠 Real-Time Intelligence</h4>
+                <div class="intel-grid">
+                    <div class="intel-item">
+                        <span class="intel-label">Sentiment</span>
+                        <span class="intel-value text-success" id="sentimentValue">😊 POSITIVE (8.2/10)</span>
+                    </div>
+                    <div class="intel-item">
+                        <span class="intel-label">Intent Level</span>
+                        <span class="intel-value" id="intentValue">High - Actively Seeking Info</span>
+                    </div>
+                    <div class="intel-item">
+                        <span class="intel-label">Engagement</span>
+                        <span class="intel-value text-success" id="engagementValue">Strong - Asking Questions</span>
+                    </div>
+                    <div class="intel-item">
+                        <span class="intel-label">Keywords Detected</span>
+                        <span class="intel-value" id="keywordsValue">"helpful", "expecting", "coverage"</span>
+                    </div>
+                    <div class="intel-item">
+                        <span class="intel-label">Objections</span>
+                        <span class="intel-value text-medium" id="objectionsValue">None detected</span>
+                    </div>
+                    <div class="intel-item">
+                        <span class="intel-label">Conversion Probability</span>
+                        <span class="intel-value text-success" id="convProbValue">75% (+5% from start)</span>
+                    </div>
+                </div>
+
+                <!-- Sentiment Gauge -->
+                <div class="sentiment-gauge">
+                    <div style="text-align: center; margin-bottom: var(--space-sm); font-size: 12px; color: var(--medium);">
+                        Sentiment Meter
+                    </div>
+                    <div class="gauge-container">
+                        <div class="gauge-bar">
+                            <div class="gauge-needle" id="gaugeNeedle" style="left: 82%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call Controls -->
+            <div class="call-controls">
+                <button class="btn btn-secondary" onclick="toggleMute()">
+                    <span id="muteIcon">🔇</span> Mute AI
+                </button>
+                <button class="btn btn-secondary" onclick="togglePause()" id="pauseBtn">
+                    ⏸️ Pause
+                </button>
+                <button class="btn btn-success" onclick="joinCall()">
+                    🎤 Join Call
+                </button>
+                <button class="btn btn-primary" id="playDemoBtn" onclick="startLiveDemo()">
+                    ▶️ Play Demo Call
+                </button>
+                <button class="btn btn-danger" onclick="endCall()">
+                    📞 End Call
+                </button>
+            </div>
+        </div>
+
+        <!-- Right: Lead Context -->
+        <div class="lead-context-sidebar">
+            <h3 style="margin-bottom: var(--space-lg); color: var(--navy-blue);">Lead Profile</h3>
+
+            <div class="text-center" style="margin-bottom: var(--space-lg);">
+                <div class="avatar" style="width: 80px; height: 80px; font-size: 32px; margin: 0 auto var(--space-md);">SC</div>
+                <div style="font-weight: 600; font-size: 16px; color: var(--navy-blue);">Sarah Chen</div>
+                <div style="font-size: 13px; color: var(--medium);">Age: 32, Married</div>
+                <div style="font-size: 13px; color: var(--medium);">Singapore, District 10</div>
+            </div>
+
+            <div class="conversion-prob">
+                <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">CONVERSION PROBABILITY</div>
+                <div class="conversion-prob-value">75%</div>
+                <div style="font-size: 11px; color: var(--success); margin-top: 4px;">↗️ +5% from call start</div>
+            </div>
+
+            <div class="context-section">
+                <div class="context-title">📊 Lead Metrics</div>
+                <div class="context-value">Lead Score: <strong>87/100</strong> 🔥</div>
+                <div class="context-value">Estimated LTV: <strong>$63,000</strong></div>
+                <div class="context-value">Call #: <strong>3 of 12</strong> (Touchpoint 3)</div>
+                <div class="context-value">Stage: <strong>Qualified</strong></div>
+            </div>
+
+            <div class="context-section">
+                <div class="context-title">🎯 Trigger Event</div>
+                <div class="badge badge-danger" style="margin-bottom: var(--space-sm);">🍼 Pregnancy Detected</div>
+                <div class="context-value" style="font-size: 12px;">Detected: 6 hours ago</div>
+                <div class="context-value" style="font-size: 12px;">Intent Window: 🔴 ACTIVE</div>
+                <div class="context-value" style="font-size: 12px;">Days Remaining: 58 of 72</div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" style="width: 20%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="context-section">
+                <div class="context-title">📋 Current Coverage</div>
+                <div class="context-value" style="font-size: 13px;">✅ Basic Hospitalization ($50K)</div>
+                <div class="context-value" style="font-size: 13px; color: var(--danger);">❌ No maternity coverage</div>
+                <div class="context-value" style="font-size: 13px; color: var(--danger);">❌ No life insurance</div>
+            </div>
+
+            <div class="context-section">
+                <div class="context-title">💡 AI Recommendations</div>
+                <div class="context-value" style="font-size: 12px; line-height: 1.8;">
+                    1. Maternity Protection Plan ($180/mo)<br>
+                    2. Life Insurance $500K ($120/mo)<br>
+                    3. Critical Illness Rider ($95/mo)<br>
+                    4. Newborn Coverage ($45/mo)
+                </div>
+            </div>
+
+            <div class="context-section">
+                <div class="context-title">📝 Conversation History</div>
+                <div class="context-value" style="font-size: 11px; line-height: 1.8; color: var(--medium);">
+                    • Call #1 (Day 0): Initial contact - 12m<br>
+                    &nbsp;&nbsp;Sentiment: Positive, Not ready<br>
+                    • Email (Day 1): Coverage analysis sent<br>
+                    • Call #2 (Day 4): Follow-up - 9m<br>
+                    &nbsp;&nbsp;Sentiment: Positive, Researching<br>
+                    • SMS (Day 11): Check-in - Replied<br>
+                    • <strong>Call #3 (NOW): Maternity focus</strong>
+                </div>
+            </div>
+
+            <button class="btn btn-primary w-full" onclick="location.href='lead-profile.html?id=LC-2025-8472'">
+                👁️ View Full Profile
+            </button>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script>
+        let callInterval;
+        let isPaused = false;
+        let isMuted = false;
+        let currentLineIndex = 0;
+        let callStartTime;
+        let durationInterval;
+
+        // Create waveform
+        function initWaveform() {
+            const waveform = document.getElementById('waveform');
+            waveform.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'waveform-bar';
+                bar.style.height = '10px';
+                bar.style.animationDelay = `${i * 0.05}s`;
+                waveform.appendChild(bar);
+            }
+        }
+
+        // Activate waveform
+        function activateWaveform(active) {
+            const bars = document.querySelectorAll('.waveform-bar');
+            bars.forEach(bar => {
+                if (active) {
+                    bar.classList.add('active');
+                } else {
+                    bar.classList.remove('active');
+                    bar.style.height = '10px';
+                }
+            });
+        }
+
+        // Add transcript line
+        function addTranscriptLine(line, instant = false) {
+            const container = document.getElementById('liveTranscript');
+            const div = document.createElement('div');
+            div.className = `transcript-line ${line.speaker}`;
+
+            const speakerName = line.speaker === 'ai' ? 'Emma (AI Agent)' : 'Sarah Chen';
+
+            div.innerHTML = `
+                <div class="transcript-timestamp">[${line.timestamp}]</div>
+                <div class="transcript-speaker ${line.speaker}">${speakerName}:</div>
+                <div class="transcript-text" id="text-${currentLineIndex}"></div>
+            `;
+
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+
+            // Typewriter effect
+            if (!instant) {
+                typewriterEffect(document.getElementById(`text-${currentLineIndex}`), line.text, 20);
+            } else {
+                document.getElementById(`text-${currentLineIndex}`).textContent = line.text;
+            }
+
+            currentLineIndex++;
+
+            // Update intelligence panel
+            updateIntelligence(line);
+
+            // Speak if AI and audio enabled
+            if (line.speaker === 'ai' && document.getElementById('audioEnabled').checked && !isMuted) {
+                setTimeout(() => speakText(line.text), 500);
+            }
+        }
+
+        // Typewriter effect
+        function typewriterEffect(element, text, speed = 30) {
+            let i = 0;
+            element.textContent = '';
+            activateWaveform(true);
+
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    activateWaveform(false);
+                }
+            }, speed);
+        }
+
+        // Speak text using Web Speech API
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voices = speechSynthesis.getVoices();
+
+                // Try to find a female voice
+                const femaleVoice = voices.find(v =>
+                    v.name.includes('Female') ||
+                    v.name.includes('Samantha') ||
+                    v.name.includes('Victoria') ||
+                    v.name.includes('Karen')
+                );
+
+                if (femaleVoice) {
+                    utterance.voice = femaleVoice;
+                }
+
+                utterance.rate = 0.95;
+                utterance.pitch = 1.1;
+                utterance.volume = 1.0;
+
+                utterance.onstart = () => {
+                    document.getElementById('aiAvatar').classList.add('speaking');
+                    activateWaveform(true);
+                };
+
+                utterance.onend = () => {
+                    document.getElementById('aiAvatar').classList.remove('speaking');
+                    activateWaveform(false);
+                };
+
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Update intelligence panel
+        function updateIntelligence(line) {
+            const sentiment = line.sentiment;
+
+            // Update sentiment
+            const sentimentEmoji = sentiment >= 7 ? '😊' : sentiment >= 5 ? '😐' : '😞';
+            const sentimentLabel = sentiment >= 7 ? 'POSITIVE' : sentiment >= 5 ? 'NEUTRAL' : 'NEGATIVE';
+            const sentimentColor = sentiment >= 7 ? 'success' : sentiment >= 5 ? 'warning' : 'danger';
+
+            document.getElementById('sentimentValue').textContent = `${sentimentEmoji} ${sentimentLabel} (${sentiment.toFixed(1)}/10)`;
+            document.getElementById('sentimentValue').className = `intel-value text-${sentimentColor}`;
+
+            // Update gauge
+            const needlePosition = (sentiment / 10) * 100;
+            document.getElementById('gaugeNeedle').style.left = `${needlePosition}%`;
+        }
+
+        // Start live demo
+        function startLiveDemo() {
+            const btn = document.getElementById('playDemoBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Playing...';
+
+            // Clear transcript
+            document.getElementById('liveTranscript').innerHTML = '';
+            currentLineIndex = 0;
+
+            // Start duration counter
+            callStartTime = new Date();
+            startDurationCounter();
+
+            // Get Sarah's current call transcript
+            const transcript = sarahChen.touchpoints[0].transcript;
+
+            let delay = 0;
+            transcript.forEach((line, index) => {
+                setTimeout(() => {
+                    addTranscriptLine(line);
+
+                    if (index === transcript.length - 1) {
+                        setTimeout(() => {
+                            btn.disabled = false;
+                            btn.innerHTML = '🔄 Replay Demo';
+                            showToast('Call demo completed! Appointment scheduled successfully.', 'success');
+                        }, 3000);
+                    }
+                }, delay);
+
+                delay += 8000; // 8 seconds per line
+            });
+        }
+
+        // Start duration counter
+        function startDurationCounter() {
+            if (durationInterval) clearInterval(durationInterval);
+
+            durationInterval = setInterval(() => {
+                const now = new Date();
+                const diff = Math.floor((now - callStartTime) / 1000);
+                const minutes = Math.floor(diff / 60);
+                const seconds = diff % 60;
+                const duration = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                document.getElementById('callDuration').textContent = '00:' + duration;
+                document.getElementById('sarahDuration').textContent = '00:' + duration;
+            }, 1000);
+        }
+
+        // Toggle mute
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteIcon').textContent = isMuted ? '🔊' : '🔇';
+            if (isMuted) {
+                speechSynthesis.cancel();
+            }
+        }
+
+        // Toggle pause
+        function togglePause() {
+            isPaused = !isPaused;
+            const btn = document.getElementById('pauseBtn');
+            btn.innerHTML = isPaused ? '▶️ Resume' : '⏸️ Pause';
+
+            if (isPaused) {
+                speechSynthesis.pause();
+                if (durationInterval) clearInterval(durationInterval);
+            } else {
+                speechSynthesis.resume();
+                startDurationCounter();
+            }
+        }
+
+        // Join call
+        function joinCall() {
+            showToast('Transferring to human agent...', 'info');
+            speechSynthesis.cancel();
+            setTimeout(() => {
+                showToast('You have joined the call with Sarah Chen', 'success');
+            }, 2000);
+        }
+
+        // End call
+        function endCall() {
+            if (confirm('Are you sure you want to end this call?')) {
+                speechSynthesis.cancel();
+                if (durationInterval) clearInterval(durationInterval);
+                showToast('Call ended. Summary generated and logged to CRM.', 'info');
+
+                setTimeout(() => {
+                    location.href = 'dashboard.html';
+                }, 2000);
+            }
+        }
+
+        // Clear transcript
+        function clearTranscript() {
+            document.getElementById('liveTranscript').innerHTML = '';
+            currentLineIndex = 0;
+        }
+
+        // Load different call
+        function loadCall(leadName) {
+            showToast(`Loading call with ${leadName}...`, 'info');
+        }
+
+        // Show toast
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.position = 'fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '10000';
+
+            const icons = { success: '✅', warning: '⚠️', danger: '❌', info: 'ℹ️' };
+
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 20px;">${icons[type]}</span>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            initWaveform();
+
+            // Load voices for Web Speech API
+            if ('speechSynthesis' in window) {
+                speechSynthesis.getVoices();
+            }
+
+            // Show welcome message
+            setTimeout(() => {
+                showToast('AI Calling Center ready. Click "Play Demo Call" to see Sarah\'s call in action!', 'success');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
