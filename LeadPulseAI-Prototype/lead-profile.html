@@ -510,6 +510,94 @@
             border-radius: 50%;
         }
 
+        /* Lifecycle Stage Progression */
+        .lifecycle-progression {
+            margin-bottom: var(--space-xl);
+        }
+
+        .lifecycle-stages {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: var(--space-lg);
+            position: relative;
+        }
+
+        .lifecycle-connector {
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            right: 60px;
+            height: 4px;
+            background: var(--light);
+            z-index: 1;
+        }
+
+        .lifecycle-connector-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ai-purple), var(--success));
+            transition: width 1s ease-in-out;
+        }
+
+        .lifecycle-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .lifecycle-stage-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all var(--transition-fast);
+        }
+
+        .lifecycle-stage.completed .lifecycle-stage-icon {
+            background: linear-gradient(135deg, var(--ai-purple), #764ba2);
+            border-color: var(--ai-purple);
+            color: white;
+        }
+
+        .lifecycle-stage.current .lifecycle-stage-icon {
+            background: linear-gradient(135deg, var(--success), #00C853);
+            border-color: var(--success);
+            color: white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .lifecycle-stage-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--medium);
+            text-align: center;
+        }
+
+        .lifecycle-stage.completed .lifecycle-stage-label {
+            color: var(--ai-purple);
+        }
+
+        .lifecycle-stage.current .lifecycle-stage-label {
+            color: var(--success);
+            font-size: 12px;
+        }
+
+        .lifecycle-stage-date {
+            font-size: 10px;
+            color: var(--medium);
+            text-align: center;
+        }
+
         .conversation-transcript {
             background: var(--background);
             border-radius: var(--radius-sm);
@@ -625,9 +713,9 @@
                 </div>
 
                 <div style="text-align: center; padding: var(--space-lg); background: linear-gradient(135deg, rgba(0, 200, 83, 0.1) 0%, rgba(0, 200, 83, 0.05) 100%); border-radius: var(--radius-md);">
-                    <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">CONVERSION PROBABILITY</div>
-                    <div style="font-size: 48px; font-weight: 700; color: var(--success); font-family: var(--font-mono);">75%</div>
-                    <div style="font-size: 11px; color: var(--success); margin-top: 4px;">↗️ +12% this week</div>
+                    <div style="font-size: 12px; color: var(--medium); margin-bottom: 4px;">LIFETIME VALUE</div>
+                    <div style="font-size: 48px; font-weight: 700; color: var(--success); font-family: var(--font-mono);">$95K</div>
+                    <div style="font-size: 11px; color: var(--success); margin-top: 4px;">✅ Loyal Customer | NPS 9/10</div>
                 </div>
             </div>
         </div>
@@ -649,22 +737,24 @@
             <div class="metrics-grid">
                 <!-- Lead Metrics -->
                 <div class="metric-card">
-                    <div class="metric-title">📊 Lead Metrics</div>
+                    <div class="metric-title">📊 Customer Metrics</div>
                     <div class="metric-content">
                         <div style="margin-bottom: var(--space-md);">
-                            <div style="font-weight: 600; margin-bottom: 4px;">Lead Score</div>
+                            <div style="font-weight: 600; margin-bottom: 4px;">Customer Health Score</div>
                             <div class="flex items-center gap-md">
                                 <div class="progress w-full">
-                                    <div class="progress-bar progress-bar-primary" style="width: 87%;"></div>
+                                    <div class="progress-bar progress-bar-primary" style="width: 95%;"></div>
                                 </div>
-                                <strong>87/100</strong>
+                                <strong>95/100</strong>
                             </div>
                         </div>
-                        <div><strong>Estimated LTV:</strong> $63,000</div>
-                        <div><strong>Stage:</strong> Qualified</div>
-                        <div><strong>Days in Pipeline:</strong> 23 days</div>
-                        <div><strong>AI Touchpoints:</strong> 8 (3 calls, 2 SMS, 3 emails)</div>
-                        <div><strong>Engagement Rate:</strong> 92% (responds quickly)</div>
+                        <div><strong>Lifetime Value:</strong> $95,000 (upsold +$32K)</div>
+                        <div><strong>Lifecycle Stage:</strong> 🏆 Loyal Customer</div>
+                        <div><strong>Customer Since:</strong> Oct 23, 2025 (143 days)</div>
+                        <div><strong>Active Policies:</strong> 2 ($590/month premium)</div>
+                        <div><strong>NPS Score:</strong> 9/10 (Promoter)</div>
+                        <div><strong>Referrals Made:</strong> 1 (Lisa Wong)</div>
+                        <div><strong>Engagement Rate:</strong> 96% (highly engaged)</div>
                     </div>
                 </div>
 
@@ -827,6 +917,54 @@
 
         <!-- Tab Content: Timeline -->
         <div class="tab-content" id="timeline">
+            <!-- Lifecycle Stage Progression -->
+            <div class="sentiment-chart-container lifecycle-progression">
+                <div class="chart-title">🎯 Lifecycle Stage Progression</div>
+                <div class="lifecycle-stages">
+                    <div class="lifecycle-connector">
+                        <div class="lifecycle-connector-progress" style="width: 100%;"></div>
+                    </div>
+
+                    <div class="lifecycle-stage completed">
+                        <div class="lifecycle-stage-icon">✅</div>
+                        <div class="lifecycle-stage-label">New Lead</div>
+                        <div class="lifecycle-stage-date">Oct 1, 2025</div>
+                    </div>
+
+                    <div class="lifecycle-stage completed">
+                        <div class="lifecycle-stage-icon">📞</div>
+                        <div class="lifecycle-stage-label">Contacted</div>
+                        <div class="lifecycle-stage-date">Oct 2, 2025</div>
+                    </div>
+
+                    <div class="lifecycle-stage completed">
+                        <div class="lifecycle-stage-icon">🎯</div>
+                        <div class="lifecycle-stage-label">Qualified</div>
+                        <div class="lifecycle-stage-date">Oct 12, 2025</div>
+                    </div>
+
+                    <div class="lifecycle-stage completed">
+                        <div class="lifecycle-stage-icon">🎉</div>
+                        <div class="lifecycle-stage-label">Customer</div>
+                        <div class="lifecycle-stage-date">Oct 23, 2025</div>
+                    </div>
+
+                    <div class="lifecycle-stage current">
+                        <div class="lifecycle-stage-icon">🏆</div>
+                        <div class="lifecycle-stage-label">Loyal Customer</div>
+                        <div class="lifecycle-stage-date">Mar 15, 2026</div>
+                    </div>
+                </div>
+                <div style="margin-top: var(--space-lg); padding: var(--space-md); background: rgba(0, 200, 83, 0.1); border-radius: var(--radius-sm); text-align: center;">
+                    <strong>Customer Journey: 165 days</strong> |
+                    <span style="color: var(--success);">✅ 2 Policies Active</span> |
+                    <span style="color: var(--ai-purple);">📈 $95K Lifetime Value</span> |
+                    <span style="color: var(--warning);">🌟 1 Referral Made</span> |
+                    <span style="color: var(--success);">😊 NPS 9/10 (Promoter)</span>
+                </div>
+            </div>
+
+            <!-- Sentiment Chart -->
             <div class="sentiment-chart-container">
                 <div class="chart-title">📈 Sentiment Journey (Last 8 Touchpoints)</div>
                 <div class="sentiment-chart" id="sentimentChart">
@@ -834,6 +972,7 @@
                 </div>
             </div>
 
+            <!-- Complete Timeline -->
             <div class="timeline" id="fullTimeline">
                 <!-- All events in chronological order -->
             </div>
