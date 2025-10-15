@@ -583,6 +583,211 @@ const michaelTan = {
     // Touchpoint History
     touchpoints: [
         {
+            id: "TP-MT-005",
+            number: 5,
+            type: "voice_call",
+            timestamp: "2025-10-09T19:30:00+08:00",
+            duration: 720,
+            status: "completed",
+            agent: {
+                type: "ai",
+                name: "Emma",
+                avatar: "🤖"
+            },
+            campaign: "Young Professional Nurture - Call #3",
+            sentiment: 7.8,
+            sentimentLabel: "Positive",
+            intent: "high",
+            engagement: "strong",
+            outcome: "handoff_scheduled",
+            conversionProbChange: +12,
+            summary: "Overcame price objection, scheduled specialist call",
+            transcript: [
+                {
+                    timestamp: "00:00:03",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Hey Michael, it's Emma from AIA. How's it going?",
+                    sentiment: 7.0,
+                    sentimentLabel: "Friendly"
+                },
+                {
+                    timestamp: "00:00:07",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Hi Emma. Yeah, doing well. Just finished work.",
+                    sentiment: 6.5,
+                    sentimentLabel: "Neutral"
+                },
+                {
+                    timestamp: "00:00:11",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Perfect timing then! I saw you checked out the quote I sent you - $185 a month for critical illness and life insurance. What are your thoughts?",
+                    sentiment: 7.2,
+                    sentimentLabel: "Direct"
+                },
+                {
+                    timestamp: "00:00:22",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Honestly? It seems a bit high for my age. I'm only 28.",
+                    sentiment: 5.8,
+                    sentimentLabel: "Hesitant"
+                },
+                {
+                    timestamp: "00:00:28",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "I totally get that. Let me break it down differently - that's $6 a day. Less than your lunch budget, right? And here's the thing - at 28, you're actually getting the BEST rates. It only gets more expensive as you get older.",
+                    sentiment: 7.8,
+                    sentimentLabel: "Persuasive"
+                },
+                {
+                    timestamp: "00:00:45",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Hmm, I never thought about it that way. $6 a day doesn't sound as bad.",
+                    sentiment: 7.0,
+                    sentimentLabel: "Reconsidering"
+                },
+                {
+                    timestamp: "00:00:52",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Exactly! Plus, you mentioned your friend who got diagnosed with cancer at 27. Think about it - if something like that happened to you without coverage, you'd be looking at potentially hundreds of thousands in medical bills. $6 a day is nothing compared to that risk.",
+                    sentiment: 7.5,
+                    sentimentLabel: "Empathetic"
+                },
+                {
+                    timestamp: "00:01:08",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Yeah... seeing what he went through really shook me up. The medical bills were insane.",
+                    sentiment: 6.8,
+                    sentimentLabel: "Concerned"
+                },
+                {
+                    timestamp: "00:01:15",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "I can imagine. That's exactly why you're being smart by looking into this now. Most people wait until it's too late, or until they already have health issues and can't get coverage. You're 28, healthy, and can lock in these low rates for life.",
+                    sentiment: 8.0,
+                    sentimentLabel: "Supportive"
+                },
+                {
+                    timestamp: "00:01:32",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Okay, that makes sense. But I still want to understand exactly what I'm getting. Can you explain it in simple terms?",
+                    sentiment: 7.5,
+                    sentimentLabel: "Interested"
+                },
+                {
+                    timestamp: "00:01:42",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Absolutely! So you're getting two things: First, critical illness coverage for $500K. If you're diagnosed with cancer, heart attack, stroke, or any of 37 major illnesses, you get a lump sum payment of half a million. Use it however you want - medical bills, living expenses, whatever. Second, life insurance for $300K. If something happens to you, your family gets that money.",
+                    sentiment: 7.8,
+                    sentimentLabel: "Educational"
+                },
+                {
+                    timestamp: "00:02:10",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Got it. And this is portable right? Like if I switch jobs, I don't lose it?",
+                    sentiment: 7.2,
+                    sentimentLabel: "Clarifying"
+                },
+                {
+                    timestamp: "00:02:17",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Yes! 100% portable. It's YOUR policy, not your employer's. You could quit tomorrow and start your own business - this coverage stays with you. That's actually a huge advantage over company insurance which disappears the day you leave.",
+                    sentiment: 8.2,
+                    sentimentLabel: "Reassuring"
+                },
+                {
+                    timestamp: "00:02:32",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Okay that's really important to me actually. I might move to a startup next year.",
+                    sentiment: 7.8,
+                    sentimentLabel: "Positive"
+                },
+                {
+                    timestamp: "00:02:38",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Perfect! Then you definitely need your own coverage. Look, I want you to feel 100% confident about this. How about I connect you with David Lim, our critical illness specialist? He works specifically with young professionals in tech. He can walk you through everything in detail, show you the app, explain the claim process - all that good stuff. Sound good?",
+                    sentiment: 8.0,
+                    sentimentLabel: "Solution-focused"
+                },
+                {
+                    timestamp: "00:02:58",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Yeah, that would be helpful. But I'm super busy at work. Can we do it after 7 PM?",
+                    sentiment: 7.5,
+                    sentimentLabel: "Agreeable"
+                },
+                {
+                    timestamp: "00:03:05",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Of course! David is flexible with timing. How about tomorrow at 7 PM? I'll have him give you a call, and you can ask him anything. He's helped over 50 young professionals this quarter alone, so he really gets your situation.",
+                    sentiment: 8.0,
+                    sentimentLabel: "Accommodating"
+                },
+                {
+                    timestamp: "00:03:20",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Tomorrow at 7 works. Sounds good.",
+                    sentiment: 8.0,
+                    sentimentLabel: "Committed"
+                },
+                {
+                    timestamp: "00:03:24",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Awesome Michael! You'll get a calendar invite in the next few minutes with David's direct number too, just in case. And hey - smart move looking into this now. Your 28-year-old self is way smarter than most people!",
+                    sentiment: 8.5,
+                    sentimentLabel: "Encouraging"
+                },
+                {
+                    timestamp: "00:03:38",
+                    speaker: "lead",
+                    name: "Michael Tan",
+                    text: "Haha thanks Emma. Talk soon.",
+                    sentiment: 8.2,
+                    sentimentLabel: "Positive"
+                },
+                {
+                    timestamp: "00:03:41",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "You got it! Have a great evening Michael!",
+                    sentiment: 8.0,
+                    sentimentLabel: "Warm"
+                }
+            ],
+            keyMoments: [
+                { time: "00:00:28", description: "Price objection raised - $185 seems high" },
+                { time: "00:00:45", description: "$6/day reframe worked - objection softened" },
+                { time: "00:01:08", description: "Friend's cancer story reinforced urgency" },
+                { time: "00:02:17", description: "Portability concern addressed successfully" },
+                { time: "00:03:20", description: "Specialist appointment confirmed - major win" }
+            ],
+            aiActions: [
+                "Appointment scheduled with David Lim for Oct 10, 7 PM",
+                "Calendar invite sent to Michael",
+                "Specialist briefing auto-generated for David",
+                "Lead status updated to 'Sales-Ready'"
+            ],
+            recordingUrl: "/assets/audio/michael-call-5.mp3"
+        },
+        {
             id: "TP-MT-006",
             number: 6,
             type: "whatsapp",
@@ -793,6 +998,212 @@ const lindaWong = {
 
     // Touchpoint History
     touchpoints: [
+        {
+            id: "TP-LW-003",
+            number: 3,
+            type: "voice_call",
+            timestamp: "2025-09-28T19:00:00+08:00",
+            duration: 900,
+            status: "completed",
+            agent: {
+                type: "ai",
+                name: "Emma",
+                avatar: "🤖"
+            },
+            campaign: "Policy Anniversary Review",
+            sentiment: 8.6,
+            sentimentLabel: "Positive",
+            intent: "high",
+            engagement: "strong",
+            outcome: "review_scheduled",
+            conversionProbChange: +14,
+            summary: "Linda agreed to comprehensive review, concerns about kids' education costs identified",
+            transcript: [
+                {
+                    timestamp: "00:00:03",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Hi Linda! This is Emma from AIA. Do you have a moment to chat?",
+                    sentiment: 7.5,
+                    sentimentLabel: "Friendly"
+                },
+                {
+                    timestamp: "00:00:08",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Hi Emma. Yes, I just sat down actually. What's this about?",
+                    sentiment: 7.0,
+                    sentimentLabel: "Receptive"
+                },
+                {
+                    timestamp: "00:00:14",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Perfect timing! I'm calling because your policy with us is hitting a major milestone - 10 years this month! First of all, congratulations on being with AIA for a whole decade. That's amazing.",
+                    sentiment: 8.0,
+                    sentimentLabel: "Appreciative"
+                },
+                {
+                    timestamp: "00:00:28",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Oh wow, has it been 10 years already? Time really flies!",
+                    sentiment: 7.8,
+                    sentimentLabel: "Surprised"
+                },
+                {
+                    timestamp: "00:00:34",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "It really does! And I bet your daughters have grown up a lot in that time too. How old are they now?",
+                    sentiment: 7.5,
+                    sentimentLabel: "Conversational"
+                },
+                {
+                    timestamp: "00:00:40",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Oh my goodness, yes. They're 14 and 11 now. It feels like just yesterday they were babies when I first bought that policy.",
+                    sentiment: 8.2,
+                    sentimentLabel: "Nostalgic"
+                },
+                {
+                    timestamp: "00:00:50",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "That's exactly what I wanted to talk about. When you bought your $200,000 life insurance policy 10 years ago, your daughters were tiny. But now they're heading toward their teenage years and thinking about university soon. Have you thought about whether your current coverage still matches your family's needs?",
+                    sentiment: 7.8,
+                    sentimentLabel: "Consultative"
+                },
+                {
+                    timestamp: "00:01:08",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Actually... I haven't really thought about it. We've just been paying the premiums every month. You think it's not enough anymore?",
+                    sentiment: 7.0,
+                    sentimentLabel: "Concerned"
+                },
+                {
+                    timestamp: "00:01:17",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Well, let me ask you this - what do you think university will cost for each of your daughters? Ballpark figure?",
+                    sentiment: 7.5,
+                    sentimentLabel: "Probing"
+                },
+                {
+                    timestamp: "00:01:24",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Oh god... probably at least $150,000 each if they go overseas. Maybe $80-100K locally. It's terrifying to think about honestly.",
+                    sentiment: 6.5,
+                    sentimentLabel: "Anxious"
+                },
+                {
+                    timestamp: "00:01:35",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "You're absolutely right to be thinking about it. So here's the thing - your current $200,000 policy wouldn't even cover one child's university fees, let alone both, plus living expenses for your family if something happened. That's the gap I wanted to bring to your attention.",
+                    sentiment: 7.8,
+                    sentimentLabel: "Direct"
+                },
+                {
+                    timestamp: "00:01:52",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Oh... I never thought about it that way. You're right. $200K wouldn't be nearly enough now.",
+                    sentiment: 7.2,
+                    sentimentLabel: "Realizing"
+                },
+                {
+                    timestamp: "00:02:00",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Most people don't until someone points it out. The good news is, you're not starting from scratch - you already have that foundation. We just need to update it to match where your family is now. Would you be open to a complimentary coverage review? No obligation, I just want to show you what makes sense for your family today.",
+                    sentiment: 8.2,
+                    sentimentLabel: "Helpful"
+                },
+                {
+                    timestamp: "00:02:20",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Yes, actually. I think I need to see this. My husband and I have been talking about the kids' education costs and it's been stressing us out.",
+                    sentiment: 7.8,
+                    sentimentLabel: "Interested"
+                },
+                {
+                    timestamp: "00:02:30",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "I totally understand. Education planning is one of the biggest stresses for parents. Here's what I'd like to do - I want to send you a comprehensive family protection review that shows your current coverage versus what's recommended based on your daughters' ages and future education needs. You can review it with your husband, and then we can set up a call to discuss. Sound good?",
+                    sentiment: 8.0,
+                    sentimentLabel: "Organized"
+                },
+                {
+                    timestamp: "00:02:50",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Yes, please do that. I definitely want to discuss it with my husband first before making any decisions.",
+                    sentiment: 8.0,
+                    sentimentLabel: "Agreeable"
+                },
+                {
+                    timestamp: "00:02:58",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "Of course! That's exactly the right approach. This is a family decision. I'll send that review to your email tonight, and it'll have some clear visuals showing the gap. Take your time reviewing it together, and I'll follow up in about 5 days to answer any questions. How does that sound?",
+                    sentiment: 8.4,
+                    sentimentLabel: "Respectful"
+                },
+                {
+                    timestamp: "00:03:15",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "That sounds perfect. Thank you Emma. This is actually really helpful timing.",
+                    sentiment: 8.8,
+                    sentimentLabel: "Grateful"
+                },
+                {
+                    timestamp: "00:03:22",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "You're so welcome Linda. And thank you for being such a loyal customer for 10 years. We really appreciate it. I'll get that review sent over tonight, and talk to you soon!",
+                    sentiment: 8.6,
+                    sentimentLabel: "Warm"
+                },
+                {
+                    timestamp: "00:03:34",
+                    speaker: "lead",
+                    name: "Linda Wong",
+                    text: "Thanks Emma! Have a good evening.",
+                    sentiment: 8.5,
+                    sentimentLabel: "Positive"
+                },
+                {
+                    timestamp: "00:03:37",
+                    speaker: "ai",
+                    name: "Emma",
+                    text: "You too Linda! Talk soon!",
+                    sentiment: 8.5,
+                    sentimentLabel: "Friendly"
+                }
+            ],
+            keyMoments: [
+                { time: "00:00:40", description: "Linda mentions daughters are 14 and 11 now" },
+                { time: "00:01:24", description: "Linda reveals education cost anxiety - $150K each" },
+                { time: "00:01:52", description: "Realization moment - $200K won't be enough" },
+                { time: "00:02:20", description: "Linda stressed about education costs - high engagement" },
+                { time: "00:02:50", description: "Agreement to review - wants to discuss with husband" }
+            ],
+            aiActions: [
+                "Family protection review generated and emailed",
+                "Visual gap analysis included (current vs recommended)",
+                "Follow-up scheduled for 5 days",
+                "Lead status updated to 'Review Pending'",
+                "Husband involvement noted for future calls"
+            ],
+            recordingUrl: "/assets/audio/linda-call-3.mp3"
+        },
         {
             id: "TP-LW-006",
             number: 6,

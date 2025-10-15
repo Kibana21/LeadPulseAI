@@ -370,8 +370,8 @@
         <div class="calls-sidebar">
             <h3 style="margin-bottom: var(--space-lg); color: var(--navy-blue);">Active Calls (4)</h3>
 
-            <div class="call-card active" onclick="loadCall('sarah')">
-                <div class="call-lead-name">🔴 Sarah Chen</div>
+            <div class="call-card active" id="card-sarah" onclick="loadCall('sarah')">
+                <div class="call-lead-name">🔴 Sarah Chen (LIVE)</div>
                 <div class="call-duration">
                     <span class="status-dot status-dot-green status-dot-pulse"></span>
                     <span id="sarahDuration">00:03:42</span>
@@ -379,27 +379,36 @@
                 <div class="badge badge-success" style="margin-top: 8px; font-size: 11px;">
                     😊 Positive (8.2/10)
                 </div>
+                <div style="font-size: 11px; color: var(--medium); margin-top: 4px;">
+                    Maternity Coverage - Call #3
+                </div>
             </div>
 
-            <div class="call-card" onclick="loadCall('michael')">
-                <div class="call-lead-name">🔴 Michael Tan</div>
+            <div class="call-card" id="card-michael" onclick="loadCall('michael')">
+                <div class="call-lead-name">📞 Michael Tan</div>
                 <div class="call-duration">
-                    <span class="status-dot status-dot-green status-dot-pulse"></span>
-                    <span>00:01:15</span>
+                    <span class="status-dot status-dot-yellow"></span>
+                    <span>00:03:41</span>
+                </div>
+                <div class="badge badge-warning" style="margin-top: 8px; font-size: 11px;">
+                    💼 Ready to Demo
+                </div>
+                <div style="font-size: 11px; color: var(--medium); margin-top: 4px;">
+                    Young Professional - Call #5
+                </div>
+            </div>
+
+            <div class="call-card" id="card-linda" onclick="loadCall('linda')">
+                <div class="call-lead-name">📞 Linda Wong</div>
+                <div class="call-duration">
+                    <span class="status-dot status-dot-yellow"></span>
+                    <span>00:03:37</span>
                 </div>
                 <div class="badge badge-info" style="margin-top: 8px; font-size: 11px;">
-                    😐 Neutral (5.8/10)
+                    💡 Ready to Demo
                 </div>
-            </div>
-
-            <div class="call-card" onclick="loadCall('lisa')">
-                <div class="call-lead-name">🔴 Lisa Wong</div>
-                <div class="call-duration">
-                    <span class="status-dot status-dot-green status-dot-pulse"></span>
-                    <span>00:05:22</span>
-                </div>
-                <div class="badge badge-success" style="margin-top: 8px; font-size: 11px;">
-                    😊 Positive (7.9/10)
+                <div style="font-size: 11px; color: var(--medium); margin-top: 4px;">
+                    Policy Anniversary - Call #3
                 </div>
             </div>
 
@@ -634,7 +643,8 @@
             const div = document.createElement('div');
             div.className = `transcript-line ${line.speaker}`;
 
-            const speakerName = line.speaker === 'ai' ? 'Emma (AI Agent)' : 'Sarah Chen';
+            const leadName = currentLeadData ? `${currentLeadData.firstName} ${currentLeadData.lastName}` : 'Lead';
+            const speakerName = line.speaker === 'ai' ? 'Emma (AI Agent)' : leadName;
 
             div.innerHTML = `
                 <div class="transcript-timestamp">[${line.timestamp}]</div>
@@ -748,8 +758,15 @@
             callStartTime = new Date();
             startDurationCounter();
 
-            // Get Sarah's current call transcript
-            const transcript = sarahChen.touchpoints[0].transcript;
+            // Get current lead's transcript
+            const transcript = currentTranscript;
+
+            if (!transcript || transcript.length === 0) {
+                showToast('No transcript available for this lead', 'warning');
+                btn.disabled = false;
+                btn.textContent = '▶️ Play Demo Call';
+                return;
+            }
 
             let delay = 0;
             transcript.forEach((line, index) => {
@@ -760,7 +777,12 @@
                         setTimeout(() => {
                             btn.disabled = false;
                             btn.innerHTML = '🔄 Replay Demo';
-                            showToast('Call demo completed! Appointment scheduled successfully.', 'success');
+                            const outcomes = {
+                                'sarah': 'Appointment scheduled successfully!',
+                                'michael': 'Specialist handoff scheduled!',
+                                'linda': 'Coverage review agreed!'
+                            };
+                            showToast(`Call demo completed! ${outcomes[currentLead]}`, 'success');
                         }, 3000);
                     }
                 }, delay);
@@ -837,9 +859,131 @@
             currentLineIndex = 0;
         }
 
+        // Global current lead
+        let currentLead = 'sarah';
+        let currentLeadData = null;
+        let currentTranscript = [];
+
         // Load different call
         function loadCall(leadName) {
-            showToast(`Loading call with ${leadName}...`, 'info');
+            // Update active card
+            document.querySelectorAll('.call-card').forEach(card => card.classList.remove('active'));
+            document.getElementById(`card-${leadName}`).classList.add('active');
+
+            // Set current lead
+            currentLead = leadName;
+
+            // Get lead data
+            if (leadName === 'sarah') {
+                currentLeadData = sarahChen;
+                currentTranscript = sarahChen.touchpoints[0].transcript;
+            } else if (leadName === 'michael') {
+                currentLeadData = michaelTan;
+                currentTranscript = michaelTan.touchpoints[0].transcript;
+            } else if (leadName === 'linda') {
+                currentLeadData = lindaWong;
+                currentTranscript = lindaWong.touchpoints[0].transcript;
+            }
+
+            // Update UI
+            updateCallInterface();
+
+            showToast(`Loaded call with ${currentLeadData.firstName} ${currentLeadData.lastName}`, 'success');
+        }
+
+        // Update call interface with current lead data
+        function updateCallInterface() {
+            const lead = currentLeadData;
+            const touchpoint = lead.touchpoints[0];
+
+            // Update header
+            const scenario = {
+                'sarah': 'Maternity Coverage Discussion',
+                'michael': 'Critical Illness Coverage Discussion',
+                'linda': 'Policy Anniversary Review'
+            };
+            document.querySelector('.call-header h2').textContent =
+                `${lead.firstName} ${lead.lastName} - ${scenario[currentLead]}`;
+
+            // Update right sidebar - Lead Profile
+            updateLeadProfile();
+
+            // Clear transcript
+            document.getElementById('liveTranscript').innerHTML = '';
+            currentLineIndex = 0;
+
+            // Reset button
+            const btn = document.getElementById('playDemoBtn');
+            btn.disabled = false;
+            btn.innerHTML = '▶️ Play Demo Call';
+        }
+
+        // Update lead profile sidebar
+        function updateLeadProfile() {
+            const lead = currentLeadData;
+
+            // Avatar initials
+            const initials = lead.firstName.charAt(0) + lead.lastName.charAt(0);
+            document.querySelector('.lead-context-sidebar .avatar').textContent = initials;
+
+            // Name and details
+            document.querySelectorAll('.lead-context-sidebar')[0].querySelector('div[style*="font-weight: 600"]').textContent =
+                `${lead.firstName} ${lead.lastName}`;
+
+            // Update metrics
+            const metricsSection = document.querySelectorAll('.context-section')[0];
+            metricsSection.innerHTML = `
+                <div class="context-title">📊 Lead Metrics</div>
+                <div class="context-value">Lead Score: <strong>${lead.leadScore}/100</strong> 🔥</div>
+                <div class="context-value">Estimated LTV: <strong>$${(lead.estimatedLTV/1000).toFixed(0)}K</strong></div>
+                <div class="context-value">Stage: <strong>${lead.stage}</strong></div>
+                <div class="context-value">Temperature: <strong>${lead.temperature.toUpperCase()}</strong></div>
+            `;
+
+            // Update trigger event
+            const triggerSection = document.querySelectorAll('.context-section')[1];
+            const trigger = lead.triggerEvents[0];
+            const triggerEmojis = {
+                'pregnancy': '🍼',
+                'career_milestone': '💼',
+                'policy_anniversary': '🎂'
+            };
+            const triggerLabels = {
+                'pregnancy': 'Pregnancy Detected',
+                'career_milestone': 'Career Milestone',
+                'policy_anniversary': 'Policy Anniversary'
+            };
+            triggerSection.innerHTML = `
+                <div class="context-title">🎯 Trigger Event</div>
+                <div class="badge badge-danger" style="margin-bottom: var(--space-sm);">${triggerEmojis[trigger.type] || '📌'} ${triggerLabels[trigger.type] || trigger.title}</div>
+                <div class="context-value" style="font-size: 12px;">${trigger.source}</div>
+                <div class="context-value" style="font-size: 12px;">Intent Window: 🔴 ACTIVE</div>
+            `;
+
+            // Update coverage gaps
+            const coverageSection = document.querySelectorAll('.context-section')[2];
+            let gapsHTML = '<div class="context-title">📋 Coverage Gaps</div>';
+            lead.coverageGaps.slice(0, 3).forEach(gap => {
+                gapsHTML += `<div class="context-value" style="font-size: 13px; color: var(--danger);">❌ ${gap.title}</div>`;
+            });
+            coverageSection.innerHTML = gapsHTML;
+
+            // Update recommendations
+            const recoSection = document.querySelectorAll('.context-section')[3];
+            let recoHTML = '<div class="context-title">💡 AI Recommendations</div><div class="context-value" style="font-size: 12px; line-height: 1.8;">';
+            lead.recommendedProducts.slice(0, 3).forEach((product, i) => {
+                recoHTML += `${i + 1}. ${product.name} ($${product.premium}/mo)<br>`;
+            });
+            recoHTML += '</div>';
+            recoSection.innerHTML = recoHTML;
+
+            // Update conversion probability
+            document.querySelector('.conversion-prob-value').textContent = `${lead.conversionProbability}%`;
+
+            // Update profile link
+            document.querySelector('.lead-context-sidebar .btn-primary').onclick = function() {
+                location.href = `lead-profile.html?id=${lead.id}`;
+            };
         }
 
         // Show toast
@@ -877,9 +1021,15 @@
                 speechSynthesis.getVoices();
             }
 
+            // Initialize Sarah as default lead
+            currentLead = 'sarah';
+            currentLeadData = sarahChen;
+            currentTranscript = sarahChen.touchpoints[0].transcript;
+            updateLeadProfile();
+
             // Show welcome message
             setTimeout(() => {
-                showToast('AI Calling Center ready. Click "Play Demo Call" to see Sarah\'s call in action!', 'success');
+                showToast('AI Calling Center ready. Click any lead card to switch calls, then "Play Demo" to watch!', 'success');
             }, 500);
         });
     </script>
