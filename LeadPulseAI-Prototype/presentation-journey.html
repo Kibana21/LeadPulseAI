@@ -871,6 +871,81 @@
         .status-completed { background: #dcfce7; color: #166534; }
         .status-pending { background: #fef3c7; color: #92400e; }
 
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 56px;
+            margin-bottom: 25px;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .feature-card h3 {
+            color: #1e293b;
+            margin-bottom: 18px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .feature-card .highlight {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .feature-card .impact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f1f5f9;
+            font-size: 14px;
+            font-weight: 600;
+            color: #10b981;
+        }
+
         /* Value Props */
         .value-grid {
             display: grid;
@@ -965,6 +1040,7 @@
             h2 { font-size: 32px; }
             .journey-steps,
             .value-grid,
+            .feature-grid,
             .dashboard-grid,
             .summary-metrics {
                 grid-template-columns: 1fr;
@@ -1009,6 +1085,7 @@
                 <div class="nav-dot" onclick="scrollToSlide(10)"></div>
                 <div class="nav-dot" onclick="scrollToSlide(11)"></div>
                 <div class="nav-dot" onclick="scrollToSlide(12)"></div>
+                <div class="nav-dot" onclick="scrollToSlide(13)"></div>
             </div>
         </div>
     </nav>
@@ -1067,8 +1144,64 @@
         </div>
     </section>
 
-    <!-- Slide 3: Screen - Dashboard -->
+    <!-- Slide 3: The Solution -->
     <section class="slide bg-white" id="slide-2">
+        <div class="slide-content">
+            <div class="section-label">THE SOLUTION</div>
+            <h2>How LeadPulseAI Changes Everything</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3>AI Voice Agents</h3>
+                    <p>Natural conversations in <span class="highlight">multiple languages</span>, handling <span class="highlight">500+ simultaneous calls</span> with the warmth and empathy of your best human agents.</p>
+                    <div class="impact">↗️ 98% customer satisfaction • 24/7 availability</div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Trigger Detection</h3>
+                    <p>AI scans social media, property records, and hospital partnerships to <span class="highlight">identify life events within 6 hours</span>—when customers need you most.</p>
+                    <div class="impact">↗️ 3x faster than competitors • Zero missed opportunities</div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Smart Campaigns</h3>
+                    <p><span class="highlight">Event-driven sequences</span> with 12 touchpoints over 90 days. From pregnancy to property purchase, every milestone triggers the perfect nurture journey.</p>
+                    <div class="impact">↗️ 42% conversion rate • Automated but personal</div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📈</span>
+                    <h3>Complete Lifecycle</h3>
+                    <p>The journey doesn't end at purchase. <span class="highlight">Automated onboarding, retention check-ins, and timely upsells</span> transform single-policy buyers into lifetime customers.</p>
+                    <div class="impact">↗️ 3x lifetime value • Relationships that last years</div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>Real-Time Intelligence</h3>
+                    <p>Live sentiment analysis, objection detection, and AI coaching tell supervisors <span class="highlight">exactly when a human should join</span>. No guesswork, just perfect timing.</p>
+                    <div class="impact">↗️ 85% AI resolution rate • Human expertise when it matters</div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Analytics & ROI</h3>
+                    <p>Track <span class="highlight">every metric instantly</span>: conversion rates, revenue per campaign, objection patterns, agent performance. Prove ROI with real numbers, not estimates.</p>
+                    <div class="impact">↗️ Full transparency • Data-driven decisions</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 16px;">
+                <div style="font-size: 20px; font-weight: 700; color: #667eea; margin-bottom: 12px;">This isn't just automation—it's transformation</div>
+                <div style="font-size: 16px; color: #475569; line-height: 1.7;">Every feature works together to create something no competitor has: a complete, intelligent system that treats every lead like your most valuable customer.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Screen - Dashboard -->
+    <section class="slide bg-light" id="slide-3">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1131,8 +1264,8 @@
         </div>
     </section>
 
-    <!-- Slide 4: Screen - Lead Profile -->
-    <section class="slide bg-light" id="slide-3">
+    <!-- Slide 5: Screen - Lead Profile -->
+    <section class="slide bg-white" id="slide-4">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1220,8 +1353,8 @@
         </div>
     </section>
 
-    <!-- Slide 5: Screen - Live Call -->
-    <section class="slide bg-white" id="slide-4">
+    <!-- Slide 6: Screen - Live Call -->
+    <section class="slide bg-light" id="slide-5">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1301,8 +1434,8 @@
         </div>
     </section>
 
-    <!-- Slide 6: Screen - Post-Call Summary -->
-    <section class="slide bg-light" id="slide-5">
+    <!-- Slide 7: Screen - Post-Call Summary -->
+    <section class="slide bg-white" id="slide-6">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1411,8 +1544,8 @@
         </div>
     </section>
 
-    <!-- Slide 7: Screen - Call Recordings Library -->
-    <section class="slide bg-white" id="slide-6">
+    <!-- Slide 8: Screen - Call Recordings Library -->
+    <section class="slide bg-light" id="slide-7">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1529,8 +1662,8 @@
         </div>
     </section>
 
-    <!-- Slide 8: Screen - Complete Timeline -->
-    <section class="slide bg-light" id="slide-7">
+    <!-- Slide 9: Screen - Complete Timeline -->
+    <section class="slide bg-white" id="slide-8">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1631,8 +1764,8 @@
         </div>
     </section>
 
-    <!-- Slide 9: Screen - Campaign Orchestration -->
-    <section class="slide bg-white" id="slide-8">
+    <!-- Slide 10: Screen - Campaign Orchestration -->
+    <section class="slide bg-light" id="slide-9">
         <div class="slide-content">
             <div class="screenshot-container">
                 <div class="screenshot-header">
@@ -1751,8 +1884,8 @@
         </div>
     </section>
 
-    <!-- Slide 10: Complete Journey -->
-    <section class="slide bg-light" id="slide-9">
+    <!-- Slide 11: Complete Journey -->
+    <section class="slide bg-white" id="slide-10">
         <div class="slide-content">
             <div class="section-label">THE COMPLETE PICTURE</div>
             <h2>Sarah's Full Journey with LeadPulseAI</h2>
@@ -1801,8 +1934,8 @@
         </div>
     </section>
 
-    <!-- Slide 11: The Potential -->
-    <section class="slide bg-white" id="slide-10">
+    <!-- Slide 12: The Potential -->
+    <section class="slide bg-light" id="slide-11">
         <div class="slide-content">
             <div class="section-label">THE OPPORTUNITY</div>
             <h2>What This Means for Us</h2>
@@ -1841,8 +1974,8 @@
         </div>
     </section>
 
-    <!-- Slide 12: What We're Building -->
-    <section class="slide bg-light" id="slide-11">
+    <!-- Slide 13: What We're Building -->
+    <section class="slide bg-white" id="slide-12">
         <div class="slide-content">
             <div class="section-label">THE VISION</div>
             <h2>What We're Really Building</h2>
@@ -1870,8 +2003,8 @@
         </div>
     </section>
 
-    <!-- Slide 13: Next Steps -->
-    <section class="slide bg-gradient" id="slide-12">
+    <!-- Slide 14: Next Steps -->
+    <section class="slide bg-gradient" id="slide-13">
         <div class="slide-content cta-content">
             <h2>Let's Build This Together</h2>
             <p>We've built the prototype. You've seen the screens. You've walked through Sarah's journey.<br><br>Now let's discuss how we bring this to life.</p>
