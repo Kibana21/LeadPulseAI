@@ -387,11 +387,45 @@ This repository contains everything needed to present and implement LeadPulseAI:
 ## 🏆 What Makes This Special
 
 1. **Industry-First:** No major SEA insurer has voice-enabled AI lead nurturing
-2. **Complete Journey:** Sarah's real 23-day story from pregnancy to conversion
+2. **5 Diverse Lead Scenarios:** Complete end-to-end journeys from trigger to conversion
 3. **Working Prototype:** Not wireframes - actual functional demo with voice AI
 4. **Clear ROI:** $159M impact on $2.45M investment
-5. **Ready to Build:** Detailed roadmap, budget, timeline
-6. **Proven Technology:** Uses existing AI platforms (Retell AI, Synthflow)
+5. **Privacy-First Approach:** 100% ethical, consent-based trigger detection
+6. **Ready to Build:** Detailed roadmap, budget, timeline
+7. **Proven Technology:** Uses existing AI platforms (Retell AI, Synthflow)
+
+---
+
+## 🛡️ Ethical & Privacy-First Trigger Detection
+
+**LeadPulseAI uses ONLY legitimate, consent-based trigger detection:**
+
+### ✅ Approved Sources:
+- **Customer Self-Reporting** - Forms, surveys, profile updates (with consent)
+- **Website Behavior** - Calculator usage, guide downloads, page visits
+- **CRM Events** - Policy anniversaries, birthdays, renewals
+- **Partner Integrations** - Hospital partnerships (maternity packages), property portals (with opt-in)
+- **Webinar Registrations** - Attended events with explicit consent
+- **Opt-in Communications** - Newsletter responses, SMS replies
+
+### ❌ NEVER Used:
+- Social media monitoring without consent
+- Unauthorized data scraping
+- Third-party data purchases
+- Digital footprint tracking without permission
+
+### 5 Live Lead Scenarios (See [LEAD_SCENARIOS.md](LEAD_SCENARIOS.md)):
+1. **Sarah Chen** (32) - Hospital maternity inquiry form → $68K LTV (21 days)
+2. **Michael Tan** (28) - Downloaded career guide with opt-in → $52K LTV (14 days)
+3. **Linda Wong** (45) - CRM policy anniversary alert → $55K LTV upsell (20 days)
+4. **David Lim** (35) - PropertyGuru mortgage inquiry → $89K LTV (25 days)
+5. **Amanda Ng** (38) - Webinar registration + survey → $71K LTV (22 days)
+
+**Total Portfolio Value:** $335K in lifetime premiums
+**Average Conversion Time:** 20.4 days (vs 90-day baseline)
+**Average Satisfaction:** 9.3/10
+
+All profiles available in [data.js](LeadPulseAI-Prototype/js/data.js) with complete touchpoint histories.
 
 ---
 
@@ -400,13 +434,14 @@ This repository contains everything needed to present and implement LeadPulseAI:
 Everything you need is here:
 - ✅ Complete business case ($159M ROI)
 - ✅ Working prototype (6 pages, all functional)
-- ✅ Sarah Chen's full journey (23 days, 8 touchpoints)
+- ✅ 5 diverse lead scenarios (new parent, young professional, upsell, property, entrepreneur)
+- ✅ Ethical trigger detection framework (100% consent-based)
 - ✅ Voice AI demo (actually speaks!)
 - ✅ Implementation roadmap (12 months, 3 phases)
 - ✅ Risk assessment and mitigation
 - ✅ Presentation guide (10-minute flow)
 
-**Go transform insurance lead nurturing in Southeast Asia!** 🚀
+**Go transform insurance lead nurturing in Southeast Asia - ethically and effectively!** 🚀
 
 ---
 
