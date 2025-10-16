@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []
